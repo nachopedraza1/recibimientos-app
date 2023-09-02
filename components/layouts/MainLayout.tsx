@@ -1,17 +1,18 @@
 import { FC, ReactNode } from 'react';
 import Head from 'next/head';
+import { Navbar, Footer } from '../ui/';
 
-import { Navbar } from '../ui/Navbar';
 
 interface Props {
     title: string,
     description?: string,
-    children: ReactNode
+    children: ReactNode,
 }
 
 export const MainLayout: FC<Props> = ({ children, title, description }) => {
+
     return (
-        <div>
+        <>
             <Head>
                 <title>{title}</title>
                 <meta name="og:title" content={title} />
@@ -24,11 +25,9 @@ export const MainLayout: FC<Props> = ({ children, title, description }) => {
 
             <main>
                 {children}
-            </main>
+            </main >
 
-            <footer>
-
-            </footer>
-        </div>
+            <Footer />
+        </>
     )
 }

@@ -1,10 +1,15 @@
-import { MainLayout } from '@/components/layouts';
 import { NextPage } from 'next';
+import { MainLayout } from '@/components/layouts';
+import { SectionHome, SectionAbout, SectionEntries, SectionExpenses, SectionContact } from '@/components/sections';
 
 const HomePage: NextPage = () => {
   return (
-    <MainLayout title='Inicio | Recibimientos CAB'>
-      <h1>asdasd</h1>
+    <MainLayout title='Recibimientos CAB'>
+      <SectionHome />
+      <SectionAbout />
+      <SectionEntries />
+      <SectionExpenses />
+      <SectionContact />
     </MainLayout>
   )
 }
