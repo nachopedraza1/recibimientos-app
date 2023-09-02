@@ -17,7 +17,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
         backgroundColor: theme.palette.action.hover,
         weight: 'bold',
         fontSize: 17,
-        color:'white'
     },
 }));
 
