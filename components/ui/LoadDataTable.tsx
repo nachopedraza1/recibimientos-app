@@ -7,7 +7,7 @@ export const LoadDataTables = () => {
     return (
         <>
             {loadElements.map((item, index) => (
-                <TableRow key={index} className="fadeIn">
+                <TableRow key={index}>
                     <TableCell colSpan={1} >
                         <Skeleton animation="wave" variant="rounded" height={50} />
                     </TableCell>

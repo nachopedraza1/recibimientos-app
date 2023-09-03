@@ -4,20 +4,18 @@ import { Navbar, Footer } from '../ui/';
 
 
 interface Props {
-    title: string,
-    description?: string,
     children: ReactNode,
 }
 
-export const MainLayout: FC<Props> = ({ children, title, description }) => {
+export const MainLayout: FC<Props> = ({ children }) => {
 
     return (
         <>
             <Head>
-                <title>{title}</title>
-                <meta name="og:title" content={title} />
-                <meta name="description" content={description || '¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
-                <meta name="og:description" content={description || '¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
+                <title>Recibimientos CAB</title>
+                <meta name="og:title" content={'Recibimientos CAB'} />
+                <meta name="description" content={'¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
+                <meta name="og:description" content={'¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
                 <meta name="og:image" content="/favicon.png" />
             </Head>
 

@@ -74,9 +74,9 @@ nav .gastos,
     left: 289px;
 }
 
-nav .contacto,
+nav .noticias,
 .nav-link:nth-child(5) {
-    width: 108px;
+    width: 93px;
     left: 378px;
 }
 
@@ -108,6 +108,14 @@ nav .active {
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+.bg-donate {
+    background-image: url('../public/bgHome2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .mini-divider {
@@ -185,9 +193,10 @@ nav .active {
     height: 50px;
     border-radius: 25px;
     background-image: url('../public/mercadopago.png');
-    background-size: 80%;
+    background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #fff;
     padding: 10px;
     margin: 10px 10px;
 }
@@ -197,9 +206,10 @@ nav .active {
     height: 50px;
     border-radius: 25px;
     background-image: url('../public/paypal.png');
-    background-size: 80%;
+    background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #fff;
     padding: 10px;
     margin: 10px 10px;
 }

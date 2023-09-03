@@ -1,25 +1,12 @@
 import React, { useState } from 'react'
-import { LoadDataTables } from './LoadDataTable'
+import { LoadDataTables } from '../ui/LoadDataTable'
 import { PaginationTable } from './PaginationTable'
-import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, styled, tableCellClasses, Chip, Grid, InputAdornment, MenuItem, Stack, TableContainer, TextField } from '@mui/material'
+import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, styled, tableCellClasses, Chip, Grid, InputAdornment, MenuItem, Stack, TableContainer, TextField, Box, Typography } from '@mui/material'
 
 import { Entry } from '@/interfaces';
 
 //Only test
 import { dbTest } from '@/database/databaseTestJson';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.body}`]: {
-        textTransform: 'Capitalize',
-        fontSize: 14,
-    },
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.action.hover,
-        weight: 'bold',
-        fontSize: 17,
-    },
-}));
-
 
 export const TableEntries = () => {
 
@@ -41,9 +28,9 @@ export const TableEntries = () => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell align="center">Fecha</StyledTableCell>
-                        <StyledTableCell align="center">Nombre</StyledTableCell>
-                        <StyledTableCell align="center">Monto</StyledTableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }} align="center">Fecha</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }} align="center">Nombre</TableCell>
+                        <TableCell sx={{ fontWeight: 'bold' }} align="center">Monto</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -75,6 +62,14 @@ export const TableEntries = () => {
                     </TableRow>
                 </TableFooter>
             </Table>
+
+            <Typography variant="h5" fontWeight='bold'>
+                Total Recaudado:
+                <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
+                    $300.210
+                </Typography>
+            </Typography>
+
         </TableContainer>
     )
 }

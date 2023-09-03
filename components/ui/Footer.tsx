@@ -1,9 +1,19 @@
-import { FC } from "react"
+import { FC } from "react";
+import { Grid } from "@mui/material";
 
 export const Footer: FC = () => {
     return (
         <footer>
-            <div>Footer</div>
+            <Grid
+                container
+                justifyContent="center"
+                bgcolor='black'
+                color='white'
+                borderTop='2px solid #0A97FE'
+                padding={1}
+            >
+                Este sitio web no está afiliado ni tiene ninguna relación oficial con el Club Atlético Belgrano.
+            </Grid>
         </footer>
     )
 }

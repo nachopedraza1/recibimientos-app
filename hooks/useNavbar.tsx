@@ -15,7 +15,7 @@ export const useNavbar = () => {
             sections.forEach((section) => {
                 const rect = section.getBoundingClientRect();
 
-                if (rect.top <= 0 && rect.bottom >= 0) {
+                if (rect.top <= 10 && rect.bottom >= 0) {
                     currentSection = section.id;
                 }
             });

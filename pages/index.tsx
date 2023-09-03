@@ -1,17 +1,18 @@
 import { NextPage } from 'next';
 import { MainLayout } from '@/components/layouts';
-import { SectionHome, SectionAbout, SectionEntries, SectionExpenses, SectionContact } from '@/components/sections';
+import { SectionHome, SectionAbout, SectionEntries, SectionExpenses, SectionDonate, SectionNotices } from '@/components/sections';
 
-const HomePage: NextPage = () => {
+const Landing: NextPage = () => {
   return (
-    <MainLayout title='Recibimientos CAB'>
+    <MainLayout >
       <SectionHome />
       <SectionAbout />
+      <SectionDonate />
       <SectionEntries />
       <SectionExpenses />
-      <SectionContact />
+      <SectionNotices />
     </MainLayout>
   )
 }
 
-export default HomePage;
+export default Landing;

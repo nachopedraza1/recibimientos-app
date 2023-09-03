@@ -18,7 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export const PaginationTable: FC<{ entries: Entry[], page: number }> = ({ entries, page }) => {
 
-    const paginated = entries.slice(page * 10, page * 10 + 10)
+    const paginated = entries.slice(page * 10, page * 10 + 10);
 
     return (
         <>

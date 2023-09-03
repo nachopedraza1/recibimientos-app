@@ -56,4 +56,32 @@ export const dbTest = [
         amount: 350,
         name: "Test testing",
     }
+];
+
+export const dbItemsTest = [
+    {
+        date: '2023-06-10',
+        amount: 250,
+        item: 'Matafuego'
+    },
+    {
+        date: '2023-06-10',
+        amount: 250,
+        item: 'Bengalas'
+    },
+    {
+        date: '2023-06-10',
+        amount: 250,
+        item: 'Fuegos artifiales'
+    },
+    {
+        date: '2023-06-10',
+        amount: 250,
+        item: 'Banderas'
+    },
+    {
+        date: '2023-06-10',
+        amount: 250,
+        item: 'Tambores'
+    },
 ]

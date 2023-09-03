@@ -1,10 +1,16 @@
 import { SectionLayout } from "../layouts"
-import { Grid, Link, List, ListItem, Typography } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 
 export const SectionAbout = () => {
     return (
         <SectionLayout idSection="nosotros">
-            <Grid container justifyContent="center" alignItems="center" minHeight="100vh" >
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                minHeight={{ md: '90vh', xl: '70vh' }}
+                pt={10}
+            >
                 <Grid item xs={12} textAlign="center">
                     <Typography variant="h3">
                         Nosotros
@@ -16,7 +22,6 @@ export const SectionAbout = () => {
                         Esta página tiene como objetivo resaltar y celebrar los emocionantes recibimientos que la hinchada de Belgrano realiza en cada partido.
                         Además, compartiremos información relevante sobre próximos partidos, noticias del club y eventos relacionados con la hinchada de Belgrano.
                         Queremos mantener a nuestra comunidad informada y conectada en todo momento.
-                        {/*  A través de este espacio, queremos rendir homenaje a todos los hinchas que hacen posible estos increíbles recibimientos y que demuestran que el fútbol va más allá de los resultados en la cancha. */}
                     </Typography>
 
                     <ul className="social-list">
