@@ -1,4 +1,4 @@
-export interface Entry {
+export interface IEntry {
     date: string,
     amount: number,
     name: string,

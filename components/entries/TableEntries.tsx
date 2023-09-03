@@ -3,14 +3,14 @@ import { LoadDataTables } from '../ui/LoadDataTable'
 import { PaginationTable } from './PaginationTable'
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, styled, tableCellClasses, Chip, Grid, InputAdornment, MenuItem, Stack, TableContainer, TextField, Box, Typography } from '@mui/material'
 
-import { Entry } from '@/interfaces';
+import { IEntry } from '@/interfaces';
 
 //Only test
 import { dbTest } from '@/database/databaseTestJson';
 
 export const TableEntries = () => {
 
-    const [entriesFilter, setEntriesFilter] = useState<Entry[]>(dbTest);
+    const [entriesFilter, setEntriesFilter] = useState<IEntry[]>(dbTest);
 
     const [page, setPage] = useState<number>(0);
 

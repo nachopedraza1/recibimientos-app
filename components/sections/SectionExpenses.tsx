@@ -33,8 +33,8 @@ export const SectionExpenses: FC = () => {
                         </TableHead>
                         <TableBody>
 
-                            {[...Array(10)].map(() => (
-                                <TableRow>
+                            {[...Array(10)].map((item,index) => (
+                                <TableRow key={index}>
                                     <TableCell align="center">2023-06-01</TableCell>
                                     <TableCell align="center">Matafuego</TableCell>
                                     <TableCell align="center">$3500</TableCell>
