@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useNavbar } from '@/hooks/useNavbar';
-import { navigateWithoutHash } from '@/utils/navigateWithoutHash';
+import { navigateWithoutHash } from '@/utils';
 
 import { AppBar, Button, Container, Grid, Toolbar } from '@mui/material';
 

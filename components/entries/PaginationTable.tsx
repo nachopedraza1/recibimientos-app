@@ -1,9 +1,6 @@
 import { FC } from "react";
-
 import { TableRow, styled, tableCellClasses, TableCell } from "@mui/material";
-
-import { Entry } from "@/interfaces";
-
+import { IEntry } from "@/interfaces";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.body}`]: {
@@ -16,7 +13,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
 }));
 
-export const PaginationTable: FC<{ entries: Entry[], page: number }> = ({ entries, page }) => {
+export const PaginationTable: FC<{ entries: IEntry[], page: number }> = ({ entries, page }) => {
 
     const paginated = entries.slice(page * 10, page * 10 + 10);
 

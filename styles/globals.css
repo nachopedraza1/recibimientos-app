@@ -213,3 +213,11 @@ nav .active {
     padding: 10px;
     margin: 10px 10px;
 }
+
+.box-login {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: white;
+}

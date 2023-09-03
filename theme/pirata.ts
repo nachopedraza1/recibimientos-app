@@ -35,6 +35,26 @@ export const pirata = createTheme({
                     borderBottom: '2px solid #08b8ef',
                 }
             }
-        }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    color: "black",
+                    "&.MuiOutlinedInput-root": {
+                        "& fieldset": {
+                            borderColor: "gray"
+                        }, '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: "#08b8ef",
+                        },
+                    },
+                },
+                notchedOutline: {
+                    borderColor: "gray",
+                },
+            }
+        },
     }
 });
