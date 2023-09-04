@@ -1,36 +1,64 @@
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
-    transition-delay: background-color 5000s, color 5000s;
-}
-
-body {
-    overflow-x: hidden;
-}
-
-img {
-    transition: all 0.3s;
-    object-fit: contain;
-}
-
-::-webkit-scrollbar {
-    background: #040612;
-    width: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #0A97FE;
-}
-
-nav {
-    position: relative;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
+/* Primer código */
+* {
+    margin: 0px;
+    scrollbar-width: thin;
+    scrollbar-color: #626262 #1E1E1E;
+  }
+  
+  body {
     display: flex;
     align-items: center;
-}
+    justify-content: center;
+    margin: 5px;
+    padding: 0;
+    background-image: linear-gradient(90deg, #000 19.58%, rgba(0, 0, 0, 0.00) 100%),
+                      url(https://i.ibb.co/SxnWk3M/image-cab-2.png);
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden; /* Deshabilita el scroll horizontal */
+  }
+  
+  @media screen and (max-width: 768px) {
+    body {    
+      background-position: top;
+    }
+  }
+  
+  /* Segundo código */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+      transition-delay: background-color 5000s, color 5000s;
+  }
+  
+  
+  
+  img {
+      transition: all 0.3s;
+      object-fit: contain;
+  }
+  
+  ::-webkit-scrollbar {
+      background: #040612;
+      width: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+      background: #0A97FE;
+  }
+  
+  nav {
+      position: relative;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+  }
 
 nav .nav-link {
     font-size: 14px;
@@ -101,7 +129,7 @@ nav .active {
     z-index: 1;
 }
 
-.bg-fixed {
+/* .bg-fixed {
     width: 100%;
     height: 100vh;
     background-image: url('../public/bgHome.png');
@@ -113,15 +141,15 @@ nav .active {
     top: 0;
     left: 0;
     z-index: -1;
-}
+} */
 
-.bg-donate {
+/* .bg-donate {
     background-image: url('../public/bgHome2.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-}
+} */
 
 .mini-divider {
     background-color: #08b8ef;

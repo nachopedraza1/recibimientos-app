@@ -42,7 +42,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 redirect: false,
             });
             if (resp?.error) {
-                alertSnack('Invalid credentials', 'error');
+                alertSnack('Usuario o contraseña incorrectos', 'error'); 
             } else {
                 router.reload();
             }
