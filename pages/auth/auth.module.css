@@ -25,7 +25,8 @@
 }
 
 .box_auth {
-    max-width: 500px;
+    width: 100%;
+    max-width: 400px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
