@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
-import { styledOnScroll } from "@/utils/styledOnScroll";
 
 export const useNavbar = () => {
 
-    const [activeTab, setActiveTab] = useState<string>('');
+    const [activeSection, setActiveSection] = useState<string>('');
+    const [navbarBlur, setNavbarBlur] = useState<string>('')
 
-    const navbarStyle = styledOnScroll();
+    const handleScroll = () => {
+        if (window.scrollY > 100) {
+            setNavbarBlur("active-blur");
+        } else {
+            setNavbarBlur("");
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -19,7 +29,7 @@ export const useNavbar = () => {
                     currentSection = section.id;
                 }
             });
-            setActiveTab(currentSection!);
+            setActiveSection(currentSection!);
         };
         window.addEventListener('scroll', handleScroll);
 
@@ -31,7 +41,7 @@ export const useNavbar = () => {
     }, []);
 
     return {
-        activeTab,
-        navbarStyle,
+        activeSection,
+        navbarBlur,
     }
 }

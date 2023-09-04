@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 import { useNavbar } from '@/hooks/useNavbar';
 import { navigateWithoutHash } from '@/utils';
 
 import { AppBar, Button, Container, Grid, Toolbar } from '@mui/material';
+import { UserButtons } from '@/components/ui';
 
 const navLinks = [
     { id: 1, text: "inicio", path: "/#inicio" },
@@ -17,38 +20,51 @@ const navLinks = [
 
 export const Navbar: FC = () => {
 
-    const { activeTab, navbarStyle } = useNavbar();
+    const router = useRouter();
+
+    const { status } = useSession();
+
+    const { activeSection, navbarBlur } = useNavbar();
 
     return (
         <Grid display={{ xs: "none", md: "flex" }}>
             <AppBar>
-                <Toolbar disableGutters className={`navbar-blur ${navbarStyle}`}>
+                <Toolbar disableGutters className={`navbar-blur ${navbarBlur}`}>
                     <Container maxWidth="lg">
                         <Grid container alignItems="center" justifyContent="space-between" gap={2}>
+
                             <Link href="/">
                                 <Image src="/logo.png" alt='RecibimientoCAB' width={100} height={50} style={{ marginTop: "6px" }} />
                             </Link>
 
                             <nav>
+
                                 {navLinks.map(({ id, path, text }) => (
                                     <Link
                                         onClick={(e) => navigateWithoutHash(e, text)}
                                         href={path}
                                         key={id}
-                                        className={activeTab === text ? 'active nav-link' : 'nav-link'}
+                                        className={activeSection === text ? 'active nav-link' : 'nav-link'}
                                     >
                                         {text}
                                     </Link>
                                 ))}
-                                <div className={`${activeTab} animation`}></div>
 
-                                <Button
-                                    variant='contained'
-                                    sx={{ marginLeft: 1 }}
-                                    onClick={(e) => navigateWithoutHash(e, 'ingresos')}
-                                >
-                                    Aportar
-                                </Button>
+                                <div className={`${activeSection} animation`}></div>
+
+                                {
+                                    status === 'unauthenticated' ?
+                                        (
+                                            <Link href={`/auth/login/${router.asPath}`}>
+                                                <Button
+                                                    variant='contained'
+                                                    sx={{ marginLeft: 1 }}
+                                                >
+                                                    Ingresar
+                                                </Button>
+                                            </Link>
+                                        ) : < UserButtons />
+                                }
 
                             </nav>
 
@@ -56,6 +72,6 @@ export const Navbar: FC = () => {
                     </Container >
                 </Toolbar>
             </AppBar>
-        </Grid>
+        </Grid >
     )
 }

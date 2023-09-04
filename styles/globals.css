@@ -1,5 +1,9 @@
-html {
-    scroll-behavior: smooth;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+    transition-delay: background-color 5000s, color 5000s;
 }
 
 body {
@@ -10,7 +14,6 @@ img {
     transition: all 0.3s;
     object-fit: contain;
 }
-
 
 ::-webkit-scrollbar {
     background: #040612;
@@ -25,6 +28,8 @@ nav {
     position: relative;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    display: flex;
+    align-items: center;
 }
 
 nav .nav-link {
@@ -44,7 +49,7 @@ nav .animation {
     height: 35px;
     border: 2px solid #0A97FE;
     border-radius: 20px;
-    bottom: 0px;
+    bottom: 2px;
     z-index: -1;
     transition: all .5s ease .3s;
 }
@@ -59,25 +64,25 @@ nav .inicio,
 nav .nosotros,
 .nav-link:nth-child(2) {
     width: 105px;
-    left: 78px;
+    left: 76px;
 }
 
 nav .ingresos,
 .nav-link:nth-child(3) {
-    width: 98px;
-    left: 187px;
+    width: 100px;
+    left: 180px;
 }
 
 nav .gastos,
 .nav-link:nth-child(4) {
     width: 85px;
-    left: 289px;
+    left: 282px;
 }
 
 nav .noticias,
 .nav-link:nth-child(5) {
     width: 93px;
-    left: 378px;
+    left: 367px;
 }
 
 nav .active {
@@ -179,7 +184,6 @@ nav .active {
     color: #00aced;
 }
 
-
 .social-list li:nth-child(3) a:hover .fab {
     color: red;
 }
@@ -212,12 +216,4 @@ nav .active {
     background-color: #fff;
     padding: 10px;
     margin: 10px 10px;
-}
-
-.box-login {
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    background-color: white;
 }

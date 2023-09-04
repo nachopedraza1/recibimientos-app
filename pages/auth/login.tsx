@@ -1,11 +1,17 @@
 import { useContext, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import { isEmail } from '@/utils';
 import { AuthContext } from '@/context/auth';
-import { Button, CircularProgress, Grid, TextField, Typography } from '@mui/material'
+import { useForm } from 'react-hook-form';
+
+import { Box, Button, CircularProgress, Grid, TextField, Typography, Divider, FormControlLabel, Checkbox, IconButton } from '@mui/material';
+import { AuthLayout } from '@/components/layouts';
+import styles from './auth.module.css'
 
 
 type FormData = {
@@ -13,7 +19,9 @@ type FormData = {
     password: string;
 };
 
-const AuthPage: NextPage = () => {
+const LoginPage: NextPage = () => {
+
+    const { query } = useRouter();
 
     const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -28,12 +36,13 @@ const AuthPage: NextPage = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onLogin)} noValidate>
-            <Grid container justifyContent="center" alignItems="center" minHeight="100vh" className='bg-fixed'>
-
-                <Grid item xs={5} gap={2} className='box-login'>
-
-                    <Typography variant='h4' fontWeight={600}> Ingresa </Typography>
+        <AuthLayout title='Ingresar | Recibimientos CAB'>
+            <form onSubmit={handleSubmit(onLogin)} noValidate>
+                <Grid container direction='column' gap={2}>
+                    <Box>
+                        <Typography variant='h4'> Iniciar sesión</Typography>
+                        <span className='mini-divider' />
+                    </Box>
 
                     <TextField
                         fullWidth
@@ -61,13 +70,41 @@ const AuthPage: NextPage = () => {
                         helperText={errors.password?.message}
                     />
 
-                    <Button variant="contained" type="submit" disabled={submitted}>
+                    <FormControlLabel control={<Checkbox color='primary' />} label="Recordame" />
+
+                    <Button variant="contained" type="submit" size='large' disabled={submitted}>
                         {submitted ? <CircularProgress size={25} /> : "Ingresar"}
                     </Button>
 
+                    <Divider>
+                        <Image src='/belgrano-calavera-white.png'
+                            alt='Recibimientos Cab'
+                            width={40}
+                            height={40}
+                        />
+                    </Divider>
+
+                    <Box className={styles.providers}>
+                        <IconButton>
+                            <Image src='/google.png' width={33} height={33} alt='Ingresar con google' />
+                        </IconButton>
+                        <IconButton>
+                            <Image src='/twitter.png' width={33} height={33} alt='Ingresar con twitter' />
+                        </IconButton>
+                        <IconButton>
+                            <Image src='/facebook.png' width={33} height={33} alt='Ingresar con facebook' />
+                        </IconButton>
+                    </Box>
+
+                    <Typography textAlign="center" mt={1}>
+                        No tienes cuenta ?
+                        <Link href={query.p ? `/auth/register?p=${query.p}` : '/auth/register'} className="link" >
+                            Registrate
+                        </Link>
+                    </Typography>
                 </Grid>
-            </Grid >
-        </form>
+            </form>
+        </AuthLayout>
     )
 }
 
@@ -87,10 +124,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     }
 
     return {
-        props: {
-
-        }
+        props: {}
     }
 }
 
-export default AuthPage;
+export default LoginPage;

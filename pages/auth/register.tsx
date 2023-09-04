@@ -1,45 +1,54 @@
 import { useContext, useState } from 'react';
 import { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import { isEmail } from '@/utils';
 import { AuthContext } from '@/context/auth';
-import { Button, CircularProgress, Grid, TextField, Typography } from '@mui/material'
+import { useForm } from 'react-hook-form';
+
+import { Box, Button, CircularProgress, Grid, TextField, Typography, Divider, FormControlLabel, Checkbox, IconButton } from '@mui/material';
+import { AuthLayout } from '@/components/layouts';
+import styles from './auth.module.css'
 
 
 type FormData = {
-    name: string,
+    name: string;
     email: string;
     password: string;
 };
 
 const RegisterPage: NextPage = () => {
 
+    const { query } = useRouter();
+
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>();
 
-    const { registerUser } = useContext(AuthContext);
+    const { loginUser } = useContext(AuthContext);
 
     const onRegister = async ({ name, email, password }: FormData) => {
         setSubmitted(true);
-        await registerUser(name, email, password)
+        await loginUser(email, password)
         setSubmitted(false);
     }
 
     return (
-        <form onSubmit={handleSubmit(onRegister)} noValidate>
-            <Grid container justifyContent="center" alignItems="center" minHeight="100vh" className='bg-fixed'>
-
-                <Grid item xs={5} gap={2} className='box-login'>
-
-                    <Typography variant='h4' fontWeight={600}> Ingresa </Typography>
+        <AuthLayout title='Registro | Recibimientos CAB'>
+            <form onSubmit={handleSubmit(onRegister)} noValidate>
+                <Grid container direction='column' gap={2}>
+                    <Box>
+                        <Typography variant='h4'>Crear cuenta</Typography>
+                        <span className='mini-divider' />
+                    </Box>
 
                     <TextField
                         fullWidth
                         type='text'
-                        label="Nombre y Apellido"
+                        label="Nombre completo"
                         placeholder='Ingresa tu nombre completo...'
                         {...register('name', {
                             required: 'El campo requerido.',
@@ -75,13 +84,39 @@ const RegisterPage: NextPage = () => {
                         helperText={errors.password?.message}
                     />
 
-                    <Button variant="contained" type="submit" disabled={submitted}>
-                        {submitted ? <CircularProgress size={25} /> : "Ingresar"}
+                    <Button variant="contained" type="submit" size='large' disabled={submitted}>
+                        {submitted ? <CircularProgress size={25} /> : "Registrarme"}
                     </Button>
 
+                    <Divider>
+                        <Image src='/belgrano-calavera-white.png'
+                            alt='Recibimientos Cab'
+                            width={40}
+                            height={40}
+                        />
+                    </Divider>
+
+                    <Box className={styles.providers}>
+                        <IconButton>
+                            <Image src='/google.png' width={33} height={33} alt='Ingresar con google' />
+                        </IconButton>
+                        <IconButton>
+                            <Image src='/twitter.png' width={33} height={33} alt='Ingresar con twitter' />
+                        </IconButton>
+                        <IconButton>
+                            <Image src='/facebook.png' width={33} height={33} alt='Ingresar con facebook' />
+                        </IconButton>
+                    </Box>
+
+                    <Typography textAlign="center" mt={1}>
+                        Ya tienes cuenta ?
+                        <Link href={query.p ? `/auth/login?p=${query.p}` : '/auth/login'} className="link" >
+                            Ingresar
+                        </Link>
+                    </Typography>
                 </Grid>
-            </Grid >
-        </form>
+            </form>
+        </AuthLayout>
     )
 }
 
@@ -101,9 +136,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     }
 
     return {
-        props: {
-
-        }
+        props: {}
     }
 }
 

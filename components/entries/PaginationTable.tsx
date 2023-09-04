@@ -13,25 +13,25 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
 }));
 
-export const PaginationTable: FC<{ entries: IEntry[], page: number }> = ({ entries, page }) => {
+export const PaginationTable: FC<{ entries: any[], page: number }> = ({ entries, page }) => {
 
     const paginated = entries.slice(page * 10, page * 10 + 10);
 
     return (
         <>
-            {(paginated).map(({ name, amount, date }) => (
-                <TableRow key={name}>
+            {(paginated).map((item,index) => (
+                <TableRow key={index}>
 
                     <StyledTableCell align="center" scope="row">
-                        {date}
+                        2023-06-01
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                        {name}
+                        Pablito vegetti
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                        ${amount}
+                        $2300
                     </StyledTableCell>
 
                 </TableRow>

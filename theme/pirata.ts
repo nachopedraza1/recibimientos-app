@@ -25,7 +25,9 @@ export const pirata = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: '20px',
-                    color: 'white'
+                    color: 'white',
+                    fontWeight: 600,
+                    letterSpacing: 1,
                 }
             }
         },
@@ -39,7 +41,7 @@ export const pirata = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    color: "black",
+                    color: "white",
                     "&.MuiOutlinedInput-root": {
                         "& fieldset": {
                             borderColor: "gray"
@@ -56,5 +58,28 @@ export const pirata = createTheme({
                 },
             }
         },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    color: 'white'
+                }
+            }
+        },
+        MuiCheckbox: {
+            styleOverrides: {
+                root: {
+                    color: 'white'
+                }
+            }
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    "&::before, &::after": {
+                        borderColor: "gray",
+                    },
+                }
+            }
+        }
     }
 });

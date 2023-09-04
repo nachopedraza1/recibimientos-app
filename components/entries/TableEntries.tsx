@@ -5,16 +5,17 @@ import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, Ta
 
 import { IEntry } from '@/interfaces';
 
-//Only test
-import { dbTest } from '@/database/databaseTestJson';
-
 export const TableEntries = () => {
 
-    const [entriesFilter, setEntriesFilter] = useState<IEntry[]>(dbTest);
+    const simulatedDataTest = [...Array(23)]
+
+    const [entriesFilter, setEntriesFilter] = useState<IEntry[]>(simulatedDataTest);
 
     const [page, setPage] = useState<number>(0);
 
-    const emptyRows = Math.max(0, (1 + page) * 10 - dbTest.length);
+    /* TODO: search bar here */
+
+    const emptyRows = Math.max(0, (1 + page) * 10 - simulatedDataTest.length);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -35,24 +36,29 @@ export const TableEntries = () => {
                 </TableHead>
                 <TableBody>
 
+                    {/* TODO:  */}
                     {/* {
                     isLoading
                         ? <LoadDataTables />
                         : <PaginationTable gameservers={entriesFilter} page={page} />
                 } */}
+
                     <PaginationTable entries={entriesFilter} page={page} />
 
-                    {/*  {(emptyRows > 0 && isLoading === false) && (
-                    <TableRow style={{ height: 71.5 * emptyRows }}>
-                        <StyledTableCell colSpan={6} />
-                    </TableRow>
-                )} */}
+
+                    {/* TODO:  */}
+                    {/* {(emptyRows > 0 && isLoading === false) && (
+                        <TableRow style={{ height: 53.02 * emptyRows }}>
+                            <StyledTableCell colSpan={6} />
+                        </TableRow>
+                    )} */}
+
                 </TableBody>
                 <TableFooter>
                     <TableRow>
                         <TablePagination
                             colSpan={6}
-                            count={dbTest.length}
+                            count={simulatedDataTest.length}
                             rowsPerPage={10}
                             rowsPerPageOptions={[10]}
                             page={page}

@@ -1,6 +1,9 @@
 import { SectionLayout } from "../layouts"
 import { Grid, Typography } from "@mui/material"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+
 export const SectionAbout = () => {
     return (
         <SectionLayout idSection="nosotros">
@@ -25,10 +28,10 @@ export const SectionAbout = () => {
                     </Typography>
 
                     <ul className="social-list">
-                        <li><a href="#"><i className="fab fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i className="fab fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i className="fab fa-youtube" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i className="fab fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i className="fab"><FontAwesomeIcon icon={faFacebook} /></i></a></li>
+                        <li><a href="#"><i className="fab"><FontAwesomeIcon icon={faTwitter} /></i></a></li>
+                        <li><a href="#"><i className="fab"><FontAwesomeIcon icon={faYoutube} /></i></a></li>
+                        <li><a href="#"><i className="fab"><FontAwesomeIcon icon={faInstagram} /></i></a></li>
                     </ul>
 
                 </Grid>

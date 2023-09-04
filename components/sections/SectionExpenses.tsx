@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { SectionLayout } from "../layouts"
 import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { LoadDataTables } from '../entries';
 
 export const SectionExpenses: FC = () => {
     return (
@@ -33,7 +34,7 @@ export const SectionExpenses: FC = () => {
                         </TableHead>
                         <TableBody>
 
-                            {[...Array(10)].map((item,index) => (
+                            {[...Array(10)].map((item, index) => (
                                 <TableRow key={index}>
                                     <TableCell align="center">2023-06-01</TableCell>
                                     <TableCell align="center">Matafuego</TableCell>
