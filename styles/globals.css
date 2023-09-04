@@ -49,7 +49,7 @@ nav .animation {
     height: 35px;
     border: 2px solid #0A97FE;
     border-radius: 20px;
-    bottom: 2px;
+    bottom: 1px;
     z-index: -1;
     transition: all .5s ease .3s;
 }

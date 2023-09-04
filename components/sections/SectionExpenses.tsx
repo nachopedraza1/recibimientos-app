@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { SectionLayout } from "../layouts"
-import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import { LoadDataTables } from '../entries';
+import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 
 export const SectionExpenses: FC = () => {
     return (
@@ -18,7 +18,8 @@ export const SectionExpenses: FC = () => {
                 <Typography variant="h3">
                     Informe de Gastos
                 </Typography>
-                <span className="mini-divider"></span>
+
+                <span className="mini-divider" />
                 <Typography variant="h6" mb={5}>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, inventore incidunt in architecto sed veniam quod saepe officiis quam necessitatibus nisi, aliquam doloremque dicta tempore facilis.
                 </Typography>

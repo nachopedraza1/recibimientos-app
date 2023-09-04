@@ -17,8 +17,9 @@ export const SectionEntries: FC = () => {
                 <Typography variant="h3">
                     Ultimos Ingresos
                 </Typography>
-                <span className="mini-divider"></span>
-                <Typography variant="h6" mb={5}>
+
+                <span className="mini-divider" />
+                <Typography variant="h6" mb={5} >
                     A través de este espacio, queremos rendir homenaje a todos los hinchas que hacen posible estos increíbles recibimientos y que demuestran que el fútbol va más allá de los resultados en la cancha.
                 </Typography>
 

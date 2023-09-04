@@ -21,13 +21,14 @@ export const UserButtons = () => {
     };
 
     const { logoutUser } = useContext(AuthContext);
+
     const { data } = useSession();
 
     return (
         <>
-            <IconButton onClick={handleClick} color='primary'>
+            <IconButton onClick={handleClick} color='primary' sx={{ p: 0, pl: 2 }}>
                 <FontAwesomeIcon icon={faCircleUser} />
-            </IconButton>
+            </IconButton >
 
             <Menu
                 disableScrollLock

@@ -55,5 +55,5 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
     const { _id, role } = user;
 
-    return res.status(200).json({ user: { _id, name, email, role } });
+    return res.status(200).json({message:'Registered account.'});
 }

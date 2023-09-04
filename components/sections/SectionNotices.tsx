@@ -17,7 +17,7 @@ export const SectionNotices: FC = () => {
                     Ultimas noticias
                 </Typography>
 
-                <span className="mini-divider"></span>
+                <span className="mini-divider" />
 
                 <Typography variant="h5">
                     Aqui puede ir el feed de ig y tw (API)

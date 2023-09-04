@@ -17,14 +17,14 @@ export const SectionDonate: FC = () => {
                 <Typography variant="h3">
                     Aportar
                 </Typography>
-                <span className="mini-divider"></span>
-                <Typography variant="h6" mb={5}>
+                <span className="mini-divider" />
+                <Typography variant="h6" mb={5} >
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Consectetur autem natus nemo inventore.
                     Explicabo commodi qui, ex expedita ab unde.
                 </Typography>
 
-                <Box display='flex' justifyContent='center'>
+                <Box display='flex' justifyContent='center' >
                     <Button variant='contained' className='mercadopago-btn' />
                     <Button variant='contained' className='paypal-btn' />
                 </Box>

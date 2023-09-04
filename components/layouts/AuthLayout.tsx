@@ -26,7 +26,7 @@ export const AuthLayout: NextPage<Props> = ({ children, title }) => {
                 <Grid container className={`${styles.container}`}>
                     <Grid item xs={6} />
 
-                    <Grid item xs={4} className={styles.box_auth}>
+                    <Grid item xs={4} className={styles.box_auth} data-aos="fade-in">
                         {children}
                     </Grid>
                 </Grid>
