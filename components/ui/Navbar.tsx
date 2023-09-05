@@ -52,7 +52,7 @@ export const Navbar: FC = () => {
 
                                 <div className={`${activeSection} animation`}></div>
 
-                                {/* {
+                                {
                                     status === 'unauthenticated' ?
                                         (
                                             <Link href={`/auth/login/${router.asPath}`}>
@@ -64,7 +64,7 @@ export const Navbar: FC = () => {
                                                 </Button>
                                             </Link>
                                         ) : < UserButtons />
-                                } */}
+                                }
 
                             </nav>
 

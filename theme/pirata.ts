@@ -8,7 +8,7 @@ export const pirata = createTheme({
         }
     },
     typography: {
-        fontFamily: 'Archivo',
+        fontFamily: 'Poppins',
         h3: {
             fontWeight: 'bold',
         }

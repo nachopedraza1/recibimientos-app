@@ -11,7 +11,7 @@ const Landing: NextPage = () => {
       <SectionDonate />
       <SectionEntries />
       <SectionExpenses />
-      {/* <SectionNotices /> */}
+      <SectionNotices />
     </MainLayout>
   )
 }
