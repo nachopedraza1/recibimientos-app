@@ -25,8 +25,8 @@ export const SectionDonate: FC = () => {
                 </Typography>
 
                 <Box display='flex' justifyContent='center' >
-                    <Box className='mercadopago-btn' />
-                    <Box className='paypal-btn' />
+                    <Button variant='contained' className='mercadopago-btn' />
+                    <Button variant='contained' className='paypal-btn' />
                 </Box>
 
             </Grid>
