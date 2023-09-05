@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TableEntries } from "../entries"
+import { TableEntries } from "@/components"
 import { SectionLayout } from "../layouts"
 import { Grid, Typography } from "@mui/material"
 

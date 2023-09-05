@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useNavbar } from '@/hooks/useNavbar';
 import { navigateWithoutHash } from '@/utils';
 
-import { AppBar, Button, Container, Grid, Toolbar } from '@mui/material';
+import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 import { UserButtons } from '@/components/ui';
 
 const navLinks = [
@@ -27,7 +27,7 @@ export const Navbar: FC = () => {
     const { activeSection, navbarBlur } = useNavbar();
 
     return (
-        <Grid display={{ xs: "none", md: "flex" }}>
+        <Box display={{ xs: "none", md: "flex" }}>
             <AppBar>
                 <Toolbar disableGutters className={`navbar-blur ${navbarBlur}`}>
                     <Container maxWidth="lg">
@@ -72,6 +72,6 @@ export const Navbar: FC = () => {
                     </Container >
                 </Toolbar>
             </AppBar>
-        </Grid >
+        </Box >
     )
 }

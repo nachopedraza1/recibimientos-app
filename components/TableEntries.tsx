@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { LoadDataTables } from '../ui/LoadDataTable'
-import { PaginationTable } from './PaginationTable'
-import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, styled, tableCellClasses, Chip, Grid, InputAdornment, MenuItem, Stack, TableContainer, TextField, Box, Typography } from '@mui/material'
+import { LoadDataTables } from '@/components/ui'
+import { PaginationTable } from '@/components';
+import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography } from '@mui/material'
 
 import { IEntry } from '@/interfaces';
 

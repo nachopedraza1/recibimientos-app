@@ -1,17 +1,20 @@
 import { useContext, useState } from 'react';
 
-import { useSession } from 'next-auth/react';
 import { AuthContext } from '@/context/auth';
 
 import { Menu, MenuItem, ListItemIcon, IconButton } from '@mui/material';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBars, faRightFromBracket, faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
 
 export const UserButtons = () => {
 
+    const router = useRouter();
+
     const [anchorEl, setAnchorEl] = useState(null);
+
     const open = Boolean(anchorEl);
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
@@ -19,6 +22,8 @@ export const UserButtons = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const navigate = (path: string) => router.push(path);
 
     const { logoutUser, user } = useContext(AuthContext);
 
@@ -51,7 +56,7 @@ export const UserButtons = () => {
                 </MenuItem>
                 {
                     user?.role === 'admin' &&
-                    < MenuItem >
+                    < MenuItem onClick={() => navigate('/admin')}>
                         <ListItemIcon>
                             <FontAwesomeIcon icon={faGear} />
                         </ListItemIcon>
