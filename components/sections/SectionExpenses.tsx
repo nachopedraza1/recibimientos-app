@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { SectionLayout } from "../layouts"
-import { LoadDataTables } from '@/components/ui';
 import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 
 export const SectionExpenses: FC = () => {
