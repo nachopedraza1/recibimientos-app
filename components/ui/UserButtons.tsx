@@ -6,7 +6,7 @@ import { AuthContext } from '@/context/auth';
 import { Menu, MenuItem, ListItemIcon, IconButton } from '@mui/material';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faBars, faRightFromBracket, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBars, faRightFromBracket, faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
 
 
 export const UserButtons = () => {
@@ -20,9 +20,7 @@ export const UserButtons = () => {
         setAnchorEl(null);
     };
 
-    const { logoutUser } = useContext(AuthContext);
-
-    const { data } = useSession();
+    const { logoutUser, user } = useContext(AuthContext);
 
     return (
         <>
@@ -51,13 +49,22 @@ export const UserButtons = () => {
                     </ListItemIcon>
                     Mis aportes
                 </MenuItem>
+                {
+                    user?.role === 'admin' &&
+                    < MenuItem >
+                        <ListItemIcon>
+                            <FontAwesomeIcon icon={faGear} />
+                        </ListItemIcon>
+                        Admin Panel
+                    </MenuItem>
+                }
                 <MenuItem onClick={logoutUser}>
                     <ListItemIcon>
                         <FontAwesomeIcon icon={faRightFromBracket} />
                     </ListItemIcon>
                     Cerrar sesión
                 </MenuItem>
-            </Menu>
+            </Menu >
         </>
     );
 }
