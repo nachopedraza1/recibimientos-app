@@ -1,31 +1,38 @@
 import { FC, ReactNode } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
+
 import { Navbar, Footer } from '../ui/';
 
 
 interface Props {
+    title: string,
+    description?: string,
     children: ReactNode,
+    containerClass?: string,
 }
 
-export const MainLayout: FC<Props> = ({ children }) => {
+export const MainLayout: FC<Props> = ({ children, title, description, containerClass }) => {
+
+    const router = useRouter();
 
     return (
         <>
             <Head>
-                <title>Recibimientos CAB</title>
-                <meta name="og:title" content={'Recibimientos CAB'} />
-                <meta name="description" content={'¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
-                <meta name="og:description" content={'¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
+                <title> {title} </title>
+                <meta name="og:title" content={title} />
+                <meta name="description" content={description || '¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
+                <meta name="og:description" content={description || '¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
                 <meta name="og:image" content="/favicon.png" />
             </Head>
 
-            <Navbar />
+            {router.asPath === '/' && <Navbar />}
 
-            <main>
+            <main className={containerClass || ''}>
                 {children}
-            </main >
+            </main>
 
-            <Footer />
+            {router.asPath === '/' && <Footer />}
         </>
     )
 }

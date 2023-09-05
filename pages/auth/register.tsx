@@ -9,8 +9,8 @@ import { isEmail } from '@/utils';
 import { AuthContext } from '@/context/auth';
 import { useForm } from 'react-hook-form';
 
-import { Box, Button, CircularProgress, Grid, TextField, Typography, Divider, FormControlLabel, Checkbox, IconButton } from '@mui/material';
-import { AuthLayout } from '@/components/layouts';
+import { MainLayout } from '@/components/layouts';
+import { Box, Button, CircularProgress, Grid, TextField, Typography, Divider, IconButton } from '@mui/material';
 import styles from './auth.module.css'
 
 
@@ -37,8 +37,8 @@ const RegisterPage: NextPage = () => {
     }
 
     return (
-        <AuthLayout title='Registro | Recibimientos CAB'>
-            <form onSubmit={handleSubmit(onRegister)} noValidate>
+        <MainLayout title='Registro | Recibimientos CAB' containerClass={styles.container}>
+            <form onSubmit={handleSubmit(onRegister)} noValidate className={styles.box_auth} data-aos='fade-in'>
                 <Grid container direction='column' gap={2}>
                     <Box>
                         <Typography variant='h4'>Crear cuenta</Typography>
@@ -116,7 +116,7 @@ const RegisterPage: NextPage = () => {
                     </Typography>
                 </Grid>
             </form>
-        </AuthLayout>
+        </MainLayout>
     )
 }
 
