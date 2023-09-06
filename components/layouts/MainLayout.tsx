@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { Navbar, Footer } from '../ui/';
+import { Navbar, Footer } from '@/components/ui';
 
 
 interface Props {

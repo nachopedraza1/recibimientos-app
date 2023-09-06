@@ -5,7 +5,7 @@ import { SectionHome, SectionAbout, SectionEntries, SectionExpenses, SectionDona
 const Landing: NextPage = () => {
 
   return (
-    <MainLayout >
+    <MainLayout title='Recibimientos CAB' >
       <SectionHome />
       <SectionAbout />
       <SectionDonate />
