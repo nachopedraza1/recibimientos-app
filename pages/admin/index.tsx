@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 const AdminPage: NextPage = () => {
     return (
         <AdminLayout>
-            <div>AdminPage</div>
+            <div>Admin</div>
         </AdminLayout>
     )
 }
