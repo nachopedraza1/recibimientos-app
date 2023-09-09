@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { UiContext } from "@/context/ui";
+
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -5,22 +8,25 @@ import { faChartLine, faGear, faMoneyBillTransfer, faRightFromBracket, faSackDol
 
 
 const tabs = [
-    { text: 'Estadisticas', icon: <FontAwesomeIcon icon={faChartLine} /> },
-    { text: 'Agregar aporte', icon: <FontAwesomeIcon icon={faSackDollar} /> },
-    { text: 'Historial', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} /> },
-    { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} /> },
-    { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} /> },
-    { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} /> },
+    { text: 'Estadisticas', icon: <FontAwesomeIcon icon={faChartLine} />, tabValue: 0 },
+    { text: 'Agregar aporte', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 1 },
+    { text: 'Historial', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, tabValue: 2 },
+    { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} />, tabValue: 3 },
+    { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} />, tabValue: 4 },
+    { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} />, tabValue: 5 },
 ]
 
 export const DrawerAdmin = () => {
+
+    const { handleChangeTab } = useContext(UiContext);
+
     return (
         <>
             <Toolbar />
             <List>
-                {tabs.slice(0, 4).map(({ text, icon }) => (
+                {tabs.slice(0, 4).map(({ text, icon, tabValue }) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => handleChangeTab(tabValue)}>
                             <ListItemIcon>
                                 {icon}
                             </ListItemIcon>
@@ -31,9 +37,9 @@ export const DrawerAdmin = () => {
             </List>
             <Divider />
             <List>
-                {tabs.slice(4, 6).map(({ text, icon }) => (
+                {tabs.slice(4, 6).map(({ text, icon, tabValue }) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => handleChangeTab(tabValue)}>
                             <ListItemIcon>
                                 {icon}
                             </ListItemIcon>

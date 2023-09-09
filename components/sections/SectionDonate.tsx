@@ -1,8 +1,14 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { SectionLayout } from '../layouts';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { ModalPayments } from '@/components';
+
+import { Box, Grid, Typography } from '@mui/material';
+import { UiContext } from '@/context/ui';
 
 export const SectionDonate: FC = () => {
+
+    const { toggleModalPayment } = useContext(UiContext);
+
     return (
         <SectionLayout idSection='ingresos' className='bg-donate'>
             <Grid
@@ -25,11 +31,13 @@ export const SectionDonate: FC = () => {
                 </Typography>
 
                 <Box display='flex' justifyContent='center' >
-                    <Box className='mercadopago-btn' />
+                    <Box className='mercadopago-btn' onClick={toggleModalPayment} />
                     <Box className='paypal-btn' />
                 </Box>
 
             </Grid>
+
+            <ModalPayments />
         </SectionLayout>
     )
 }

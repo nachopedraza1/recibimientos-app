@@ -14,7 +14,7 @@ interface Props {
 
 export const MainLayout: FC<Props> = ({ children, title, description, containerClass }) => {
 
-    const router = useRouter();
+    const { asPath } = useRouter();
 
     return (
         <>
@@ -26,13 +26,13 @@ export const MainLayout: FC<Props> = ({ children, title, description, containerC
                 <meta name="og:image" content="/favicon.png" />
             </Head>
 
-            {router.asPath === '/' && <Navbar />}
+            {asPath === '/' && <Navbar />}
 
             <main className={containerClass || ''}>
                 {children}
             </main>
 
-            {router.asPath === '/' && <Footer />}
+            {asPath === '/' && <Footer />}
         </>
     )
 }

@@ -80,6 +80,13 @@ export const pirata = createTheme({
                     },
                 }
             }
-        }
+        },
+        MuiModal: {
+            styleOverrides: {
+                root: {
+                    color: 'white',
+                }
+            }
+        },
     }
 });

@@ -2,8 +2,12 @@ import { createContext } from 'react';
 
 
 interface ContextProps {
+    modalPaymentState: boolean;
     sidebarMobile: boolean;
-    selectedTabAdmin: number;
+    selectedTab: number;
+
+    toggleModalPayment: () => void;
+    handleChangeTab: (tabValue: number) => void;
 }
 
 

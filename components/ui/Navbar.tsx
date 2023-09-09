@@ -55,7 +55,7 @@ export const Navbar: FC = () => {
                                 {
                                     status === 'unauthenticated' ?
                                         (
-                                            <Link href={`/auth/login/${router.asPath}`}>
+                                            <Link href={router.asPath == '/' ? '/auth/login' : `/auth/login/?p=${router.asPath}`}>
                                                 <Button
                                                     variant='contained'
                                                     sx={{ marginLeft: 1 }}
