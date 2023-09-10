@@ -1,10 +1,12 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
+import axios from 'axios';
 
 import { UiContext } from "@/context/ui";
 
-import { Modal, Backdrop, Fade, Box, Typography, Button } from "@mui/material";
-import axios from 'axios';
+import { Modal, Backdrop, Fade, Box, Typography, Button, Link as MuiLink } from "@mui/material";
 
 
 const style = {
@@ -29,17 +31,23 @@ const values = [250, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 
 
 export const ModalPayments: FC = () => {
 
+    const session = useSession();
+
     const { modalPaymentState, toggleModalPayment } = useContext(UiContext);
 
-    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [selected, setSelected] = useState<number | undefined>(undefined);
-    const [urlPay, setUrlPay] = useState<string>()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [urlPay, setUrlPay] = useState<string>('')
+
 
     const handleSelect = async (value: number) => {
+
+        if (!session.data?.user) return;
+
         setSelected(value)
         try {
             setIsLoading(true)
-            const { data } = await axios.post('/api/mercadopago/checkout', { value })
+            const { data } = await axios.post('/api/mercadopago/checkout', { value, payerName: session.data.user.name })
             setUrlPay(data.url);
             setIsLoading(false)
         } catch (error) {
@@ -63,7 +71,7 @@ export const ModalPayments: FC = () => {
             >
                 <Fade in={modalPaymentState}>
                     <Box sx={style}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
 
                             <Typography variant="h4" fontWeight={600} textAlign="center">
                                 Mercado Pago
@@ -96,12 +104,23 @@ export const ModalPayments: FC = () => {
 
                             <Button
                                 variant='contained'
-                                disabled={!selected || isLoading}
+                                disabled={!selected || isLoading || !session.data?.user}
                                 href={urlPay}
                                 className='checkout-mp'
                                 startIcon={<Image width={50} height={50} src='/mercadopago-short.png' alt='Recibimientos Cab MercadoPago' />}>
                                 Pagar con MercadoPago
                             </Button>
+
+                            {!session.data?.user &&
+                                <Typography textAlign="center">
+                                    Debes
+                                    <MuiLink component={Link} href='/auth/login' mx={0.6} fontWeight={600} >
+                                        iniciar sesión
+                                    </MuiLink>
+                                    para continuar.
+                                </Typography>
+                            }
+
                         </Box>
                     </Box>
                 </Fade>
@@ -109,28 +128,3 @@ export const ModalPayments: FC = () => {
         </div >
     );
 }
-
-
-
-{/* 
-                            <TextField
-                                fullWidth
-                                type='number'
-                                label='Monto'
-                                placeholder='Ingresa el monto deseado...'
-                                variant='outlined'
-                                {...register('monto', {
-                                    required: { value: true, message: 'Por favor, ingrese un valor' },
-                                    minLength: { value: 3, message: 'El monto mínimo es 100 ARS.' }
-                                })}
-                                InputProps={{
-                                    inputProps: { min: 0 },
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <FontAwesomeIcon icon={faDollar} color='white' />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                error={!!errors.monto}
-                                helperText={errors.monto?.message}
-                            /> */}

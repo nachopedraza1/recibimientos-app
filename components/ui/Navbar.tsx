@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 import { useNavbar } from '@/hooks/useNavbar';
@@ -19,8 +18,6 @@ const navLinks = [
 ];
 
 export const Navbar: FC = () => {
-
-    const router = useRouter();
 
     const { status } = useSession();
 
@@ -55,7 +52,7 @@ export const Navbar: FC = () => {
                                 {
                                     status === 'unauthenticated' ?
                                         (
-                                            <Link href={router.asPath == '/' ? '/auth/login' : `/auth/login/?p=${router.asPath}`}>
+                                            <Link href={'/auth/login'}>
                                                 <Button
                                                     variant='contained'
                                                     sx={{ marginLeft: 1 }}

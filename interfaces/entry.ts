@@ -1,6 +1,8 @@
 export interface IEntry {
-    date: string,
-    amount: number,
     name: string,
-    method?: string,
+    amount: number,
+    date: string,
+    paymentId?: number,
+    status?: string,
+    method?: 'mercadopago' | 'paypal' | 'transfer',
 }

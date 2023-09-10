@@ -26,13 +26,13 @@ export const MainLayout: FC<Props> = ({ children, title, description, containerC
                 <meta name="og:image" content="/favicon.png" />
             </Head>
 
-            {asPath === '/' && <Navbar />}
+            {!asPath.includes('/auth') && <Navbar />}
 
             <main className={containerClass || ''}>
                 {children}
             </main>
 
-            {asPath === '/' && <Footer />}
+            {!asPath.includes('/auth') && <Footer />}
         </>
     )
 }
