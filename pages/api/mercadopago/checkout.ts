@@ -3,8 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { CreatePreferencePayload } from 'mercadopago/models/preferences/create-payload.model';
 import mercadopago from 'mercadopago';
 
-
-
 type Data =
     | { message: string }
     | { url: string }
@@ -27,7 +25,7 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
 
     const { value, payerName } = req.body;
 
-    const url = 'https://6427-181-116-168-116.ngrok-free.app'
+    const url = process.env.SITE_URL
 
     try {
         const preference: CreatePreferencePayload = {

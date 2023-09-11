@@ -2,11 +2,11 @@ import { createContext } from 'react';
 
 
 interface ContextProps {
-    modalPaymentState: boolean;
+    modalStatus: { mercadopago?: boolean, paypal?: boolean }
     sidebarMobile: boolean;
     selectedTab: number;
 
-    toggleModalPayment: () => void;
+    toggleModal: (modalType: 'mercadopago' | 'paypal') => void;
     handleChangeTab: (tabValue: number) => void;
 }
 

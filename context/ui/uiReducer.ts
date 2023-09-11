@@ -2,9 +2,9 @@ import { UiState } from './';
 
 
 type UiActionType =
-    | { type: '[Ui] - toggleSidebarMobile' }
-    | { type: '[Ui] - toggleModalPayment' }
+    | { type: '[Ui] - toggleModal', payload: 'mercadopago' | 'paypal' }
     | { type: '[Ui] - changeTabValue', payload: number }
+    | { type: '[Ui] - toggleSidebarMobile' }
 
 
 export const uiReducer = (state: UiState, action: UiActionType): UiState => {
@@ -19,10 +19,13 @@ export const uiReducer = (state: UiState, action: UiActionType): UiState => {
                 ...state,
                 selectedTab: action.payload
             }
-        case '[Ui] - toggleModalPayment':
+        case '[Ui] - toggleModal':
             return {
                 ...state,
-                modalPaymentState: !state.modalPaymentState
+                modalStatus: {
+                    mercadopago: action.payload === 'mercadopago' && !state.modalStatus.mercadopago,
+                    paypal: action.payload === 'paypal' && !state.modalStatus.paypal,
+                }
             }
 
         default:

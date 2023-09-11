@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import { useNavbar } from '@/hooks/useNavbar';
 import { navigateWithoutHash } from '@/utils';
+import { useNavbar } from '@/hooks';
 
 import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 import { UserButtons } from '@/components/ui';

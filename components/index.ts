@@ -1,3 +1,4 @@
+export * from './PaypalModal';
 export * from './TableEntries';
-export * from './ModalPayments';
 export * from './PaginationTable';
+export * from './MercadoPagoModal';

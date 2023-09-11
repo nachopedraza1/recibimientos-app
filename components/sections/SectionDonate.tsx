@@ -1,13 +1,14 @@
 import { FC, useContext } from 'react';
 import { SectionLayout } from '../layouts';
-import { ModalPayments } from '@/components';
 
-import { Box, Grid, Typography } from '@mui/material';
 import { UiContext } from '@/context/ui';
+
+import { MercadoPagoModal, PaypalModal } from '@/components';
+import { Box, Grid, Typography } from '@mui/material';
 
 export const SectionDonate: FC = () => {
 
-    const { toggleModalPayment } = useContext(UiContext);
+    const { toggleModal } = useContext(UiContext);
 
     return (
         <SectionLayout idSection='ingresos' className='bg-donate'>
@@ -30,14 +31,15 @@ export const SectionDonate: FC = () => {
                     Explicabo commodi qui, ex expedita ab unde.
                 </Typography>
 
-                <Box display='flex' justifyContent='center' >
-                    <Box className='mercadopago-btn' onClick={toggleModalPayment} />
-                    <Box className='paypal-btn' />
+                <Box display='flex' justifyContent='center'>
+                    <Box className='mercadopago-btn' onClick={() => toggleModal('mercadopago')} />
+                    <Box className='paypal-btn' onClick={() => toggleModal('paypal')} />
                 </Box>
 
             </Grid>
 
-            <ModalPayments />
+            <MercadoPagoModal />
+            <PaypalModal />
         </SectionLayout>
     )
 }
