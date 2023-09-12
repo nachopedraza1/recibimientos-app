@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { isValidObjectId } from 'mongoose';
 
 import { CreatePreferencePayload } from 'mercadopago/models/preferences/create-payload.model';
 import mercadopago from 'mercadopago';
-import { isValidObjectId } from 'mongoose';
 
 type Data =
     | { message: string }
@@ -55,8 +55,11 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
             },
             notification_url: `${url}/api/mercadopago/notify`,
         }
+
         const response = await mercadopago.preferences.create(preference);
+
         return res.status(200).json({ url: response.body.init_point })
+
     } catch (error) {
         return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })
     }

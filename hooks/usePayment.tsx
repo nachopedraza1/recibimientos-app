@@ -23,8 +23,9 @@ export const usePayment = () => {
         if (!session.data?.user) return;
 
         setSelected(amount);
+        setIsLoading(true);
+        
         try {
-            setIsLoading(true);
             const { data } = await axios.post('/api/mercadopago/checkout', {
                 amount: parseInt(amount),
                 payerName: session.data.user.name,

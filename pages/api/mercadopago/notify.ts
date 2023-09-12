@@ -37,10 +37,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             entry.status = body.status;
+            
             await entry.save();
             await db.disconnect();
+
+            return res.status(200).json({ message: "Pago actualizado con éxito." })
         }
-        return res.status(200).json({ message: "Pago actualizado con éxito." })
+
     } catch (error) {
         console.log(error);
         return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })

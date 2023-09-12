@@ -2,7 +2,7 @@ import { SectionLayout } from "../layouts"
 import { Grid, Typography } from "@mui/material"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 export const SectionAbout = () => {
     return (
@@ -52,7 +52,7 @@ export const SectionAbout = () => {
                         <li data-aos="fade-up" data-aos-delay="700">
                             <a href="#">
                                 <i className="fab">
-                                    <FontAwesomeIcon icon={faFacebook} />
+                                    <FontAwesomeIcon icon={faInstagram} />
                                 </i>
                             </a>
                         </li>

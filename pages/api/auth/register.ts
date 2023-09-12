@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { db } from '@/database';
 import { User } from '@/models';
 import { isEmail } from '@/utils';
+
 import { IUser } from '@/interfaces';
 
 type Data =
@@ -17,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             return registerUser(req, res);
 
         default:
-            return res.status(400).json({ message: 'Invalid method.' })
+            return res.status(400).json({ message: 'Método inválido.' })
     }
 }
 
@@ -25,9 +26,9 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
     const { name = '', email = '', password = '' } = req.body;
 
-    if (name.length <= 2) return res.status(400).json({ message: 'Bad request - Name' })
-    if (isEmail(email)) return res.status(400).json({ message: 'Bad request - Email' })
-    if (password.length < 6) return res.status(400).json({ message: 'Bad request - Password' })
+    if (name.length <= 6 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' })
+    if (isEmail(email) || email.length > 35) return res.status(400).json({ message: 'Bad request - Email' })
+    if (password.length < 6 || password.length > 25) return res.status(400).json({ message: 'Bad request - Password' })
 
     await db.connect();
 
@@ -35,24 +36,25 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
     if (isExist) {
         await db.disconnect();
-        return res.status(400).json({ message: 'Email already exists.' })
+        return res.status(400).json({ message: 'Ya existe un usuario registrado con este email.' })
     }
-
-    const user = new User({
-        name,
-        email,
-        role: 'visit',
-        password: bcrypt.hashSync(password)
-    })
 
     try {
-        await user.save({ validateBeforeSave: true })
+
+        const user = new User({
+            name: name.toLowerCase(),
+            email: email.toLowerCase(),
+            role: 'visit',
+            password: bcrypt.hashSync(password)
+        })
+
+        await user.save({ validateBeforeSave: true });
         await db.disconnect();
+
+        return res.status(200).json({ message: 'Usuario registrado.' });
+
     } catch (error) {
         console.log(error);
-        return res.status(400).json({ message: 'Error, check logs in server.' })
+        return res.status(400).json({ message: 'Error, revisar logs del servidor.' })
     }
-
-
-    return res.status(200).json({message:'Registered account.'});
 }

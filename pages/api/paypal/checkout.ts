@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import axios from 'axios';
 import { isValidObjectId } from 'mongoose';
+import axios from 'axios';
 
 import { db } from '@/database';
+import { Entry } from '@/models';
 
 import { PaypalOrderStatusResponse } from '@/interfaces';
-import { Entry } from '@/models';
 
 type Data =
     { message: string }
@@ -59,7 +58,6 @@ const getPaypalBarerToken = async (): Promise<string | null> => {
 
 const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    //TODO: middleware login
 
     const { paymentId = '', payerName = '', userId = '' } = req.body;
 

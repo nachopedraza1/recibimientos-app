@@ -38,6 +38,13 @@ export const pirata = createTheme({
                 }
             }
         },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    textTransform:'capitalize'
+                }
+            }
+        },
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {

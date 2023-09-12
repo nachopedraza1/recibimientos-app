@@ -6,10 +6,9 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     const url = req.nextUrl.clone();
+    const requestUrl = req.nextUrl.pathname;
 
-    if (req.nextUrl.pathname.includes('/api')) {
-        console.log(req.nextUrl.pathname);
-
+    if (requestUrl.includes('/api')) {
         if (!session) {
             return new Response(JSON.stringify({ message: 'No autorizado' }), {
                 status: 401,
@@ -18,20 +17,23 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
                 }
             });
         }
-
         return NextResponse.next();
     }
 
 
-    if (!session || session.user.role !== 'admin') {
-        url.pathname = '/';
-        return NextResponse.redirect(url)
+    if (requestUrl.includes('/admin')) {
+
+        if (!session || session.user.role !== 'admin') {
+            url.pathname = '/';
+            return NextResponse.redirect(url)
+        }
+        return NextResponse.next();
     }
 
-    NextResponse.next();
+
 }
 
 export const config = {
-    matcher: ['/admin', '/api/paypal/checkout','/api/mercadopago/checkout'],
+    matcher: ['/admin', '/api/paypal/checkout', '/api/mercadopago/checkout'],
 };
 

@@ -28,11 +28,11 @@ const RegisterPage: NextPage = () => {
 
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>();
 
-    const { loginUser } = useContext(AuthContext);
+    const { registerUser } = useContext(AuthContext);
 
     const onRegister = async ({ name, email, password }: FormData) => {
         setSubmitted(true);
-        await loginUser(email, password)
+        await registerUser(name, email, password)
         setSubmitted(false);
     }
 
@@ -52,7 +52,9 @@ const RegisterPage: NextPage = () => {
                         placeholder='Ingresa tu nombre completo...'
                         {...register('name', {
                             required: 'El campo requerido.',
-                            minLength: { value: 6, message: 'Mínimo 6 caracteres' }
+                            minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+                            maxLength: { value: 20, message: 'Máximo 20 caracteres' },
+                            pattern: {value: /^[A-Za-z\s]+$/, message:'No se permiten números.'}
                         })}
                         error={!!errors.name}
                         helperText={errors.name?.message}
@@ -65,7 +67,8 @@ const RegisterPage: NextPage = () => {
                         placeholder='Ingresa tu email...'
                         {...register('email', {
                             required: 'El campo requerido.',
-                            validate: isEmail
+                            validate: isEmail,
+                            maxLength: { value: 35, message: 'Máximo 35 caracteres' },
                         })}
                         error={!!errors.email}
                         helperText={errors.email?.message}
@@ -78,7 +81,8 @@ const RegisterPage: NextPage = () => {
                         placeholder='Ingresa tu contraseña...'
                         {...register('password', {
                             required: 'El campo requerido.',
-                            minLength: { value: 6, message: 'Mínimo 6 caracteres' }
+                            minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+                            maxLength: { value: 25, message: 'Máximo 25 caracteres' },
                         })}
                         error={!!errors.password}
                         helperText={errors.password?.message}
