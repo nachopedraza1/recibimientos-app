@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { CreatePreferencePayload } from 'mercadopago/models/preferences/create-payload.model';
 import mercadopago from 'mercadopago';
+import { isValidObjectId } from 'mongoose';
 
 type Data =
     | { message: string }
@@ -16,23 +17,32 @@ export default async function (req: NextApiRequest, res: NextApiResponse<Data>) 
             return createPreference(req, res);
 
         default:
-            res.status(400).json({ message: 'Method not allowed.' })
+            res.status(400).json({ message: 'Método inválido.' })
     }
 
 }
 
 const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { value, payerName } = req.body;
+    const { amount, payerName, userId } = req.body;
 
-    const url = process.env.SITE_URL
+    if (payerName.length < 3) {
+        return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })
+    }
+
+    if (!isValidObjectId(userId)) {
+        return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })
+    }
+
+    const url = process.env.SITE_URL;
 
     try {
         const preference: CreatePreferencePayload = {
             items: [{
                 title: 'Aporte Recibimientos CAB',
-                unit_price: value,
+                unit_price: amount,
                 quantity: 1,
+                id: userId
             }],
             payer: {
                 name: payerName,
@@ -48,6 +58,6 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
         const response = await mercadopago.preferences.create(preference);
         return res.status(200).json({ url: response.body.init_point })
     } catch (error) {
-        return res.status(400).json({ message: 'Error when creating preference.' })
+        return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })
     }
 }

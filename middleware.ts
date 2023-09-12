@@ -6,13 +6,24 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     const url = req.nextUrl.clone();
-    
-    if (!session) {
-        url.pathname = '/';
-        return NextResponse.redirect(url)
+
+    if (req.nextUrl.pathname.includes('/api')) {
+        console.log(req.nextUrl.pathname);
+
+        if (!session) {
+            return new Response(JSON.stringify({ message: 'No autorizado' }), {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        return NextResponse.next();
     }
 
-    if (session.user.role !== 'admin') {
+
+    if (!session || session.user.role !== 'admin') {
         url.pathname = '/';
         return NextResponse.redirect(url)
     }
@@ -21,6 +32,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-    matcher: ['/admin'],
+    matcher: ['/admin', '/api/paypal/checkout','/api/mercadopago/checkout'],
 };
 

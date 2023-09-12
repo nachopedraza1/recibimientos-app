@@ -3,18 +3,19 @@ import Image from 'next/image';
 
 import { UiContext } from '@/context/ui';
 import { usePayment } from '@/hooks';
+import { format } from '@/utils';
 
 import { Box, Button, Typography } from "@mui/material";
 import { ModalLayout } from '@/components/layouts';
 
 
-const values = [250, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 20000, 30000];
+const values = ['250', '500', '1000', '1500', '2000', '2500', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000', '20000', '30000'];
 
 export const MercadoPagoModal: FC = () => {
 
     const { modalStatus } = useContext(UiContext);
 
-    const { selected, mercadoPagoPayment, urlPayment, isLoading, isAuthenticated } = usePayment();
+    const { selected, mercadoPagoPayment, urlMercadoPago, isLoading, isAuthenticated } = usePayment();
 
     return (
         <ModalLayout modalType='mercadopago' modalStatus={modalStatus.mercadopago!}>
@@ -37,7 +38,7 @@ export const MercadoPagoModal: FC = () => {
                             className={amount === selected ? 'donate-box selected' : 'donate-box'}
                             onClick={() => mercadoPagoPayment(amount)}
                         >
-                            <Typography> Aporte de ${amount} </Typography>
+                            <Typography>{format(amount.toString())} ARS </Typography>
                             <Image width={45} height={45} src='/logo.png' alt='Recibimientos Cab Mercado Pago' />
                         </Box>
                     ))
@@ -49,14 +50,15 @@ export const MercadoPagoModal: FC = () => {
             </Typography>
 
             <Button
+                fullWidth
                 variant='contained'
                 disabled={!selected || isLoading || !isAuthenticated}
-                href={urlPayment}
+                href={urlMercadoPago}
                 className='checkout-mp'
                 startIcon={<Image width={50} height={50} src='/mercadopago-short.png' alt='Recibimientos Cab MercadoPago' />}>
                 Pagar con MercadoPago
             </Button>
 
-        </ModalLayout>
+        </ModalLayout >
     );
 }

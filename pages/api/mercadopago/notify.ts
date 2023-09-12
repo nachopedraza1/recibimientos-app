@@ -16,14 +16,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
 
         if (topic === "payment") {
-            
+
             const { body } = await mercadopago.payment.findById(Number(paymentId));
 
-            await db.connect()
+            await db.connect();
             const entry = await Entry.findOne({ paymentId });
 
             if (!entry) {
                 const newEntry = new Entry({
+                    userId: body.additional_info.items[0].id,
                     name: body.additional_info.payer.first_name,
                     amount: body.transaction_details.total_paid_amount,
                     method: 'mercadopago',
@@ -32,17 +33,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 })
                 await newEntry.save();
                 await db.disconnect();
-                return;
+                return res.status(200).json({ message: "Pago completado con éxito." })
             }
 
             entry.status = body.status;
             await entry.save();
             await db.disconnect();
         }
-        return res.status(200).json({ message: "Payment approved." })
+        return res.status(200).json({ message: "Pago actualizado con éxito." })
     } catch (error) {
         console.log(error);
-        return res.status(400).json({ message: "Error, check logs in server." })
+        return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })
     }
 
 }

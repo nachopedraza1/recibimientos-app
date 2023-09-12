@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import { GetServerSideProps, NextPage } from 'next';
-import { getSession } from 'next-auth/react';
+import { NextPage } from 'next';
 
 import { UiContext } from '@/context/ui';
 
 import { AdminLayout } from '@/components/layouts';
-import { Box, Card, CardContent, CardHeader, Divider, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+
+import { faBagShopping, faCircleDollarToSlot, faDollar, faM, faMoneyBillTransfer, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBagShopping, faCircleDollarToSlot, faDollar, faFaceAngry, faM, faMoneyBillTransfer, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPaypal } from '@fortawesome/free-brands-svg-icons';
 
 interface TabPanelProps {
@@ -80,24 +80,6 @@ const AdminPage: NextPage = () => {
 
         </AdminLayout>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-
-    const session: any = await getSession({ req });
-
-    if (session?.user.role !== 'admin') {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            }
-        }
-    }
-
-    return {
-        props: {}
-    }
 }
 
 export default AdminPage

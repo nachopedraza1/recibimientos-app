@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
 import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react"
+import { SnackbarProvider } from 'notistack';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 import { AuthProvider } from '@/context/auth';
 import { UiProvider } from '@/context/ui';
 
-import AOS from 'aos';
+import { AppThemeProvider } from "@/theme";
 import '@/styles/globals.css';
 import 'aos/dist/aos.css';
-import { AppThemeProvider } from "@/theme";
-import { SnackbarProvider } from 'notistack';
+import AOS from 'aos';
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -27,15 +28,17 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <SessionProvider>
-      <AuthProvider>
-        <SnackbarProvider>
-          <UiProvider>
-            <AppThemeProvider>
-              <Component {...pageProps} />
-            </AppThemeProvider>
-          </UiProvider>
-        </SnackbarProvider>
-      </AuthProvider>
+      <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! }}>
+        <AuthProvider>
+          <SnackbarProvider>
+            <UiProvider>
+              <AppThemeProvider>
+                <Component {...pageProps} />
+              </AppThemeProvider>
+            </UiProvider>
+          </SnackbarProvider>
+        </AuthProvider>
+      </PayPalScriptProvider>
     </SessionProvider >
   )
 

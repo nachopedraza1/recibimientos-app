@@ -1,11 +1,13 @@
 import mongoose, { Model, Schema } from "mongoose";
+import { User } from "@/models";
 import { IEntry } from "@/interfaces";
 
 const entrySchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, required: true, ref: User },
     name: { type: String, required: true },
     amount: { type: Number, required: true },
     status: { type: String, required: true, },
-    paymentId: { type: Number, required: true },
+    paymentId: { type: String, required: true },
     method: {
         type: String,
         required: true,

@@ -44,6 +44,7 @@ export const ModalLayout: FC<Props> = ({ children, modalType, modalStatus }) => 
                 onClose={() => toggleModal(modalType)}
                 closeAfterTransition
                 slots={{ backdrop: Backdrop }}
+                sx={{overflowY:'scroll'}}
                 slotProps={{
                     backdrop: {
                         timeout: 500,
@@ -58,7 +59,7 @@ export const ModalLayout: FC<Props> = ({ children, modalType, modalStatus }) => 
 
                             {!session.data?.user &&
                                 <Typography textAlign="center">
-                                    Debes
+                                    Debes 
                                     <MuiLink component={Link} href='/auth/login' mx={0.6} fontWeight={600} >
                                         iniciar sesión
                                     </MuiLink>
