@@ -1,28 +1,23 @@
-import React, { useState } from 'react'
-import { LoadDataTables } from '@/components/ui'
+import React, { useState, useContext } from 'react'
 import { PaginationTable } from '@/components';
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography } from '@mui/material'
 
 import { IEntry } from '@/interfaces';
+import { EntriesContext } from '@/context/entries';
 
 export const TableEntries = () => {
+
+    const { entriesData: { entries, totalEntries, page }, handleChangePage } = useContext(EntriesContext);
 
     const simulatedDataTest = [...Array(23)]
 
     const [entriesFilter, setEntriesFilter] = useState<IEntry[]>(simulatedDataTest);
 
-    const [page, setPage] = useState<number>(0);
 
     /* TODO: search bar here */
 
     const emptyRows = Math.max(0, (1 + page) * 10 - simulatedDataTest.length);
 
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
 
     return (
         <TableContainer>
@@ -43,7 +38,7 @@ export const TableEntries = () => {
                         : <PaginationTable gameservers={entriesFilter} page={page} />
                 } */}
 
-                    <PaginationTable entries={entriesFilter} page={page} />
+                    <PaginationTable entries={entries} />
 
 
                     {/* TODO:  */}
@@ -58,7 +53,7 @@ export const TableEntries = () => {
                     <TableRow>
                         <TablePagination
                             colSpan={6}
-                            count={simulatedDataTest.length}
+                            count={totalEntries}
                             rowsPerPage={10}
                             rowsPerPageOptions={[10]}
                             page={page}
