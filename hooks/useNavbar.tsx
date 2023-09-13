@@ -26,12 +26,11 @@ export const useNavbar = () => {
 
             setTimeout(() => {
                 const targetElement = document.getElementById(text);
-                console.log(targetElement);
 
                 if (targetElement) {
                     targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
-            }, 100);
+            }, 1500);
 
             return;
         }

@@ -13,6 +13,7 @@ export const TransitionPage: FC<{ children: ReactNode }> = ({ children }) => {
 
 
                 {children}
+
                 <motion.div
                     className='slide-in'
                     initial={{ scaleY: 0 }}
@@ -22,11 +23,11 @@ export const TransitionPage: FC<{ children: ReactNode }> = ({ children }) => {
                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 >
                     <motion.div
-                        initial={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0 }}
+                        exit={{ opacity: 1 }}
                         transition={{ duration: 1 }}
                     >
-                        <Image src="/logo-celeste.png" alt='RecibimientoCAB' width={200} height={100} />
+                        <Image src="/logo-loading.png" alt='RecibimientoCAB' width={250} height={150} />
                     </motion.div>
                 </motion.div>
 
@@ -36,9 +37,9 @@ export const TransitionPage: FC<{ children: ReactNode }> = ({ children }) => {
                     animate={{ scaleY: 0 }}
                     exit={{ scaleY: 0 }}
                     transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ borderBottom: '10px solid #08b8ef' }}
                 >
                 </motion.div>
+                
             </motion.div>
         </AnimatePresence >
     )

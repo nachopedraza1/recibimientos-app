@@ -35,9 +35,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <SnackbarProvider>
             <UiProvider>
               <AppThemeProvider>
-               {/*  <TransitionPage> */}
+                <TransitionPage>
                   <Component {...pageProps} />
-               {/*  </TransitionPage> */}
+                </TransitionPage>
               </AppThemeProvider>
             </UiProvider>
           </SnackbarProvider>
