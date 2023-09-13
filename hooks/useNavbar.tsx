@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from 'react';
+import { useRouter } from 'next/router';
 
 export const useNavbar = () => {
+
+    const router = useRouter();
 
     const [activeSection, setActiveSection] = useState<string>('');
     const [navbarBlur, setNavbarBlur] = useState<string>('')
@@ -13,12 +16,41 @@ export const useNavbar = () => {
         }
     };
 
+
+    const navigateWithoutHash = (event: FormEvent, text: string) => {
+
+        event.preventDefault();
+
+        if (router.pathname !== '/') {
+            router.push('/');
+
+            setTimeout(() => {
+                const targetElement = document.getElementById(text);
+                console.log(targetElement);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+
+            return;
+        }
+
+        const targetElement = document.getElementById(text);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
     }, []);
 
     useEffect(() => {
         const handleScroll = () => {
+
+            if (router.pathname !== '/') return setActiveSection('profile')
+
             const sections = document.querySelectorAll('section');
             let currentSection = null;
 
@@ -41,6 +73,7 @@ export const useNavbar = () => {
     }, []);
 
     return {
+        navigateWithoutHash,
         activeSection,
         navbarBlur,
     }

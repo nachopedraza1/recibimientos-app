@@ -5,11 +5,10 @@ import { getSession } from "next-auth/react";
 import { Entry } from '@/models';
 import { db } from '@/database';
 
-import { IEntry } from '@/interfaces';
-import { MainLayout, SectionLayout } from '@/components/layouts';
+import { MainLayout } from '@/components/layouts';
 import { Container, Grid, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
-import { PaginationTable } from '@/components';
 
+import { IEntry } from '@/interfaces';
 
 const HistoryPage: NextPage<{ history: IEntry[] }> = ({ history }) => {
 
@@ -75,8 +74,8 @@ const HistoryPage: NextPage<{ history: IEntry[] }> = ({ history }) => {
                 } */}
 
 
-                            {paginated.map(() => (
-                                <TableRow >
+                            {paginated.map(( item, index ) => (
+                                <TableRow key={index}>
 
                                     <TableCell align="center" scope="row">
                                         1

@@ -1,9 +1,14 @@
 import { FC } from 'react';
+
+import { useNavbar } from '@/hooks';
+
 import { SectionLayout } from '../layouts';
 import { Button, Grid, Typography } from '@mui/material';
-import { navigateWithoutHash } from '@/utils/navigateWithoutHash';
 
 export const SectionHome: FC = () => {
+
+    const { navigateWithoutHash } = useNavbar();
+
     return (
         <SectionLayout idSection='inicio'>
             <Grid container justifyContent="center" alignItems="center" minHeight="100vh" >

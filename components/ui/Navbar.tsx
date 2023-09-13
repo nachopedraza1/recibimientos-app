@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import { navigateWithoutHash } from '@/utils';
 import { useNavbar } from '@/hooks';
 
 import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
@@ -21,7 +20,7 @@ export const Navbar: FC = () => {
 
     const { status } = useSession();
 
-    const { activeSection, navbarBlur } = useNavbar();
+    const { activeSection, navbarBlur, navigateWithoutHash } = useNavbar();
 
     return (
         <Box display={{ xs: "none", md: "flex" }}>

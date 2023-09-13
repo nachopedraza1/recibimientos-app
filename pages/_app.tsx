@@ -8,9 +8,12 @@ import { AuthProvider } from '@/context/auth';
 import { UiProvider } from '@/context/ui';
 
 import { AppThemeProvider } from "@/theme";
+import { TransitionPage } from '@/components/layouts';
+
 import '@/styles/globals.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
+
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -25,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [])
 
 
-
   return (
     <SessionProvider>
       <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! }}>
@@ -33,7 +35,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <SnackbarProvider>
             <UiProvider>
               <AppThemeProvider>
-                <Component {...pageProps} />
+               {/*  <TransitionPage> */}
+                  <Component {...pageProps} />
+               {/*  </TransitionPage> */}
               </AppThemeProvider>
             </UiProvider>
           </SnackbarProvider>

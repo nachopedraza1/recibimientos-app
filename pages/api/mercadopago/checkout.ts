@@ -49,7 +49,7 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
             },
             auto_return: 'approved',
             back_urls: {
-                success: url,
+                success: `${url}/history`,
                 failure: url,
                 pending: url,
             },
