@@ -1,21 +1,18 @@
-import { useMemo, useContext } from 'react'
-import { PaginationTable } from '@/components';
+
+import { usePagination } from '@/hooks';
+import { format } from '@/utils';
+
+import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography } from '@mui/material'
 
-import { usePagination } from '@/hooks';
-import { DataContext } from '@/context/data';
+
 
 export const TableEntries = () => {
 
+    const { handleChangePage, isLoading, results } = usePagination('entries');
 
-
-    const { entriesData, handleChangePage } = useContext(DataContext);
-
-    const { entries, totalEntries, totalPages, currentPage } = entriesData;
-
-    console.log(entriesData);
-
+    const emptyRows = Math.max(0, ((results.page - 1) * 10) - results.rows.length);
 
     return (
         <TableContainer>
@@ -28,10 +25,11 @@ export const TableEntries = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
+
                     {
                         isLoading
                             ? <LoadDataTables />
-                            : <PaginationTable entries={data?.entries!} />
+                            : <RowsPaginated entries={results.rows} />
                     }
 
                     {(emptyRows > 0 && isLoading === false) && (
@@ -42,14 +40,13 @@ export const TableEntries = () => {
 
                 </TableBody>
                 <TableFooter>
-
                     <TableRow>
                         <TablePagination
                             colSpan={6}
-                            count={data?.totalEntries!}
+                            count={results.totalRows}
                             rowsPerPage={10}
                             rowsPerPageOptions={[]}
-                            page={page}
+                            page={results.page - 1}
                             onPageChange={handleChangePage}
                             sx={{ borderBottom: "none" }}
                         />
@@ -60,7 +57,7 @@ export const TableEntries = () => {
             <Typography variant="h5" fontWeight='bold'>
                 Total Recaudado:
                 <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
-                    $300.210
+                    ${format(results.totalAmount)}
                 </Typography>
             </Typography>
 

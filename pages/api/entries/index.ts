@@ -1,6 +1,6 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '@/database';
 import { Entry } from '@/models'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data =
     | { message: string }
@@ -18,21 +18,44 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 const getEntries = async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
-    const page = parseInt(req.query.page as string) || 0;
+    const page = parseInt(req.query.page as string) || 1;
     const perPage = 10;
 
-    await db.connect();
-    const totalEntries = await Entry.find().lean().count();
-    const entries = await Entry.find().skip(page * perPage).limit(perPage);
-    await db.disconnect();
+    try {
+        await db.connect();
 
-    const totalPages = Math.ceil(totalEntries / perPage);
+        const [
+            rows,
+            totalRows,
+            totalAmount
+        ] = await Promise.all([
+            Entry.find()
+                .sort({ createdAt: -1 })
+                .select('name amount createdAt -_id')
+                .skip((page - 1) * perPage)
+                .limit(perPage),
 
-    return res.status(200).json({
-        entries,
-        totalEntries,
-        totalPages,
-        currentPage: page,
-    });
+            Entry.find().count(),
 
+            Entry.aggregate([{
+                $group: {
+                    _id: null,
+                    total: { $sum: '$amount' }
+                }
+            }])
+        ]);
+
+        await db.disconnect();
+
+
+        return res.status(200).json({
+            rows,
+            totalRows,
+            totalAmount: totalAmount[0].total,
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ message: 'Error en la paginación. Revisar logs del servidor.' });
+    }
 }

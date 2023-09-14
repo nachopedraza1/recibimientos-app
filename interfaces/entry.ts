@@ -7,10 +7,3 @@ export interface IEntry {
     status?: string,
     method?: 'mercadopago' | 'paypal' | 'transfer',
 }
-
-export interface PaginationData {
-    entries?: IEntry[],
-    totalPages: number,
-    currentPage: number,
-    totalEntries: number,
-}
