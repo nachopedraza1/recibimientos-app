@@ -9,8 +9,7 @@ export interface IEntry {
 }
 
 export interface PaginationData {
-    page: number,
-    entries: IEntry[],
+    entries?: IEntry[],
     totalPages: number,
     currentPage: number,
     totalEntries: number,

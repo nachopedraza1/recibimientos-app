@@ -1,22 +1,20 @@
-import React, { useState, useContext } from 'react'
+import { useMemo, useContext } from 'react'
 import { PaginationTable } from '@/components';
+import { LoadDataTables } from '@/components/ui'
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography } from '@mui/material'
 
-import { IEntry } from '@/interfaces';
-import { EntriesContext } from '@/context/entries';
+import { usePagination } from '@/hooks';
+import { DataContext } from '@/context/data';
 
 export const TableEntries = () => {
 
-    const { entriesData: { entries, totalEntries, page }, handleChangePage } = useContext(EntriesContext);
-
-    const simulatedDataTest = [...Array(23)]
-
-    const [entriesFilter, setEntriesFilter] = useState<IEntry[]>(simulatedDataTest);
 
 
-    /* TODO: search bar here */
+    const { entriesData, handleChangePage } = useContext(DataContext);
 
-    const emptyRows = Math.max(0, (1 + page) * 10 - simulatedDataTest.length);
+    const { entries, totalEntries, totalPages, currentPage } = entriesData;
+
+    console.log(entriesData);
 
 
     return (
@@ -30,32 +28,27 @@ export const TableEntries = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
+                    {
+                        isLoading
+                            ? <LoadDataTables />
+                            : <PaginationTable entries={data?.entries!} />
+                    }
 
-                    {/* TODO:  */}
-                    {/* {
-                    isLoading
-                        ? <LoadDataTables />
-                        : <PaginationTable gameservers={entriesFilter} page={page} />
-                } */}
-
-                    <PaginationTable entries={entries} />
-
-
-                    {/* TODO:  */}
-                    {/* {(emptyRows > 0 && isLoading === false) && (
-                        <TableRow style={{ height: 53.02 * emptyRows }}>
-                            <StyledTableCell colSpan={6} />
+                    {(emptyRows > 0 && isLoading === false) && (
+                        <TableRow style={{ height: 53.02 * emptyRows, padding: 0 }}>
+                            <TableCell colSpan={6} />
                         </TableRow>
-                    )} */}
+                    )}
 
                 </TableBody>
                 <TableFooter>
+
                     <TableRow>
                         <TablePagination
                             colSpan={6}
-                            count={totalEntries}
+                            count={data?.totalEntries!}
                             rowsPerPage={10}
-                            rowsPerPageOptions={[10]}
+                            rowsPerPageOptions={[]}
                             page={page}
                             onPageChange={handleChangePage}
                             sx={{ borderBottom: "none" }}

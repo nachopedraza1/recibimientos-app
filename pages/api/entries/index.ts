@@ -18,12 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 const getEntries = async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
-    const page = parseInt(req.query.page as string) || 1;
+    const page = parseInt(req.query.page as string) || 0;
     const perPage = 10;
 
     await db.connect();
     const totalEntries = await Entry.find().lean().count();
-    const entries = await Entry.find().skip((page - 1) * perPage).limit(perPage);
+    const entries = await Entry.find().skip(page * perPage).limit(perPage);
     await db.disconnect();
 
     const totalPages = Math.ceil(totalEntries / perPage);

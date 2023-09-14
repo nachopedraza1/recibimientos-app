@@ -6,6 +6,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { SWRConfig } from 'swr';
 
 import { AuthProvider } from '@/context/auth';
+import { DataProvider } from '@/context/data';
 import { UiProvider } from '@/context/ui';
 
 import { AppThemeProvider } from "@/theme";
@@ -14,7 +15,6 @@ import { TransitionPage } from '@/components/layouts';
 import '@/styles/globals.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import { EntriesProvider } from '@/context/entries';
 
 
 
@@ -34,8 +34,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider>
       <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! }}>
         <SWRConfig value={{ fetcher: (resource, init) => fetch(resource, init).then(res => res.json()) }}>
-          <EntriesProvider>
-            <AuthProvider>
+          <AuthProvider>
+            <DataProvider>
               <SnackbarProvider>
                 <UiProvider>
                   <AppThemeProvider>
@@ -45,8 +45,8 @@ export default function App({ Component, pageProps }: AppProps) {
                   </AppThemeProvider>
                 </UiProvider>
               </SnackbarProvider>
-            </AuthProvider>
-          </EntriesProvider>
+            </DataProvider>
+          </AuthProvider>
         </SWRConfig>
       </PayPalScriptProvider>
     </SessionProvider >
