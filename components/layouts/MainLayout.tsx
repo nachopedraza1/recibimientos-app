@@ -10,10 +10,10 @@ interface Props {
     title: string,
     children: ReactNode,
     description?: string
-    containerClass?: string,
+    containerPageClass?: string,
 }
 
-export const MainLayout = ({ title, children, description, containerClass }: Props) => {
+export const MainLayout = ({ title, children, description, containerPageClass }: Props) => {
 
     const { asPath } = useRouter();
 
@@ -30,8 +30,7 @@ export const MainLayout = ({ title, children, description, containerClass }: Pro
 
             {!asPath.includes('/auth') && <Navbar />}
 
-            <main className={containerClass || ''}>
-                <div className='bg-home-fixed' />
+            <main className={containerPageClass}>
                 {children}
             </main>
 

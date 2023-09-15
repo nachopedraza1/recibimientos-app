@@ -15,7 +15,7 @@ interface Rows {
     createdAt: string,
 }
 
-export const usePagination = (table: 'entries' | 'expenses') => {
+export const usePagination = (table?: 'entries' | 'expenses') => {
 
     const [page, setPage] = useState<number>(1);
 
@@ -40,11 +40,12 @@ export const usePagination = (table: 'entries' | 'expenses') => {
     }, [isLoading, page])
 
 
-    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
+    const handleChangePage = (event: unknown | null, newPage: number,) => {
         setPage(newPage + 1);
     }
 
     return {
+        page,
         results,
         isLoading,
         handleChangePage,

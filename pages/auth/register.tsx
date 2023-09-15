@@ -39,7 +39,7 @@ const RegisterPage: NextPage = () => {
     }
 
     return (
-        <MainLayout title='Registro | Recibimientos CAB' containerClass={styles.container}>
+        <MainLayout title='Registro | Recibimientos CAB' containerPageClass={styles.container}>
             <form onSubmit={handleSubmit(onRegister)} noValidate className={styles.box_auth} data-aos='fade-in'>
                 <Grid container direction='column' gap={2}>
                     <Box>

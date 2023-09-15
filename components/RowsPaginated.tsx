@@ -1,17 +1,13 @@
 import { FC } from "react";
 import { TableRow, TableCell } from "@mui/material";
+import { Rows } from "@/interfaces";
 
-interface Rows {
-    name: string,
-    amount: number,
-    createdAt: string,
-}
 
-export const RowsPaginated: FC<{ entries: Rows[] }> = ({ entries }) => {
+export const RowsPaginated: FC<{ rows: Rows[] }> = ({ rows }) => {
 
     return (
         <>
-            {entries.map(({ name, createdAt, amount }, index) => (
+            {rows.map(({ name, createdAt, amount, method, status }, index) => (
                 <TableRow key={index} className="fadeIn">
 
                     <TableCell align="center" scope="row">
@@ -22,11 +18,29 @@ export const RowsPaginated: FC<{ entries: Rows[] }> = ({ entries }) => {
                         {name}
                     </TableCell>
 
+                    {
+                        method &&
+                        (
+                            <TableCell align="center">
+                                {method}
+                            </TableCell>
+                        )
+                    }
+
+                    {
+                        status &&
+                        (
+                            <TableCell align="center">
+                                {status}
+                            </TableCell>
+                        )
+                    }
+
                     <TableCell align="center">
                         ${amount}
                     </TableCell>
 
-                </TableRow>
+                </TableRow >
             ))}
         </>
     )

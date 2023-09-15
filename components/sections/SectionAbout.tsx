@@ -16,7 +16,7 @@ export const SectionAbout: FC = () => {
                 justifyContent="center"
                 alignItems="center"
                 minHeight={{ md: '90vh', xl: '70vh' }}
-                pt={10}
+                pt={11}
             >
                 <Grid item xs={12} textAlign="center">
                     <Typography variant="h3" data-aos="fade-in">

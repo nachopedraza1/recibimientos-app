@@ -37,7 +37,7 @@ const LoginPage: NextPage = () => {
     }
 
     return (
-        <MainLayout title='Ingresar | Recibimientos CAB' containerClass={styles.container}>
+        <MainLayout title='Ingresar | Recibimientos CAB' containerPageClass={styles.container}>
             <form onSubmit={handleSubmit(onLogin)} noValidate className={styles.box_auth} data-aos='fade-in'>
                 <Grid container direction='column' gap={2}>
                     <Box>

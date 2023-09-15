@@ -2,40 +2,40 @@ import { useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import { getSession } from "next-auth/react";
 
-import { Entry } from '@/models';
 import { db } from '@/database';
+import { Entry } from '@/models';
+import { usePagination } from '@/hooks';
 
+import { CustomTable } from '@/components';
 import { MainLayout } from '@/components/layouts';
-import { Container, Grid, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 
-import { IEntry } from '@/interfaces';
+import { Rows } from '@/interfaces';
 
-const HistoryPage: NextPage<{ history: IEntry[] }> = ({ history }) => {
+const HistoryPage: NextPage<{ history: Rows[] }> = ({ history }) => {
 
-    const [page, setPage] = useState<number>(0);
+    console.log(history);
 
-    const simulated = [...Array(13)];
-    const paginated = simulated.slice(page * 10, page * 10 + 10);
+    const { page, handleChangePage } = usePagination();
 
-    const emptyRows = Math.max(0, (1 + page) * 10 - paginated.length);
 
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
-
+    const results = {
+        page,
+        totalRows: history.length,
+        rows: history
+    }
 
     return (
         <MainLayout title='Historial | Recibimientos CAB'>
+
             <Grid
                 container
                 direction="column"
                 justifyContent="center"
-                minHeight="50vh"
+                minHeight="55vh"
                 textAlign="center"
                 color="white"
+                className='bg-donate'
             >
                 <Container>
                     <Typography variant="h4" fontWeight={600}>
@@ -51,75 +51,13 @@ const HistoryPage: NextPage<{ history: IEntry[] }> = ({ history }) => {
             </Grid>
 
             <Container>
-                <TableContainer>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center">Fecha</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center">Nombre</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center">Plataforma</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center">Monto</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
 
-                            {/* TODO:  */}
-                            {/* {
-                    isLoading
-                        ? <LoadDataTables />
-                        : <PaginationTable gameservers={entriesFilter} page={page} />
-                } */}
-
-
-                            {paginated.map((item, index) => (
-                                <TableRow key={index}>
-
-                                    <TableCell align="center" scope="row">
-                                        1
-                                    </TableCell>
-
-                                    <TableCell align="center">
-                                        2
-                                    </TableCell>
-
-                                    <TableCell align="center">
-                                        3
-                                    </TableCell>
-
-                                    <TableCell align="center">
-                                        4
-                                    </TableCell>
-
-                                </TableRow>
-                            ))}
-
-
-
-                            {/* TODO:  */}
-                            {/*  {(emptyRows > 0 && isLoading === false) */}
-                            {(emptyRows > 0) && (
-                                <TableRow style={{ height: 53.02 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-
-                        </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TablePagination
-                                    colSpan={6}
-                                    count={simulated.length}
-                                    rowsPerPage={10}
-                                    rowsPerPageOptions={[10]}
-                                    page={page}
-                                    onPageChange={handleChangePage}
-                                    sx={{ borderBottom: "none" }}
-                                />
-                            </TableRow>
-                        </TableFooter>
-                    </Table>
-
-                </TableContainer>
+                <CustomTable
+                    headRows={['Fecha', 'Nombre', 'Monto', 'Método', 'Estado']}
+                    handleChangePage={handleChangePage}
+                    results={results}
+                    totalText='Total aportado'
+                />
 
             </Container>
         </MainLayout>

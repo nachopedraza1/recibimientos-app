@@ -10,7 +10,7 @@ export const SectionHome: FC = () => {
     const { navigateWithoutHash } = useNavbar();
 
     return (
-        <SectionLayout idSection='inicio'>
+        <SectionLayout idSection='inicio' bgClass='bg-home'>
             <Grid container justifyContent="center" alignItems="center" minHeight="100vh" >
 
                 <Grid item xs={12} textAlign="center">
