@@ -27,12 +27,9 @@ const HistoryPage: NextPage<{ history: IEntry[] }> = ({ history }) => {
     };
 
 
-
     return (
         <MainLayout title='Historial | Recibimientos CAB'>
-
             <Grid
-                className='bg-donate'
                 container
                 direction="column"
                 justifyContent="center"
@@ -74,7 +71,7 @@ const HistoryPage: NextPage<{ history: IEntry[] }> = ({ history }) => {
                 } */}
 
 
-                            {paginated.map(( item, index ) => (
+                            {paginated.map((item, index) => (
                                 <TableRow key={index}>
 
                                     <TableCell align="center" scope="row">

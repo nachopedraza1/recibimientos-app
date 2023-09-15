@@ -31,6 +31,7 @@ export const MainLayout = ({ title, children, description, containerClass }: Pro
             {!asPath.includes('/auth') && <Navbar />}
 
             <main className={containerClass || ''}>
+                <div className='bg-home-fixed' />
                 {children}
             </main>
 

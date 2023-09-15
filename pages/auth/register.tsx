@@ -9,8 +9,10 @@ import { isEmail } from '@/utils';
 import { AuthContext } from '@/context/auth';
 import { useForm } from 'react-hook-form';
 
+import { CustomDivider } from '@/components/ui';
 import { MainLayout } from '@/components/layouts';
-import { Box, Button, CircularProgress, Grid, TextField, Typography, Divider, IconButton } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, TextField, Typography, IconButton } from '@mui/material';
+
 import styles from './auth.module.css'
 
 
@@ -92,13 +94,7 @@ const RegisterPage: NextPage = () => {
                         {submitted ? <CircularProgress size={25} /> : "Registrarme"}
                     </Button>
 
-                    <Divider>
-                        <Image src='/belgrano-calavera-white.png'
-                            alt='Recibimientos Cab'
-                            width={40}
-                            height={40}
-                        />
-                    </Divider>
+                    <CustomDivider />
 
                     <Box className={styles.providers}>
                         <IconButton>

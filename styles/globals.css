@@ -61,34 +61,29 @@ nav .inicio,
     left: -1px;
 }
 
-nav .nosotros,
-.nav-link:nth-child(2) {
-    width: 105px;
-    left: 76px;
-}
-
 nav .ingresos,
-.nav-link:nth-child(3) {
+.nav-link:nth-child(2) {
     width: 100px;
-    left: 180px;
+    left: 75px;
 }
 
 nav .gastos,
-.nav-link:nth-child(4) {
+.nav-link:nth-child(3) {
     width: 85px;
-    left: 282px;
+    left: 177px;
 }
 
-nav .noticias,
-.nav-link:nth-child(5) {
-    width: 93px;
-    left: 367px;
+nav .nosotros,
+.nav-link:nth-child(4) {
+    width: 105px;
+    left: 263px;
 }
+
 
 nav .profile,
-.nav-link:nth-child(6) {
+.nav-link:nth-child(5) {
     width: 35.5px;
-    left: 468px;
+    left: 375px;
 }
 
 nav .active {
@@ -107,14 +102,13 @@ nav .active {
     z-index: 1;
 }
 
-.bg-fixed {
+.bg-home-fixed {
     width: 100%;
     height: 100vh;
-    background-image: url('../public/bgHome.png');
+    background-image: url('../public/bgHome3.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     position: absolute;
     top: 0;
     left: 0;
@@ -156,30 +150,24 @@ nav .active {
     display: block;
     text-align: center;
     margin: 0 10px;
-    border-radius: 50%;
     padding: 6px;
     box-sizing: border-box;
     text-decoration: none;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(0deg, #ddd, #fff);
     transition: .5s;
 }
 
-.social-list li a:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    text-decoration: none;
-}
 
 .social-list li a .fab {
     width: 100%;
     height: 100%;
     display: block;
-    background: linear-gradient(0deg, #fff, #ddd);
-    border-radius: 50%;
-    line-height: calc(60px - 12px);
-    font-size: 24px;
-    color: #262626;
+    font-size: 34px;
+    color: #ffffff;
     transition: .5s;
+}
+
+.social-list li:hover .fab {
+    transform: translateY(-5px);
 }
 
 .social-list li:nth-child(1) a:hover .fab {
@@ -230,9 +218,9 @@ nav .active {
 
 .mercadopago-btn:hover,
 .paypal-btn:hover {
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid #009ee3;
     transform: translateY(-5px);
-    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 0px 15px #009ee3;
 }
 
 .checkout-mp {
@@ -316,4 +304,165 @@ nav .active {
     -webkit-animation-fill-mode: both;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-name: fadeIn;
+}
+
+
+.blobs {
+    position: absolute;
+    isolation: isolate;
+    filter: blur(85px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.purple-blob {
+    position: absolute;
+    top: 18%;
+    left: 25%;
+    width: 49%;
+    height: 66%;
+    background: radial-gradient(farthest-side, #1d03218f, transparent);
+}
+
+.blue-blob {
+    position: absolute;
+    top: 25%;
+    left: 24%;
+    width: 25%;
+    height: 51%;
+    background: radial-gradient(farthest-side, #2200ff33, transparent);
+    mix-blend-mode: multiply;
+}
+
+.cyan-blob {
+    position: absolute;
+    top: 21%;
+    left: 0;
+    width: 55%;
+    height: 63%;
+    background: radial-gradient(farthest-side, #00e3ffeb, transparent);
+    mix-blend-mode: multiply;
+}
+
+.top-box {
+    position: relative;
+    background: #1d1b1b;
+    border-radius: 10px;
+    padding: 15px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s;
+    cursor: default;
+    z-index: 1;
+    max-width: 480px;
+}
+
+.top-box:hover {
+    transition: all 0.4s;
+    transform: translateY(-5px);
+}
+
+.top-box h5 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.top-box h5::after {
+    content: '';
+    position: absolute;
+    background: #0f0f0fc6;
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+    height: 60px;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+
+.top-box:nth-child(1):hover {
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+}
+
+.top-box:nth-child(2):hover {
+    box-shadow: 0px 0px 15px #00e1ff98;
+}
+
+.top-box:nth-child(3):hover {
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+}
+
+.top-box:nth-child(2):hover .cont-destacado {
+    box-shadow: 0px 0px 15px #00e1ff98;
+}
+
+.cont-destacado {
+    transition: all 0.4s;
+    position: absolute;
+    top: -35px;
+    left: 57px;
+    background: #08b8ef;
+    width: 160px;
+    height: 35px;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+    z-index: 1;
+    clip-path: inset(-50px -50px 0px -50px);
+}
+
+.triangle {
+    background: #08b8ef;
+    position: absolute;
+    clip-path: polygon(52% 38%, 0 0, 100% 0);
+    width: 40px;
+    height: 40px;
+    top: -2px;
+    left: 118px;
+    z-index: 1;
+}
+
+.toptwo-donate {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url(/free.png);
+    background-size: 100%;
+    top: -2px;
+    left: -2px;
+    z-index: 1;
+}
+
+.top-donate {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url(/sale.png);
+    background-size: 100%;
+    top: -2px;
+    left: -2px;
+    z-index: 1;
+}
+
+.stats-box {
+    transition: all 0.4s;
+    cursor: default;
+}
+
+.stats-box .count {
+    font-size: 25px;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.stats-box .divider {
+    margin: 15px auto;
+    background-color: #08b8ef;
+    display: block;
+    width: 25%;
+    height: 2px;
+}
+
+.stats-box svg {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    color: #08b8ef;
 }

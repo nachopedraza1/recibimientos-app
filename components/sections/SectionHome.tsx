@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useNavbar } from '@/hooks';
 
-import { SectionLayout } from '../layouts';
+import { SectionLayout } from '@/components/layouts';
 import { Button, Grid, Typography } from '@mui/material';
 
 export const SectionHome: FC = () => {
@@ -12,8 +12,8 @@ export const SectionHome: FC = () => {
     return (
         <SectionLayout idSection='inicio'>
             <Grid container justifyContent="center" alignItems="center" minHeight="100vh" >
-                <Grid item xs={12} textAlign="center">
 
+                <Grid item xs={12} textAlign="center">
                     <Typography variant="h3" color="white" data-aos="fade-down">
                         Página oficial de recibimientos CAB
                     </Typography>
@@ -35,10 +35,8 @@ export const SectionHome: FC = () => {
                     >
                         Realiza tu aporte ahora
                     </Button>
-
                 </Grid>
             </Grid>
-            <div className='bg-fixed'></div>
         </SectionLayout>
     )
 }

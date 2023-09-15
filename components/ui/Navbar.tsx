@@ -5,15 +5,14 @@ import { useSession } from 'next-auth/react';
 
 import { useNavbar } from '@/hooks';
 
-import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 import { UserButtons } from '@/components/ui';
+import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 
 const navLinks = [
     { id: 1, text: "inicio", path: "/#inicio" },
-    { id: 2, text: "nosotros", path: "/#nosotros" },
     { id: 3, text: "ingresos", path: "/#ingresos" },
     { id: 4, text: "gastos", path: "/#gastos" },
-    { id: 5, text: "noticias", path: "/#noticias" },
+    { id: 2, text: "nosotros", path: "/#nosotros" },
 ];
 
 export const Navbar: FC = () => {
@@ -54,7 +53,7 @@ export const Navbar: FC = () => {
                                             <Link href={'/auth/login'}>
                                                 <Button
                                                     variant='contained'
-                                                    sx={{ marginLeft: 1 }}
+                                                    sx={{ marginLeft: 2 }}
                                                 >
                                                     Ingresar
                                                 </Button>

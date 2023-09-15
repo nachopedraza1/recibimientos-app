@@ -4,9 +4,14 @@ import { format } from '@/utils';
 
 import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
-import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography } from '@mui/material'
+import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper } from '@mui/material'
 
-
+const CustomPaper = styled(Paper)((props) => ({
+    background: "#1d1b1b",
+    backdropFilter: "blur(10px)",
+    borderRadius: "10px",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+}))
 
 export const TableEntries = () => {
 
@@ -15,7 +20,7 @@ export const TableEntries = () => {
     const emptyRows = Math.max(0, ((results.page - 1) * 10) - results.rows.length);
 
     return (
-        <TableContainer>
+        <TableContainer component={CustomPaper}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -48,13 +53,12 @@ export const TableEntries = () => {
                             rowsPerPageOptions={[]}
                             page={results.page - 1}
                             onPageChange={handleChangePage}
-                            sx={{ borderBottom: "none" }}
                         />
                     </TableRow>
                 </TableFooter>
             </Table>
 
-            <Typography variant="h5" fontWeight='bold'>
+            <Typography variant="h5" fontWeight='bold' m={3}>
                 Total Recaudado:
                 <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
                     ${format(results.totalAmount)}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import useSWR from "swr"
+import useSWR from "swr";
 
 
 interface Results {
@@ -38,8 +38,6 @@ export const usePagination = (table: 'entries' | 'expenses') => {
         });
         console.log(data.rows);
     }, [isLoading, page])
-
-
 
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {

@@ -1,11 +1,14 @@
-import { createTheme, Typography } from '@mui/material';
+import { createTheme } from '@mui/material';
 
 export const pirata = createTheme({
     palette: {
-        mode: 'light',
+        mode: 'dark',
         primary: {
             main: "#08b8ef"
-        }
+        },
+        background: {
+            default: "#121112"
+        },
     },
     typography: {
         fontFamily: 'Poppins',
@@ -17,7 +20,8 @@ export const pirata = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: 'transparent'
+                    backgroundColor: 'transparent',
+                    backgroundImage: 'none',
                 }
             }
         },
@@ -35,13 +39,14 @@ export const pirata = createTheme({
             styleOverrides: {
                 root: {
                     borderBottom: '2px solid #08b8ef',
+                    backgroundColor: '#0f0f0fc6'
                 }
             }
         },
         MuiTableCell: {
             styleOverrides: {
                 root: {
-                    textTransform:'capitalize'
+                    textTransform: 'capitalize'
                 }
             }
         },
@@ -63,6 +68,12 @@ export const pirata = createTheme({
                 notchedOutline: {
                     borderColor: "gray",
                 },
+                input: {
+                    '&:-webkit-autofill': {
+                        'WebkitBoxShadow': '0 0 0 100px transparent',
+                        'WebkitTextFillColor': '#fff'
+                    }
+                }
             }
         },
         MuiInputLabel: {
@@ -92,6 +103,13 @@ export const pirata = createTheme({
             styleOverrides: {
                 root: {
                     color: 'white',
+                }
+            }
+        },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    position: "relative"
                 }
             }
         },

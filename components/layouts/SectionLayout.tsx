@@ -1,16 +1,14 @@
-import { Box, Container, Divider } from "@mui/material"
-import { FC, ReactNode } from "react"
+import { FC, ReactNode } from "react";
+import { Box, Container } from "@mui/material";
 
 interface Props {
     children: ReactNode,
-    bgColor?: string,
-    className?: string,
     idSection: string,
 }
 
-export const SectionLayout: FC<Props> = ({ children, bgColor, idSection, className }) => {
+export const SectionLayout: FC<Props> = ({ children, idSection }) => {
     return (
-        <Box bgcolor={bgColor} className={className}>
+        <Box>
             <Container>
                 <section id={idSection}>
                     {children}
