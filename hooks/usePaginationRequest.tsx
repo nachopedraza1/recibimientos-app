@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import useSWR from "swr";
 
-import { Results } from '@/interfaces';
+import { PaginationData, ResponsePagination } from '@/interfaces';
 
-export const usePaginationRequest = (tableData?: 'entries' | 'expenses') => {
+export const usePaginationRequest = () => {
 
     const [page, setPage] = useState<number>(0);
 
@@ -11,29 +11,44 @@ export const usePaginationRequest = (tableData?: 'entries' | 'expenses') => {
         setPage(newPage);
     }
 
-    const { data, isLoading } = useSWR<Results>(`/api/${tableData}?page=${page + 1}`);
+    const { data, isLoading } = useSWR<ResponsePagination>(`/api/pagination?page=${page + 1}`);
 
-    const [results, setResults] = useState<Results>({
+    const [entries, setEntries] = useState<PaginationData>({
         page,
         rows: [],
         totalRows: 0,
-        totalAmount: 0,
+        totalAmount: "$0",
+    });
+
+    const [expenses, setExpenses] = useState<PaginationData>({
+        page,
+        rows: [],
+        totalRows: 0,
+        totalAmount: "$0",
     });
 
     useEffect(() => {
         if (!data) return;
-        setResults({
+        setEntries({
             page,
-            rows: data.rows,
-            totalRows: data.totalRows,
-            totalAmount: data.totalAmount,
+            rows: data.rowsEntries,
+            totalRows: data.totalRowsEntries,
+            totalAmount: data.totalAmountEntries,
+        });
+
+        setExpenses({
+            page,
+            rows: data.rowsExpenses,
+            totalRows: data.totalRowsExpenses,
+            totalAmount: data.totalAmountExpenses,
         });
     }, [isLoading, page])
 
 
     return {
         page,
-        results,
+        entries,
+        expenses,
         isLoading,
         handleChangePage,
     }

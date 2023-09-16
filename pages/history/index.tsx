@@ -9,8 +9,9 @@ import { PaymentButtons, HistoryStats } from '@/components';
 import { Container, Grid, Typography } from '@mui/material';
 
 import { Rows } from '@/interfaces';
+import { format } from '@/utils';
 
-const HistoryPage: NextPage<{ history: Rows[], totalDonated: number }> = ({ history, totalDonated }) => {
+const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ history, totalDonated }) => {
 
     return (
         <MainLayout title='Historial | Recibimientos CAB' containerPageClass="bg-history">
@@ -30,7 +31,6 @@ const HistoryPage: NextPage<{ history: Rows[], totalDonated: number }> = ({ hist
                                     history={history}
                                     totalDonated={totalDonated}
                                 />
-
                             )
                             :
                             (
@@ -62,17 +62,25 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     try {
         await db.connect();
-        const history = await Entry.find({ userId: session.user._id })
+        const historyTime = await Entry.find({ userId: session.user._id })
             .select('name amount status method createdAt -_id')
             .sort({ createdAt: -1 })
             .lean();
         await db.disconnect();
 
-        const totalDonated = history.reduce((value, current) => current.amount + value, 0);
+        const history = historyTime.map(element => {
+            return {
+                ...element,
+                amount: `$${format(element.amount)}`,
+                createdAt: JSON.stringify(element.createdAt).slice(1, 11)
+            }
+        });
+
+        const totalDonated = format(historyTime.reduce((value, current) => current.amount + value, 0));
 
         return {
             props: {
-                history: JSON.parse(JSON.stringify(history)),
+                history,
                 totalDonated
             }
         }

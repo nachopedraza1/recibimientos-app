@@ -5,8 +5,8 @@ import { format } from '@/utils';
 import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper } from '@mui/material'
+import { PaginationData } from '@/interfaces';
 
-import { Results } from '@/interfaces';
 
 const CustomPaper = styled(Paper)((props) => ({
     background: "#1d1b1b",
@@ -16,7 +16,7 @@ const CustomPaper = styled(Paper)((props) => ({
 }));
 
 interface Props {
-    results: Results,
+    results: PaginationData,
     isLoading?: boolean,
     headRows: string[],
     totalText?: string,
@@ -63,7 +63,7 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
             <Typography variant="h5" fontWeight='bold' textAlign='center' m={3} display={!hiddenTotal ? '' : 'none'}>
                 {totalText}
                 <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
-                    ${format(results.totalAmount)}
+                    {results.totalAmount}
                 </Typography>
             </Typography>
 

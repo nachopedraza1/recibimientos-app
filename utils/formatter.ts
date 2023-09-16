@@ -1,6 +1,4 @@
-export const format = (number: string | number): string => {
+export const format = (number: number): string => {
 
-    const numSeparator = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-    return numSeparator;
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }

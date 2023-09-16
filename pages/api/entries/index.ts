@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { db } from '@/database';
 import { Entry } from '@/models'
+import { db } from '@/database';
 
 import { Rows } from '@/interfaces';
 
@@ -12,57 +12,31 @@ type Data =
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     switch (req.method) {
-        case 'GET':
-            return getEntries(req, res);
+        case 'POST':
+            return createEntries(req, res);
 
         default:
             return res.status(400).json({ message: 'Método inválido.' });
     }
 }
 
-const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const page = parseInt(req.query.page as string) || 1;
-    const perPage = 10;
+    const { name, amount } = req.body;
+
+    if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' });
+    if (amount.length <= 3 || amount.length > 20) return res.status(400).json({ message: 'Bad request - Amount' })
 
     try {
         await db.connect();
-
-        const [
-            rows,
-            totalRows,
-            totalAmount
-        ] = await Promise.all([
-            Entry.find()
-                .sort({ createdAt: -1 })
-                .select('name amount createdAt -_id')
-                .skip((page - 1) * perPage)
-                .limit(perPage),
-
-            Entry.find().count(),
-
-            Entry.aggregate([{
-                $group: {
-                    _id: null,
-                    total: { $sum: '$amount' }
-                }
-            }])
-        ]);
+        const entry = new Entry({ name, amount });
+        await entry.save();
         await db.disconnect();
 
-        if (rows.length === 0) {
-            await db.disconnect();
-            return res.status(400).json({ message: 'No hay resultados. ' });
-        }
-
-        return res.status(200).json({
-            rows,
-            totalRows,
-            totalAmount: totalAmount[0].total,
-        });
+        return res.status(200).json({ message: 'Aporte registrado con éxito.' })
 
     } catch (error) {
-        console.log(error);
-        res.status(400).json({ message: 'Error en la paginación. Revisar logs del servidor.' });
+        return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
     }
+
 }

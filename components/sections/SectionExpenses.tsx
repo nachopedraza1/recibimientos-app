@@ -10,7 +10,7 @@ import { Grid, Typography } from "@mui/material"
 
 export const SectionExpenses: FC = () => {
 
-    const { handleChangePage, isLoading, results } = usePaginationRequest('expenses');
+    const { handleChangePage, isLoading, expenses } = usePaginationRequest();
 
     return (
         <SectionLayout idSection="gastos">
@@ -39,7 +39,7 @@ export const SectionExpenses: FC = () => {
                     headRows={['Fecha', 'Producto', 'Monto']}
                     handleChangePage={handleChangePage}
                     isLoading={isLoading}
-                    results={results}
+                    results={expenses}
                     totalText='Gastos totales:'
                 />
 

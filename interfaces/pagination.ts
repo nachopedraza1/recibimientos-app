@@ -1,16 +1,24 @@
-export interface Results {
+export interface ResponsePagination {
+    rowsEntries: Rows[],
+    totalRowsEntries: number,
+    totalAmountEntries: string
+    rowsExpenses: Rows[],
+    totalRowsExpenses: number,
+    totalAmountExpenses: string
+}
+
+export interface PaginationData {
     page: number,
     totalRows: number,
-    totalAmount: number,
+    totalAmount: string,
     rows: Rows[]
 }
 
 export interface Rows {
     _id?: string,
     name: string,
-    amount: number,
+    amount: string,
     createdAt?: string,
-    paymentId?: number,
-    status?: string,
-    method?: 'mercadopago' | 'paypal' | 'transfer',
+    status?: string | 'approved' | 'COMPLETED',
+    method?: "mercadopago" | "paypal" | "transfer",
 }

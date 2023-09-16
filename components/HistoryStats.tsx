@@ -1,14 +1,13 @@
+import { FC, useEffect, useState } from "react";
+import { CustomTable } from "@/components"
+import { CustomBreadcrumbs } from "@/components/ui"
 import { Typography, Grid, Box } from "@mui/material"
-import { FC, useEffect, useState } from "react"
-import { CustomTable } from "."
-import { CustomBreadcrumbs } from "./ui"
-import { Results, Rows } from "@/interfaces"
-import { format } from "@/utils"
+import { Rows, PaginationData } from '@/interfaces';
 
 
 interface Props {
     history: Rows[],
-    totalDonated: number
+    totalDonated: string
 }
 
 export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
@@ -19,10 +18,10 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
         setPage(newPage);
     }
 
-    const [results, setResults] = useState<Results>({
+    const [results, setResults] = useState<PaginationData>({
         page,
         totalRows: 0,
-        totalAmount: 0,
+        totalAmount: "$0",
         rows: []
     });
 
@@ -57,13 +56,13 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
                 <Grid item xs={12} md={3} className='top-box'>
                     <Typography variant='h6' mb={3}> Total aportado: </Typography>
                     <Box textAlign="center" mt={2}>
-                        <Typography variant="h5" color="primary.main">$  {format(totalDonated)} </Typography>
+                        <Typography variant="h5" color="primary.main">${totalDonated}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={3} className='top-box'>
                     <Typography variant='h6' mb={3}> Ultimo aporte: </Typography>
                     <Box textAlign="center" mt={2}>
-                        <Typography variant="h5" color="primary.main">{history[0].createdAt.slice(0, 10)}</Typography>
+                        <Typography variant="h5" color="primary.main">{history[0].createdAt}</Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -71,11 +70,10 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
             <CustomTable
                 headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
                 handleChangePage={handleChangePage}
-                totalText='Total aportado'
                 results={results}
                 hiddenTotal
             />
-            
+
         </>
     )
 }

@@ -1,15 +1,12 @@
 import { FC } from "react";
-import { format } from '@/utils';
 import { TableRow, TableCell } from "@mui/material";
 
 import { Rows } from "@/interfaces";
 
 
-export const RowsPaginated: FC<{ rows: Rows[], page: number }> = ({ rows, page }) => {
+export const RowsPaginated: FC<{ rows: Rows[], page: number }> = ({ rows = [], page }) => {
 
-    if (!rows) return (<></>)
-
-    const emptyRows = Math.max(0, (page * 10) - rows.length) || 0;
+    const emptyRows = Math.max(0, (page * 10) - rows.length);
 
     return (
         <>
@@ -43,7 +40,7 @@ export const RowsPaginated: FC<{ rows: Rows[], page: number }> = ({ rows, page }
                     }
 
                     <TableCell align="center">
-                        ${format(amount)}
+                        {amount}
                     </TableCell>
 
                 </TableRow >
