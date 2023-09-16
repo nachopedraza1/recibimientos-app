@@ -1,50 +1,21 @@
 import { useContext } from 'react';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 
 import { UiContext } from '@/context/ui';
 
+import { db } from '@/database';
+import { format } from '@/utils';
+import { Entry, User } from '@/models';
+
+import { TabPanel } from '@/components/ui';
+import { Dashboard } from '@/components/admin';
 import { AdminLayout } from '@/components/layouts';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
-import { faBagShopping, faCircleDollarToSlot, faDollar, faM, faMoneyBillTransfer, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaypal } from '@fortawesome/free-brands-svg-icons';
+import { DashboardStats } from '@/interfaces';
 
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
 
-const TabPanel = (props: TabPanelProps) => {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            {...other}
-        >
-            {value === index && (
-                <Box >
-                    <Grid container>{children}</Grid>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-const cardsData = [
-    { title: 'MercadoPago', subTitle: 'Aportes por MercadoPago:', icon: <FontAwesomeIcon size='2x' icon={faM} /> },
-    { title: 'Paypal', subTitle: 'Aportes por Paypal:', icon: <FontAwesomeIcon size='2x' icon={faPaypal} /> },
-    { title: 'Transferencias', subTitle: 'Aportes por Transferencias:', icon: <FontAwesomeIcon size='2x' icon={faMoneyBillTransfer} /> },
-    { title: 'Aportes', subTitle: 'Numero total de aportes:', icon: <FontAwesomeIcon size='2x' icon={faCircleDollarToSlot} /> },
-    { title: 'Usuarios', subTitle: 'Usuarios registrados:', icon: <FontAwesomeIcon size='2x' icon={faUser} /> },
-    { title: 'Recaudado', subTitle: 'Total recaudado:', icon: <FontAwesomeIcon size='2x' icon={faDollar} /> },
-    { title: 'Gastos', subTitle: 'Gastos totales:', icon: <FontAwesomeIcon size='2x' icon={faBagShopping} /> },
-];
-
-const AdminPage: NextPage = () => {
+const AdminPage: NextPage<DashboardStats> = (props) => {
 
     const { selectedTab } = useContext(UiContext);
 
@@ -52,24 +23,7 @@ const AdminPage: NextPage = () => {
         <AdminLayout>
 
             <TabPanel value={selectedTab} index={0}>
-                <Grid container spacing={2}>
-                    {
-                        cardsData.map((elm, index) => (
-                            <Grid item xs={12} sm={4} md={3}>
-                                <Card sx={{ display: 'flex' }}>
-                                    <CardContent sx={{ width: 50, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        {elm.icon}
-                                    </CardContent>
-                                    <CardContent sx={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column' }}>
-                                        <Typography variant='h5'> {elm.title} </Typography>
-                                        <Typography variant='caption'>{elm.subTitle}</Typography>
-                                        <Typography variant='h6'>150</Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))
-                    }
-                </Grid>
+                <Dashboard {...props} />
             </TabPanel>
 
             <TabPanel value={selectedTab} index={1}>
@@ -82,4 +36,55 @@ const AdminPage: NextPage = () => {
     )
 }
 
-export default AdminPage
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+
+    try {
+        await db.connect();
+
+        const [
+            entriesMercadoPago,
+            entrieTransfer,
+            entriesPaypal,
+            totalEntries,
+            totalUser,
+            totalCollected,
+        ] = await Promise.all([
+            Entry.find({ method: 'mercadopago' }).count(),
+            Entry.find({ method: 'transfer' }).count(),
+            Entry.find({ method: 'paypal' }).count(),
+            Entry.find().count(),
+            User.find().count(),
+            Entry.aggregate([{
+                $group: {
+                    _id: null,
+                    total: { $sum: '$amount' }
+                }
+            }])
+        ])
+        await db.disconnect();
+
+        return {
+            props: {
+                entriesMercadoPago,
+                entrieTransfer,
+                entriesPaypal,
+                totalEntries,
+                totalUser,
+                totalCollected: `$${format(totalCollected[0].total)}`,
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+
+    }
+}
+
+export default AdminPage;

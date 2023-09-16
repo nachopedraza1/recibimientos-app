@@ -1,66 +1,48 @@
-import { useState } from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import { getSession } from "next-auth/react";
 
 import { db } from '@/database';
 import { Entry } from '@/models';
-import { usePagination } from '@/hooks';
 
-import { CustomTable } from '@/components';
 import { MainLayout } from '@/components/layouts';
+import { PaymentButtons, HistoryStats } from '@/components';
 import { Container, Grid, Typography } from '@mui/material';
 
 import { Rows } from '@/interfaces';
 
-const HistoryPage: NextPage<{ history: Rows[] }> = ({ history }) => {
-
-    console.log(history);
-
-    const { page, handleChangePage } = usePagination();
-
-
-    const results = {
-        page,
-        totalRows: history.length,
-        rows: history
-    }
+const HistoryPage: NextPage<{ history: Rows[], totalDonated: number }> = ({ history, totalDonated }) => {
 
     return (
-        <MainLayout title='Historial | Recibimientos CAB'>
-
+        <MainLayout title='Historial | Recibimientos CAB' containerPageClass="bg-history">
             <Grid
                 container
                 direction="column"
+                minHeight="100vh"
                 justifyContent="center"
-                minHeight="55vh"
                 textAlign="center"
                 color="white"
-                className='bg-donate'
             >
                 <Container>
-                    <Typography variant="h4" fontWeight={600}>
-                        Historial de Aportes
-                    </Typography>
-                    <span className="mini-divider" />
-                    <Typography variant="h6">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Consectetur autem natus nemo inventore.
-                        Explicabo commodi qui, ex expedita ab unde.
-                    </Typography>
+                    {
+                        history.length > 0 ?
+                            (
+                                <HistoryStats
+                                    history={history}
+                                    totalDonated={totalDonated}
+                                />
+
+                            )
+                            :
+                            (
+                                <>
+                                    <Typography variant="h5"> Aun no hay aportes para mostrar. </Typography>
+                                    <PaymentButtons />
+                                </>
+                            )
+                    }
                 </Container>
             </Grid>
-
-            <Container>
-
-                <CustomTable
-                    headRows={['Fecha', 'Nombre', 'Monto', 'Método', 'Estado']}
-                    handleChangePage={handleChangePage}
-                    results={results}
-                    totalText='Total aportado'
-                />
-
-            </Container>
-        </MainLayout>
+        </MainLayout >
     )
 }
 
@@ -80,12 +62,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     try {
         await db.connect();
-        const history = await Entry.find({ userId: session.user._id }).select('name amount status method createdAt -_id').lean();
+        const history = await Entry.find({ userId: session.user._id })
+            .select('name amount status method createdAt -_id')
+            .sort({ createdAt: -1 })
+            .lean();
         await db.disconnect();
+
+        const totalDonated = history.reduce((value, current) => current.amount + value, 0);
 
         return {
             props: {
-                history: JSON.parse(JSON.stringify(history))
+                history: JSON.parse(JSON.stringify(history)),
+                totalDonated
             }
         }
 

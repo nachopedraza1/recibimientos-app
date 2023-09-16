@@ -13,22 +13,18 @@ const CustomPaper = styled(Paper)((props) => ({
     backdropFilter: "blur(10px)",
     borderRadius: "10px",
     border: "1px solid rgba(255, 255, 255, 0.1)",
-}))
-
+}));
 
 interface Props {
     results: Results,
     isLoading?: boolean,
     headRows: string[],
     totalText?: string,
+    hiddenTotal?: boolean,
     handleChangePage: (event: unknown, newPage: number) => void
 }
 
-export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, headRows, totalText }) => {
-
-
-    const emptyRows = Math.max(0, ((results.page - 1) * 10) - results.rows.length);
-
+export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, headRows, totalText, hiddenTotal = false }) => {
 
     return (
         <TableContainer component={CustomPaper}>
@@ -40,21 +36,15 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
                         ))}
                     </TableRow>
                 </TableHead>
-                <TableBody>
 
+                <TableBody>
                     {
                         isLoading
                             ? <LoadDataTables />
-                            : <RowsPaginated rows={results.rows} />
+                            : <RowsPaginated rows={results.rows} page={results.page} />
                     }
-
-                    {(emptyRows > 0 && isLoading === false) && (
-                        <TableRow style={{ height: 53.02 * emptyRows, padding: 0 }}>
-                            <TableCell colSpan={6} />
-                        </TableRow>
-                    )}
-
                 </TableBody>
+
                 <TableFooter>
                     <TableRow>
                         <TablePagination
@@ -62,24 +52,20 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
                             count={results.totalRows}
                             rowsPerPage={10}
                             rowsPerPageOptions={[]}
-                            page={results.page - 1}
+                            page={results.page}
                             onPageChange={handleChangePage}
                         />
                     </TableRow>
                 </TableFooter>
             </Table>
 
-            {
-                results.totalAmount &&
-                (
-                    <Typography variant="h5" fontWeight='bold' textAlign='center' m={3}>
-                        {totalText}
-                        <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
-                            ${format(results.totalAmount)}
-                        </Typography>
-                    </Typography>
-                )
-            }
+
+            <Typography variant="h5" fontWeight='bold' textAlign='center' m={3} display={!hiddenTotal ? '' : 'none'}>
+                {totalText}
+                <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
+                    ${format(results.totalAmount)}
+                </Typography>
+            </Typography>
 
         </TableContainer>
     )

@@ -1,18 +1,17 @@
 import { FC } from 'react';
 
+import { usePaginationRequest } from '@/hooks';
+
+import { CustomTable } from '@/components';
 import { Blob, CustomDivider } from '@/components/ui';
 import { SectionLayout } from "@/components/layouts"
-import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, styled } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 
-
-const CustomPaper = styled(Paper)((props) => ({
-    background: "#1d1b1b",
-    backdropFilter: "blur(10px)",
-    borderRadius: "10px",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
-}))
 
 export const SectionExpenses: FC = () => {
+
+    const { handleChangePage, isLoading, results } = usePaginationRequest('expenses');
+
     return (
         <SectionLayout idSection="gastos">
 
@@ -36,36 +35,14 @@ export const SectionExpenses: FC = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, inventore incidunt in architecto sed veniam quod saepe officiis quam necessitatibus nisi, aliquam doloremque dicta tempore facilis.
                 </Typography>
 
-                <TableContainer component={CustomPaper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center" >Fecha</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center">Producto</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} align="center">Monto</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+                <CustomTable
+                    headRows={['Fecha', 'Producto', 'Monto']}
+                    handleChangePage={handleChangePage}
+                    isLoading={isLoading}
+                    results={results}
+                    totalText='Gastos totales:'
+                />
 
-                            {[...Array(10)].map((item, index) => (
-                                <TableRow key={index}>
-                                    <TableCell align="center">2023-06-01</TableCell>
-                                    <TableCell align="center">Matafuego</TableCell>
-                                    <TableCell align="center">$3500</TableCell>
-                                </TableRow>
-                            ))}
-
-                        </TableBody>
-                    </Table>
-
-                    <Typography variant="h5" fontWeight='bold' m={3}>
-                        Gasto total:
-                        <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
-                            $120.200
-                        </Typography>
-                    </Typography>
-
-                </TableContainer>
             </Grid>
 
             <Blob width="50%" top="15%" left="1%" />

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { usePagination } from '@/hooks';
+import { usePaginationRequest } from '@/hooks';
 
 import { Blob } from '@/components/ui';
 import { SectionLayout } from "@/components/layouts";
@@ -10,7 +10,7 @@ import { Grid, Typography } from "@mui/material";
 
 export const SectionEntries: FC = () => {
 
-    const { handleChangePage, isLoading, results } = usePagination('entries');
+    const { handleChangePage, isLoading, results } = usePaginationRequest('entries');
 
     return (
         <SectionLayout idSection="ingresos">
@@ -41,7 +41,7 @@ export const SectionEntries: FC = () => {
                     handleChangePage={handleChangePage}
                     isLoading={isLoading}
                     results={results}
-                    totalText='Ingreso total:'
+                    totalText='Ingresos totales:'
                 />
 
                 <PaymentButtons />

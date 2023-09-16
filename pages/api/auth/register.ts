@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { name = '', email = '', password = '' } = req.body;
+    const { name, email, password } = req.body;
 
     if (name.length <= 6 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' })
     if (isEmail(email) || email.length > 35) return res.status(400).json({ message: 'Bad request - Email' })

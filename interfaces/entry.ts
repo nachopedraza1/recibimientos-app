@@ -1,4 +1,5 @@
 export interface IEntry {
+    _id?: string,
     userId: string,
     name: string,
     amount: number,

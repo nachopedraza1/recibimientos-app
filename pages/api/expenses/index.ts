@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { Expense } from '@/models';
 import { db } from '@/database';
-import { Entry } from '@/models'
 
 import { Rows } from '@/interfaces';
 
@@ -13,14 +13,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     switch (req.method) {
         case 'GET':
-            return getEntries(req, res);
+            return getExpenses(req, res);
+        case 'POST':
+            return createExpenses(req, res);
 
         default:
             return res.status(400).json({ message: 'Método inválido.' });
     }
 }
 
-const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const page = parseInt(req.query.page as string) || 1;
     const perPage = 10;
@@ -33,15 +35,15 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             totalRows,
             totalAmount
         ] = await Promise.all([
-            Entry.find()
+            Expense.find()
                 .sort({ createdAt: -1 })
                 .select('name amount createdAt -_id')
                 .skip((page - 1) * perPage)
                 .limit(perPage),
 
-            Entry.find().count(),
+            Expense.find().count(),
 
-            Entry.aggregate([{
+            Expense.aggregate([{
                 $group: {
                     _id: null,
                     total: { $sum: '$amount' }
@@ -52,7 +54,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         if (rows.length === 0) {
             await db.disconnect();
-            return res.status(400).json({ message: 'No hay resultados. ' });
+            return res.status(400).json({ message: 'No hay resultados.' });
         }
 
         return res.status(200).json({
@@ -65,4 +67,26 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         console.log(error);
         res.status(400).json({ message: 'Error en la paginación. Revisar logs del servidor.' });
     }
+}
+
+
+const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { name, amount } = req.body;
+
+    if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' });
+    if (amount.length <= 3 || amount.length > 20) return res.status(400).json({ message: 'Bad request - Amount' })
+
+    try {
+        await db.connect();
+        const expense = new Expense({ name, amount });
+        await expense.save();
+        await db.disconnect();
+
+        return res.status(200).json({ message: 'Gasto registrado con éxito.' })
+
+    } catch (error) {
+        return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    }
+
 }

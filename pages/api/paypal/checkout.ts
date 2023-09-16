@@ -83,6 +83,9 @@ const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             }
         })
 
+        const resp = await axios.get('https://api.bluelytics.com.ar/v2/latest');
+        const valueBlue = resp.data.blue.value_sell as number;
+
 
         if (data.status !== 'COMPLETED') {
             return res.status(400).json({ message: 'El pago se encuentra pendiente.' })
@@ -96,7 +99,7 @@ const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             const newEntry = new Entry({
                 userId,
                 name: payerName,
-                amount: data.purchase_units[0].amount.value,
+                amount: parseInt(data.purchase_units[0].amount.value) * valueBlue,
                 method: 'paypal',
                 status: data.status,
                 paymentId

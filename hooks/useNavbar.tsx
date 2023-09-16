@@ -7,7 +7,6 @@ export const useNavbar = () => {
 
     const [activeSection, setActiveSection] = useState<string>('');
     const [navbarBlur, setNavbarBlur] = useState<string>('')
-    console.log(activeSection);
 
     const handleScroll = () => {
         if (window.scrollY > 100) {

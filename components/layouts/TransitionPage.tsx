@@ -20,7 +20,7 @@ export const TransitionPage: FC<{ children: ReactNode }> = ({ children }) => {
                     animate={{ scaleY: 0 }}
                     exit={{ scaleY: 1 }}
                     transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'fixed', height: "100vh" }}
                 >
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -37,9 +37,10 @@ export const TransitionPage: FC<{ children: ReactNode }> = ({ children }) => {
                     animate={{ scaleY: 0 }}
                     exit={{ scaleY: 0 }}
                     transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ position: 'fixed', height: "100vh" }}
                 >
                 </motion.div>
-                
+
             </motion.div>
         </AnimatePresence >
     )
