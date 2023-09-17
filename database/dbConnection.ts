@@ -3,9 +3,8 @@ import mongoose from "mongoose";
 const mongoConnection = {
     isConnected: 0,
 }
-export const connect = async () => {
 
-    console.log(mongoose.connections.length);
+export const connect = async () => {
 
     if (mongoConnection.isConnected === 1) {
         return
@@ -33,3 +32,4 @@ export const disconnect = async () => {
     await mongoose.disconnect();
     mongoConnection.isConnected = 0;
 }
+

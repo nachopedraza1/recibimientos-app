@@ -1,14 +1,5 @@
-export interface ResponsePagination {
-    rowsEntries: Rows[],
-    totalRowsEntries: number,
-    totalAmountEntries: string
-    rowsExpenses: Rows[],
-    totalRowsExpenses: number,
-    totalAmountExpenses: string
-}
-
 export interface PaginationData {
-    page: number,
+    page?: number,
     totalRows: number,
     totalAmount: string,
     rows: Rows[]

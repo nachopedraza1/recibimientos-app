@@ -10,7 +10,7 @@ import { Grid, Typography } from "@mui/material";
 
 export const SectionEntries: FC = () => {
 
-    const { handleChangePage, isLoading, entries } = usePaginationRequest();
+    const { handleChangePage, isLoading, results } = usePaginationRequest('entries');
 
     return (
         <SectionLayout idSection="ingresos">
@@ -40,7 +40,7 @@ export const SectionEntries: FC = () => {
                     headRows={['Fecha', 'Nombre', 'Monto']}
                     handleChangePage={handleChangePage}
                     isLoading={isLoading}
-                    results={entries}
+                    results={results}
                     totalText='Ingresos totales:'
                 />
 

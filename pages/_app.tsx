@@ -19,7 +19,6 @@ import AOS from 'aos';
 
 export default function App({ Component, pageProps }: AppProps) {
 
-
   useEffect(() => {
     AOS.init({
       duration: 600,
@@ -27,7 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
       once: true,
     });
   }, [])
-
 
   return (
     <SessionProvider>

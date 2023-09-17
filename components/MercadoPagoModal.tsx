@@ -38,7 +38,7 @@ export const MercadoPagoModal: FC = () => {
                             className={amount === selected ? 'donate-box selected' : 'donate-box'}
                             onClick={() => mercadoPagoPayment(amount)}
                         >
-                            <Typography>{format(amount.toString())} ARS </Typography>
+                            <Typography>{format(amount)} ARS </Typography>
                             <Image width={45} height={45} src='/logo.png' alt='Recibimientos Cab Mercado Pago' />
                         </Box>
                     ))

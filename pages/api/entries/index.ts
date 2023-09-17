@@ -1,23 +1,71 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { format } from '@/utils';
 import { Entry } from '@/models'
 import { db } from '@/database';
 
-import { Rows } from '@/interfaces';
+import { PaginationData } from '@/interfaces';
 
 type Data =
-    | { rows: Rows[], totalRows: number, totalAmount: number }
     | { message: string }
+    | PaginationData
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     switch (req.method) {
+        case 'GET':
+            return getEntries(req, res)
+
         case 'POST':
             return createEntries(req, res);
 
         default:
             return res.status(400).json({ message: 'Método inválido.' });
     }
+}
+
+
+const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const page = parseInt(req.query.page as string) || 1;
+    const perPage = 10;
+
+    await db.connect();
+
+    const [
+        rows,
+        totalRows,
+        totalAmount
+    ] = await Promise.all([
+        Entry.find()
+            .sort({ createdAt: -1 })
+            .select('name amount createdAt -_id')
+            .skip((page - 1) * perPage)
+            .limit(perPage),
+        Entry.find().count(),
+        Entry.aggregate([{
+            $group: {
+                _id: null,
+                total: { $sum: '$amount' }
+            }
+        }])
+    ]);
+
+    await db.disconnect();
+
+    const formatRows = rows.map(({ name, amount, createdAt }) => {
+        return {
+            name,
+            createdAt: JSON.stringify(createdAt).slice(1, 11),
+            amount: `$${format(amount)}`
+        }
+    })
+
+    return res.status(200).json({
+        rows: formatRows,
+        totalRows,
+        totalAmount: `$${format(totalAmount[0].total)}`,
+    });
 }
 
 const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -40,3 +88,4 @@ const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
     }
 
 }
+

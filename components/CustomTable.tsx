@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { format } from '@/utils';
-
 import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper } from '@mui/material'
@@ -41,7 +39,7 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
                     {
                         isLoading
                             ? <LoadDataTables />
-                            : <RowsPaginated rows={results.rows} page={results.page} />
+                            : <RowsPaginated rows={results.rows} page={results.page!} />
                     }
                 </TableBody>
 
@@ -52,7 +50,7 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
                             count={results.totalRows}
                             rowsPerPage={10}
                             rowsPerPageOptions={[]}
-                            page={results.page}
+                            page={results.page!}
                             onPageChange={handleChangePage}
                         />
                     </TableRow>
