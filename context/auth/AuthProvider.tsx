@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import axios, { isAxiosError } from 'axios';
 
-import { AuthContext, authReducer } from './';
+import { AuthContext, authReducer } from '@/context/auth';
 import { alertSnack } from '@/utils';
+
 import { IUser } from '@/interfaces';
 
 export interface AuthState {
@@ -28,8 +29,13 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     useEffect(() => {
         if (status === 'authenticated') {
             dispatch({ type: '[Auth] - Login', payload: data.user! as IUser })
-            if (!router.asPath.includes("/auth")) {
-                alertSnack(`Bienvenido ${data.user?.name!}`, 'success');
+
+            const alertWelcome = localStorage.getItem('alertShow');
+            if (!alertWelcome) {
+                setTimeout(() => {
+                    alertSnack(`Bienvenido ${data?.user?.name!}`, 'success');
+                }, 1500);
+                localStorage.setItem('alertShow', 'true');
             }
         }
     }, [status])
@@ -42,9 +48,9 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 redirect: false,
             });
             if (resp?.error) {
-                alertSnack('Usuario o contraseña incorrectos', 'error'); 
+                alertSnack('Usuario o contraseña incorrectos', 'error');
             } else {
-                router.reload();
+                router.replace('/');
             }
         } catch (error) {
             console.log(error);
@@ -67,6 +73,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const logoutUser = async () => {
         await signOut();
         dispatch({ type: '[Auth] - Logout' });
+        localStorage.removeItem('alertShow')
     }
 
     return (

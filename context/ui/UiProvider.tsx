@@ -1,5 +1,6 @@
 import { FC, useReducer, ReactNode } from 'react';
-import { UiContext, uiReducer } from './';
+import { UiContext, uiReducer } from '@/context/ui';
+
 
 export interface UiState {
     modalStatus: { mercadopago?: boolean, paypal?: boolean }

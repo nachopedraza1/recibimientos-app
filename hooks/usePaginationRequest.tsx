@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 
 import { PaginationData } from '@/interfaces';
 

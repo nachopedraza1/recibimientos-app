@@ -9,7 +9,7 @@ export const LoadDataTables = () => {
             {
                 rowsLoad.map((item, index) => (
                     <TableRow key={index} sx={{ height: '53.02px' }} className="fadeIn">
-                        <TableCell colSpan={6} sx={{ padding: '2px' }}>
+                        <TableCell colSpan={6} sx={{ padding: '2px', px: 2 }}>
                             <Skeleton animation="wave" height={12} />
                             <Skeleton animation="wave" height={12} />
                             <Skeleton animation="wave" height={12} />

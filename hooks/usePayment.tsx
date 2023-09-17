@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
+import { alertSnack } from '@/utils';
 import { OrderResponseBody } from '@paypal/paypal-js';
 import axios, { isAxiosError } from 'axios';
-import { alertSnack } from '@/utils';
 
 
 export const usePayment = () => {
@@ -24,7 +24,7 @@ export const usePayment = () => {
 
         setSelected(amount);
         setIsLoading(true);
-        
+
         try {
             const { data } = await axios.post('/api/mercadopago/checkout', {
                 amount: parseInt(amount),
@@ -48,20 +48,20 @@ export const usePayment = () => {
         if (!session.data?.user) return;
 
         if (details.status !== 'COMPLETED') {
-            return alert('No hay pago en Paypal');
+            return alertSnack('No hay pago en Paypal', 'error');
         }
 
         setIsLoading(true)
 
         try {
 
-            await axios.post(`/api/paypal/checkout`, {
+            await axios.post('/api/paypal/checkout', {
                 paymentId: details.id,
                 payerName: session.data.user.name,
                 userId: session.data.user._id,
             });
 
-            router.reload();
+            router.push('/history').then(() => router.reload());
 
         } catch (error) {
             setIsLoading(false);

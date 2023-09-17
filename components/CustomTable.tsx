@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
-import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper } from '@mui/material'
+import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper, Box } from '@mui/material';
 import { PaginationData } from '@/interfaces';
 
 
@@ -57,12 +57,13 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
                 </TableFooter>
             </Table>
 
-
-            <Typography variant="h5" fontWeight='bold' textAlign='center' m={3} display={!hiddenTotal ? '' : 'none'}>
-                {totalText}
-                <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
-                    {results.totalAmount}
-                </Typography>
+            <Typography variant="h5" fontWeight='bold' textAlign='center' m={3} display={!hiddenTotal ? '' : 'none'} className='fadeIn'>
+                <Box>
+                    {totalText}
+                    <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
+                        {results.totalAmount}
+                    </Typography>
+                </Box>
             </Typography>
 
         </TableContainer>

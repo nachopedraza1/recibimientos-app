@@ -29,7 +29,7 @@ export const UserButtons = () => {
 
     return (
         <>
-            <IconButton onClick={handleClick} color='primary' sx={{ p: 0, pl: 2 }}>
+            <IconButton onClick={handleClick} color='primary' sx={{ p: 0, pl: 2 }} disableRipple>
                 <FontAwesomeIcon icon={faCircleUser} />
             </IconButton >
 
@@ -56,7 +56,7 @@ export const UserButtons = () => {
                 </MenuItem>
                 {
                     user?.role === 'admin' &&
-                    < MenuItem onClick={() => navigate('/admin')}>
+                    <MenuItem onClick={() => navigate('/admin')}>
                         <ListItemIcon>
                             <FontAwesomeIcon icon={faGear} />
                         </ListItemIcon>

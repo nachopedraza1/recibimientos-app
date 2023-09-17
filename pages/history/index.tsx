@@ -3,13 +3,13 @@ import { getSession } from "next-auth/react";
 
 import { db } from '@/database';
 import { Entry } from '@/models';
+import { format } from '@/utils';
 
 import { MainLayout } from '@/components/layouts';
 import { PaymentButtons, HistoryStats } from '@/components';
 import { Container, Grid, Typography } from '@mui/material';
 
 import { Rows } from '@/interfaces';
-import { format } from '@/utils';
 
 const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ history, totalDonated }) => {
 

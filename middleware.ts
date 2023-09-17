@@ -21,6 +21,15 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     }
 
 
+    if (requestUrl.includes('/auth')) {
+        if (session) {
+            url.pathname = '/';
+            return NextResponse.redirect(url)
+        }
+        return NextResponse.next();
+    }
+
+
     if (requestUrl.includes('/admin')) {
 
         if (!session || session.user.role !== 'admin') {
@@ -34,6 +43,12 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-    matcher: ['/admin', '/api/paypal/checkout', '/api/mercadopago/checkout'],
+    matcher: [
+        '/admin',
+        '/auth/login',
+        '/auth/register',
+        '/api/paypal/checkout',
+        '/api/mercadopago/checkout',
+    ],
 };
 

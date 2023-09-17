@@ -1,7 +1,5 @@
 import { useContext, useState } from 'react';
-import { GetServerSideProps, NextPage } from 'next'
-import { getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,16 +11,12 @@ import { CustomDivider } from '@/components/ui';
 import { MainLayout } from '@/components/layouts';
 import { Box, Button, CircularProgress, Grid, TextField, Typography, FormControlLabel, Checkbox, IconButton } from '@mui/material';
 
-import styles from './auth.module.css'
-
 type FormData = {
     email: string;
     password: string;
 };
 
 const LoginPage: NextPage = () => {
-
-    const { query } = useRouter();
 
     const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -37,8 +31,8 @@ const LoginPage: NextPage = () => {
     }
 
     return (
-        <MainLayout title='Ingresar | Recibimientos CAB' containerPageClass={styles.container}>
-            <form onSubmit={handleSubmit(onLogin)} noValidate className={styles.box_auth} data-aos='fade-in'>
+        <MainLayout title='Ingresar | Recibimientos CAB' containerPageClass="auth-container">
+            <form onSubmit={handleSubmit(onLogin)} noValidate className="auth-box">
                 <Grid container direction='column' gap={2}>
                     <Box>
                         <Typography variant='h4'> Iniciar sesión</Typography>
@@ -79,7 +73,7 @@ const LoginPage: NextPage = () => {
 
                     <CustomDivider />
 
-                    <Box className={styles.providers}>
+                    <Box className="auth-providers">
                         <IconButton>
                             <Image src='/google.png' width={33} height={33} alt='Ingresar con google' />
                         </IconButton>
@@ -93,7 +87,7 @@ const LoginPage: NextPage = () => {
 
                     <Typography textAlign="center" mt={1}>
                         No tienes cuenta ?
-                        <Link href={query.p ? `/auth/register?p=${query.p}` : '/auth/register'} className="link" >
+                        <Link href='/auth/register' className="link" >
                             Registrate
                         </Link>
                     </Typography>
@@ -103,24 +97,5 @@ const LoginPage: NextPage = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-
-    const { p = '/' } = query;
-
-    const session = await getSession({ req });
-
-    if (session) {
-        return {
-            redirect: {
-                destination: p?.toString(),
-                permanent: false,
-            }
-        }
-    }
-
-    return {
-        props: {}
-    }
-}
 
 export default LoginPage;

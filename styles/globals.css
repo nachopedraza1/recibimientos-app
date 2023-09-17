@@ -114,10 +114,54 @@ nav .active {
 .bg-history {
     background-image: url('../public/bgHistory.png');
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.auth-container {
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/bgAuth.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.auth-container a {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 1rem;
+    color: white;
+    margin-left: 5px;
+}
+
+.auth-container h4 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: var(--glass-1-fill-carey, linear-gradient(294deg, hsla(0, 0%, 75%, .06) 0, transparent 100%), rgba(0, 0, 0, .14));
+    box-shadow: -8px 4px 5px 0 rgba(0, 0, 0, .24);
+    backdrop-filter: blur(26.5px);
+}
+
+.auth-providers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mini-divider {
