@@ -32,10 +32,11 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     await db.connect();
 
-    /* try { */
+    /*  try { */
     const [
         rows,
         totalRows,
+        totalAmount
     ] = await Promise.all([
         Entry.find()
             .sort({ createdAt: -1 })
@@ -43,11 +44,16 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             .skip((page - 1) * perPage)
             .limit(perPage),
         Entry.find().count(),
+        Entry.aggregate([{
+            $group: {
+                _id: null,
+                total: { $sum: '$amount' }
+            }
+        }])
     ]);
 
-    /*  await db.disconnect(); */
+    /* await db.disconnect(); */
 
-    const totalAmount = rows.reduce((value, current) => current.amount + value, 0);
 
     const formatRows = rows.map(({ name, amount, createdAt }) => {
         return {
@@ -60,13 +66,13 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return res.status(200).json({
         rows: formatRows,
         totalRows,
-        totalAmount: `$${format(totalAmount)}`,
+        totalAmount: `$${format(totalAmount[0].total)}`,
     });
-    /*   } catch (error) {
-          console.log(error);
-          await db.disconnect();
-          return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
-      } */
+    /*  } catch (error) {
+         console.log(error);
+         await db.disconnect();
+         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+     } */
 }
 
 const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {

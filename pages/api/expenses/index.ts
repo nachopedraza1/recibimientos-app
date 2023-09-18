@@ -30,42 +30,42 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const perPage = 10;
 
 
-   /*  try { */
-        await db.connect();
+    /*  try { */
+    await db.connect();
 
-        const [
-            rows,
-            totalRows,
-            totalAmount
-        ] = await Promise.all([
-            Expense.find()
-                .sort({ createdAt: -1 })
-                .select('name amount createdAt -_id')
-                .skip((page - 1) * perPage)
-                .limit(perPage),
-            Expense.find().count(),
-            Expense.aggregate([{
-                $group: {
-                    _id: null,
-                    total: { $sum: 'amount' }
-                }
-            }])
-        ]);
-        /* await db.disconnect(); */
-
-        const formatRows = rows.map(({ name, amount, createdAt }) => {
-            return {
-                name,
-                createdAt: JSON.stringify(createdAt).slice(1, 11),
-                amount: `$${format(amount)}`
+    const [
+        rows,
+        totalRows,
+        totalAmount
+    ] = await Promise.all([
+        Expense.find()
+            .sort({ createdAt: -1 })
+            .select('name amount createdAt -_id')
+            .skip((page - 1) * perPage)
+            .limit(perPage),
+        Expense.find().count(),
+        Expense.aggregate([{
+            $group: {
+                _id: null,
+                total: { $sum: '$amount' }
             }
-        });
+        }])
+    ]);
+    /* await db.disconnect(); */
 
-        return res.status(200).json({
-            rows: formatRows,
-            totalRows,
-            totalAmount: `$${format(totalAmount[0].total)}`,
-        });
+    const formatRows = rows.map(({ name, amount, createdAt }) => {
+        return {
+            name,
+            createdAt: JSON.stringify(createdAt).slice(1, 11),
+            amount: `$${format(amount)}`
+        }
+    });
+
+    return res.status(200).json({
+        rows: formatRows,
+        totalRows,
+        totalAmount: `$${format(totalAmount[0].total)}`,
+    });
 
     /* } catch (error) {
         console.log(error);
