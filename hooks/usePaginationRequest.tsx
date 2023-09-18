@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import useSWR from "swr";
 
 import { PaginationData } from '@/interfaces';
@@ -11,12 +11,12 @@ export const usePaginationRequest = (tableData: 'entries' | 'expenses') => {
         setPage(newPage);
     }
 
-    const { data, isLoading } = useSWR<PaginationData>(`/api/${tableData}?page=${page + 1}`, {
+    const { data, isLoading, error } = useSWR<PaginationData>(`/api/${tableData}?page=${page + 1}`, {
         revalidateOnFocus: false,
         revalidateOnReconnect: true,
     });
 
-    const [results, setEntries] = useState<PaginationData>({
+    const [results, setResults] = useState<PaginationData>({
         page,
         rows: [],
         totalRows: 0,
@@ -25,14 +25,8 @@ export const usePaginationRequest = (tableData: 'entries' | 'expenses') => {
 
     useEffect(() => {
         if (!data) return;
-        setEntries({
-            page,
-            rows: data.rows,
-            totalRows: data.totalRows,
-            totalAmount: data.totalAmount,
-        });
+        setResults({ ...data, page });
     }, [isLoading, page])
-
 
     return {
         page,

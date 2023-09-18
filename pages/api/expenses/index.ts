@@ -29,42 +29,49 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const page = parseInt(req.query.page as string) || 1;
     const perPage = 10;
 
-    await db.connect();
 
-    const [
-        rows,
-        totalRows,
-        totalAmount
-    ] = await Promise.all([
-        Expense.find()
-            .sort({ createdAt: -1 })
-            .select('name amount createdAt -_id')
-            .skip((page - 1) * perPage)
-            .limit(perPage),
-        Expense.find().count(),
-        Expense.aggregate([{
-            $group: {
-                _id: null,
-                total: { $sum: '$amount' }
+   /*  try { */
+        await db.connect();
+
+        const [
+            rows,
+            totalRows,
+            totalAmount
+        ] = await Promise.all([
+            Expense.find()
+                .sort({ createdAt: -1 })
+                .select('name amount createdAt -_id')
+                .skip((page - 1) * perPage)
+                .limit(perPage),
+            Expense.find().count(),
+            Expense.aggregate([{
+                $group: {
+                    _id: null,
+                    total: { $sum: 'amount' }
+                }
+            }])
+        ]);
+        /* await db.disconnect(); */
+
+        const formatRows = rows.map(({ name, amount, createdAt }) => {
+            return {
+                name,
+                createdAt: JSON.stringify(createdAt).slice(1, 11),
+                amount: `$${format(amount)}`
             }
-        }])
-    ]);
+        });
 
-    await db.disconnect();
+        return res.status(200).json({
+            rows: formatRows,
+            totalRows,
+            totalAmount: `$${format(totalAmount[0].total)}`,
+        });
 
-    const formatRows = rows.map(({ name, amount, createdAt }) => {
-        return {
-            name,
-            createdAt: JSON.stringify(createdAt).slice(1, 11),
-            amount: `$${format(amount)}`
-        }
-    })
-
-    return res.status(200).json({
-        rows: formatRows,
-        totalRows,
-        totalAmount: `$${format(totalAmount[0].total)}`,
-    });
+    /* } catch (error) {
+        console.log(error);
+        await db.disconnect();
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    } */
 }
 
 
@@ -84,7 +91,7 @@ const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) =
         return res.status(200).json({ message: 'Gasto registrado con éxito.' })
 
     } catch (error) {
-        return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
     }
 
 }

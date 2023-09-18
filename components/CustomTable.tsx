@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper, Box } from '@mui/material';
+
 import { PaginationData } from '@/interfaces';
 
 

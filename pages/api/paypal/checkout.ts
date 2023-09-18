@@ -3,7 +3,7 @@ import { isValidObjectId } from 'mongoose';
 import axios from 'axios';
 
 import { db } from '@/database';
-import { Entry } from '@/models';
+import { Entry, User } from '@/models';
 
 import { PaypalOrderStatusResponse } from '@/interfaces';
 
@@ -86,7 +86,6 @@ const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         const resp = await axios.get('https://api.bluelytics.com.ar/v2/latest');
         const valueBlue = resp.data.blue.value_sell as number;
 
-
         if (data.status !== 'COMPLETED') {
             return res.status(400).json({ message: 'El pago se encuentra pendiente.' })
         }
@@ -96,14 +95,22 @@ const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         const entry = await Entry.findOne({ paymentId })
 
         if (!entry) {
+
+            const amountInArs = parseInt(data.purchase_units[0].amount.value) * valueBlue
+
             const newEntry = new Entry({
                 userId,
                 name: payerName,
-                amount: parseInt(data.purchase_units[0].amount.value) * valueBlue,
+                amount: amountInArs,
                 method: 'paypal',
                 status: data.status,
                 paymentId
-            })
+            });
+
+            await User.findByIdAndUpdate(userId, {
+                $inc: { totalDonated: amountInArs }
+            });
+
             await newEntry.save();
             await db.disconnect();
             return res.status(200).json({ message: "Pago completado con éxito." })

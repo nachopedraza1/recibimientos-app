@@ -14,8 +14,8 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: '100%',
     maxWidth: '550px',
-    bgcolor: '#16171b',
-    border: '2px solid #08b8ef',
+    bgcolor: '#1d1b1b',
+    border: '1px solid #08b8ef',
     borderRadius: '10px',
     boxShadow: 24,
     p: 4,
@@ -35,7 +35,6 @@ export const ModalLayout: FC<Props> = ({ children, modalType, modalStatus }) => 
     const session = useSession();
 
     const { toggleModal } = useContext(UiContext);
-
 
     return (
         <div>

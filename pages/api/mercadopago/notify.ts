@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import mercadopago from 'mercadopago';
 
 import { db } from '@/database';
-import { Entry } from '@/models';
+import { Entry, User } from '@/models';
 
 mercadopago.configure({
     access_token: process.env.SECRET_MP!
@@ -30,14 +30,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     method: 'mercadopago',
                     status: body.status,
                     paymentId
-                })
+                });
+
+                await User.findByIdAndUpdate(body.additional_info.items[0].id, {
+                    $inc: { totalDonated: body.transaction_details.total_paid_amount, countDonations: 1 },
+                });
+
                 await newEntry.save();
                 await db.disconnect();
                 return res.status(200).json({ message: "Pago completado con éxito." })
             }
 
             entry.status = body.status;
-            
+
             await entry.save();
             await db.disconnect();
 
