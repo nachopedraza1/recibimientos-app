@@ -22,5 +22,5 @@ export const checkUserEmailPassword = async (email: string, password: string): P
 
     const { _id, name, role } = user;
 
-    return { _id, name, email, role }
+    return { _id, name, email, role };
 }
