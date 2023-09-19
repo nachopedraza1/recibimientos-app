@@ -8,11 +8,11 @@ import { format } from '@/utils';
 import { Entry, Expense, User } from '@/models';
 
 import { TabPanel } from '@/components/ui';
-import { Dashboard, History } from '@/components/admin';
 import { AdminLayout } from '@/components/layouts';
+import { AddEntries, AddExpenses, Dashboard, History } from '@/components/admin';
 
 import { DashboardStats } from '@/interfaces';
-
+import Typography from '@mui/material/Typography'
 
 const AdminPage: NextPage<DashboardStats> = (props) => {
 
@@ -26,28 +26,26 @@ const AdminPage: NextPage<DashboardStats> = (props) => {
             </TabPanel>
 
             <TabPanel value={selectedTab} index={1}>
-                <History
-                    type='entries'
-                    headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
-                />
+                <AddEntries />
             </TabPanel>
 
             <TabPanel value={selectedTab} index={2}>
-                <History
-                    type='expenses'
-                    headRows={['Fecha', 'Producto', 'Monto']}
-                />
+                <AddExpenses />
             </TabPanel>
 
             <TabPanel value={selectedTab} index={3}>
                 <History
                     type='users'
-                    headRows={['Fecha Registro', 'Nombre', 'Monto']}
+                    title='Ultimos registros'
+                    headRows={['Fecha Registro', 'Nombre', 'Email', 'Rol', '']}
                 />
             </TabPanel>
 
+            <TabPanel value={selectedTab} index={4}>
+                <Typography>En desarrollo...</Typography>
+            </TabPanel>
 
-        </AdminLayout>
+        </AdminLayout >
     )
 }
 

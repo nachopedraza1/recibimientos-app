@@ -52,7 +52,7 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                 }
             }])
         ]);
-        
+
         /* await db.disconnect(); */
 
         const formatRows = rows.map(({ name, amount, createdAt }) => {
@@ -81,7 +81,8 @@ const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) =
     const { name, amount } = req.body;
 
     if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' });
-    if (amount.length <= 3 || amount.length > 20) return res.status(400).json({ message: 'Bad request - Amount' })
+    if (amount.length <= 1 || amount.length > 20) return res.status(400).json({ message: 'Bad request - Amount' })
+
 
     try {
         await db.connect();

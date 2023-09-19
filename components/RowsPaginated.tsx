@@ -42,19 +42,17 @@ export const RowsPaginated: FC<Props> = ({ rows = [], page, extendedTable, users
                         </>
                     )}
 
-                    {
-                        extendedTable && (
-                            <>
-                                <TableCell align="center">
-                                    {row.method}
-                                </TableCell>
+                    {extendedTable && (
+                        <>
+                            <TableCell align="center">
+                                {row.method}
+                            </TableCell>
 
-                                <TableCell align="center">
-                                    {row.status == 'approved' || 'COMPLETED' ? <FontAwesomeIcon icon={faCircleCheck} color="#198754" /> : 'Error'}
-                                </TableCell>
-                            </>
-                        )
-                    }
+                            <TableCell align="center">
+                                {row.status == 'approved' || 'COMPLETED' ? <FontAwesomeIcon icon={faCircleCheck} color="#198754" /> : 'Error'}
+                            </TableCell>
+                        </>
+                    )}
 
                     <TableCell align="center">
                         {row.amount}
