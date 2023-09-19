@@ -5,6 +5,7 @@ import { Entry } from '@/models'
 import { db } from '@/database';
 
 import { PaginationData } from '@/interfaces';
+import { getSession } from 'next-auth/react';
 
 type Data =
     | { message: string }
@@ -27,52 +28,55 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
+    const session: any = getSession({ req });
+
     const page = parseInt(req.query.page as string) || 1;
     const perPage = 10;
 
     await db.connect();
 
-    /*  try { */
-    const [
-        rows,
-        totalRows,
-        totalAmount
-    ] = await Promise.all([
-        Entry.find()
-            .sort({ createdAt: -1 })
-            .select('name amount createdAt -_id')
-            .skip((page - 1) * perPage)
-            .limit(perPage),
-        Entry.find().count(),
-        Entry.aggregate([{
-            $group: {
-                _id: null,
-                total: { $sum: '$amount' }
+    try {
+
+        const [
+            rows,
+            totalRows,
+            totalAmount
+        ] = await Promise.all([
+            Entry.find()
+                .sort({ createdAt: -1 })
+                .select('name amount createdAt method status -_id')
+                .skip((page - 1) * perPage)
+                .limit(perPage)
+                .lean(),
+            Entry.find().count(),
+            Entry.aggregate([{
+                $group: {
+                    _id: null,
+                    total: { $sum: '$amount' }
+                }
+            }])
+        ]);
+
+        /* await db.disconnect(); */
+
+        const publicRows = rows.map(row => {
+            return {
+                ...row,
+                createdAt: JSON.stringify(row.createdAt).slice(1, 11),
+                amount: `$${format(row.amount)}`
             }
-        }])
-    ]);
+        })
 
-    /* await db.disconnect(); */
-
-
-    const formatRows = rows.map(({ name, amount, createdAt }) => {
-        return {
-            name,
-            createdAt: JSON.stringify(createdAt).slice(1, 11),
-            amount: `$${format(amount)}`
-        }
-    })
-
-    return res.status(200).json({
-        rows: formatRows,
-        totalRows,
-        totalAmount: `$${format(totalAmount[0].total)}`,
-    });
-    /*  } catch (error) {
-         console.log(error);
-         await db.disconnect();
-         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
-     } */
+        return res.status(200).json({
+            rows: publicRows,
+            totalRows,
+            totalAmount: `$${format(totalAmount[0].total)}`,
+        });
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    }
 }
 
 const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {

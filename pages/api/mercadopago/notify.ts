@@ -37,14 +37,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 });
 
                 await newEntry.save();
-                await db.disconnect();
+                /* await db.disconnect(); */
                 return res.status(200).json({ message: "Pago completado con éxito." })
             }
 
             entry.status = body.status;
 
             await entry.save();
-            await db.disconnect();
+            /* await db.disconnect(); */
 
             return res.status(200).json({ message: "Pago actualizado con éxito." })
         }

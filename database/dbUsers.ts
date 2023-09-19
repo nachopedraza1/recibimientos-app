@@ -9,10 +9,10 @@ export const checkUserEmailPassword = async (email: string, password: string): P
 
     await db.connect();
     const user = await User.findOne({ email });
-    await db.disconnect();
+    /* await db.disconnect(); */
 
     if (!user) {
-        await db.disconnect();
+        /* await db.disconnect(); */
         return null;
     }
 

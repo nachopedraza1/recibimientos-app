@@ -1,10 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+
 import { db } from '@/database';
 import { User } from '@/models';
-import { IUser } from '@/interfaces';
+import { format } from '@/utils';
+
+import { IUser, PaginationData } from '@/interfaces';
 
 type Data =
     | { message: string }
+    | PaginationData
     | IUser[]
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -27,38 +31,56 @@ const getUsers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     if (tops) {
 
-        /*  try { */
         await db.connect();
 
-        const tops = await User.find().select('name totalDonated countDonations')
-            .sort({ totalDonated: -1 })
-            .limit(3)
+        try {
 
-        /* await db.disconnect(); */
+            const tops = await User.find().select('name totalDonated countDonations')
+                .sort({ totalDonated: -1 })
+                .limit(3)
 
-        return res.status(200).json(tops);
+            /* await db.disconnect(); */
 
-        /*         } catch (error) {
-                    console.log(error);
-                    await db.disconnect();
-                    return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
-                } */
+            return res.status(200).json(tops);
+
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+        }
     }
 
 
     try {
         await db.connect();
-        const users = await User.find()
-            .select('name email role totalDonated countDonations')
-            .skip((page - 1) * perPage)
-            .sort({ createdAt: -1 })
-            .limit(perPage)
-        await db.disconnect();
 
-        return res.status(200).json(users);
+        const [
+            rows,
+            totalRows,
+            totalDonated
+        ] = await Promise.all([
+            User.find()
+                .select('name email createdAt role totalDonated countDonations')
+                .skip((page - 1) * perPage)
+                .sort({ createdAt: -1 })
+                .limit(perPage),
+            User.find().count(),
+            User.aggregate([{
+                $group: {
+                    _id: null,
+                    total: { $sum: '$total' }
+                }
+            }])
+        ])
+        /* await db.disconnect(); */
+
+        return res.status(200).json({
+            rows,
+            totalRows,
+            totalAmount: `$${format(totalDonated[0].total)}`
+        });
 
     } catch (error) {
         console.log(error);
-        return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
     }
 }

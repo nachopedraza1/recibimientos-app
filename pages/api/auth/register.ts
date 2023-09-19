@@ -35,7 +35,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
     const isExist = await User.findOne({ email })
 
     if (isExist) {
-        await db.disconnect();
+        /* await db.disconnect(); */
         return res.status(400).json({ message: 'Ya existe un usuario registrado con este email.' })
     }
 
@@ -44,13 +44,13 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
         const user = new User({
             name: name.toLowerCase(),
             email: email.toLowerCase(),
-            role: 'visit',
+            role: 'user',
             totalDonated: 0,
             password: bcrypt.hashSync(password)
         })
 
         await user.save({ validateBeforeSave: true });
-        await db.disconnect();
+        /* await db.disconnect(); */
 
         return res.status(200).json({ message: 'Usuario registrado.' });
 

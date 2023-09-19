@@ -1,46 +1,63 @@
 import { FC } from "react";
 import { TableRow, TableCell } from "@mui/material";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { Rows } from "@/interfaces";
 
 
-export const RowsPaginated: FC<{ rows: Rows[], page: number }> = ({ rows = [], page }) => {
+interface Props {
+    page: number,
+    rows: Rows[],
+    extendedTable: boolean,
+    usersTable?: boolean,
+}
+
+export const RowsPaginated: FC<Props> = ({ rows = [], page, extendedTable, usersTable }) => {
 
     const emptyRows = Math.max(0, (page * 10) - rows.length);
 
+
     return (
         <>
-            {rows.map(({ name, createdAt, amount, method, status }, index) => (
+            {rows.map((row, index) => (
                 <TableRow key={index} className="fadeIn">
 
                     <TableCell align="center" scope="row">
-                        {createdAt!.substring(0, 10)}
+                        {row.createdAt!.substring(0, 10)}
                     </TableCell>
 
                     <TableCell align="center">
-                        {name}
+                        {row.name}
                     </TableCell>
 
-                    {
-                        method &&
-                        (
-                            <TableCell align="center">
-                                {method}
+                    {usersTable && (
+                        <>
+                            <TableCell align="center" sx={{ textTransform: 'lowercase' }}>
+                                {row.email}
                             </TableCell>
-                        )
-                    }
+                            <TableCell align="center">
+                                {row.role}
+                            </TableCell>
+                        </>
+                    )}
 
                     {
-                        status &&
-                        (
-                            <TableCell align="center">
-                                {status}
-                            </TableCell>
+                        extendedTable && (
+                            <>
+                                <TableCell align="center">
+                                    {row.method}
+                                </TableCell>
+
+                                <TableCell align="center">
+                                    {row.status == 'approved' || 'COMPLETED' ? <FontAwesomeIcon icon={faCircleCheck} color="#198754" /> : 'Error'}
+                                </TableCell>
+                            </>
                         )
                     }
 
                     <TableCell align="center">
-                        {amount}
+                        {row.amount}
                     </TableCell>
 
                 </TableRow >

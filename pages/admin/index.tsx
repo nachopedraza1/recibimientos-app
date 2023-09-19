@@ -5,12 +5,11 @@ import { UiContext } from '@/context/ui';
 
 import { db } from '@/database';
 import { format } from '@/utils';
-import { Entry, User } from '@/models';
+import { Entry, Expense, User } from '@/models';
 
 import { TabPanel } from '@/components/ui';
-import { Dashboard } from '@/components/admin';
+import { Dashboard, History } from '@/components/admin';
 import { AdminLayout } from '@/components/layouts';
-import { Grid } from '@mui/material';
 
 import { DashboardStats } from '@/interfaces';
 
@@ -27,10 +26,26 @@ const AdminPage: NextPage<DashboardStats> = (props) => {
             </TabPanel>
 
             <TabPanel value={selectedTab} index={1}>
-                <Grid container alignItems="center" className="fade">
-                    asdasdasd123123
-                </Grid>
+                <History
+                    type='entries'
+                    headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
+                />
             </TabPanel>
+
+            <TabPanel value={selectedTab} index={2}>
+                <History
+                    type='expenses'
+                    headRows={['Fecha', 'Producto', 'Monto']}
+                />
+            </TabPanel>
+
+            <TabPanel value={selectedTab} index={3}>
+                <History
+                    type='users'
+                    headRows={['Fecha Registro', 'Nombre', 'Monto']}
+                />
+            </TabPanel>
+
 
         </AdminLayout>
     )
@@ -44,11 +59,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
         const [
             entriesMercadoPago,
-            entrieTransfer,
+            entriesTransfer,
             entriesPaypal,
             totalEntries,
             totalUser,
             totalCollected,
+            totalExpenses,
         ] = await Promise.all([
             Entry.find({ method: 'mercadopago' }).count(),
             Entry.find({ method: 'transfer' }).count(),
@@ -60,18 +76,25 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
                     _id: null,
                     total: { $sum: '$amount' }
                 }
+            }]),
+            Expense.aggregate([{
+                $group: {
+                    _id: null,
+                    total: { $sum: '$amount' }
+                }
             }])
         ])
-        await db.disconnect();
+        /* await db.disconnect(); */
 
         return {
             props: {
                 entriesMercadoPago,
-                entrieTransfer,
+                entriesTransfer,
                 entriesPaypal,
                 totalEntries,
                 totalUser,
                 totalCollected: `$${format(totalCollected[0].total)}`,
+                totalExpenses: `$${format(totalExpenses[0].total)}`
             }
         }
 
@@ -83,7 +106,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
                 permanent: false
             }
         }
-
     }
 }
 

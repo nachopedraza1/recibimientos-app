@@ -1,8 +1,9 @@
 export interface DashboardStats {
     entriesMercadoPago: number;
-    entrieTransfer: number;
+    entriesTransfer: number;
     entriesPaypal: number;
     totalEntries: number;
     totalUser: number;
     totalCollected: string;
+    totalExpenses: string;
 }

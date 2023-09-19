@@ -9,8 +9,8 @@ import { faChartLine, faGear, faMoneyBillTransfer, faRightFromBracket, faSackDol
 
 const tabs = [
     { text: 'Estadisticas', icon: <FontAwesomeIcon icon={faChartLine} />, tabValue: 0 },
-    { text: 'Agregar aporte', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 1 },
-    { text: 'Historial', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, tabValue: 2 },
+    { text: 'Agregar Aportes', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 1 },
+    { text: 'Agregar Gastos', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, tabValue: 2 },
     { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} />, tabValue: 3 },
     { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} />, tabValue: 4 },
     { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} />, tabValue: 5 },

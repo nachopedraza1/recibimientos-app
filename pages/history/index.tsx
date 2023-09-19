@@ -66,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
             .select('name amount status method createdAt -_id')
             .sort({ createdAt: -1 })
             .lean();
-        await db.disconnect();
+        /* await db.disconnect(); */
 
         const history = historyTime.map(element => {
             return {

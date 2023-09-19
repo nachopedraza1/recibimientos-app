@@ -3,7 +3,7 @@ import useSWR from "swr";
 
 import { PaginationData } from '@/interfaces';
 
-export const usePaginationRequest = (tableData: 'entries' | 'expenses') => {
+export const usePaginationRequest = (tableData: 'entries' | 'expenses' | 'users') => {
 
     const [page, setPage] = useState<number>(0);
 
@@ -11,7 +11,7 @@ export const usePaginationRequest = (tableData: 'entries' | 'expenses') => {
         setPage(newPage);
     }
 
-    const { data, isLoading, error } = useSWR<PaginationData>(`/api/${tableData}?page=${page + 1}`, {
+    const { data, isLoading } = useSWR<PaginationData>(`/api/${tableData}?page=${page + 1}`, {
         revalidateOnFocus: false,
         revalidateOnReconnect: true,
     });

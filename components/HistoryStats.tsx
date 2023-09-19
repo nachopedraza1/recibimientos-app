@@ -73,6 +73,7 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
                 headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
                 handleChangePage={handleChangePage}
                 results={results}
+                extendedTable
                 hiddenTotal
             />
 

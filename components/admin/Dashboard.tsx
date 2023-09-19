@@ -9,22 +9,23 @@ import { faM, faMoneyBillTransfer, faCircleDollarToSlot, faUser, faDollar, faBag
 import { DashboardStats } from "@/interfaces";
 
 export const Dashboard: FC<DashboardStats> = (
-    { entrieTransfer,
+    { entriesTransfer,
         entriesMercadoPago,
         entriesPaypal,
         totalCollected,
         totalEntries,
+        totalExpenses,
         totalUser
     }) => {
 
     const cardsData = [
         { title: 'MercadoPago', subTitle: 'Aportes por MercadoPago:', value: entriesMercadoPago, icon: <FontAwesomeIcon size='2x' icon={faM} /> },
         { title: 'Paypal', subTitle: 'Aportes por Paypal:', value: entriesPaypal, icon: <FontAwesomeIcon size='2x' icon={faPaypal} /> },
-        { title: 'Transferencias', subTitle: 'Aportes por Transferencias:', value: entrieTransfer, icon: <FontAwesomeIcon size='2x' icon={faMoneyBillTransfer} /> },
+        { title: 'Transferencias', subTitle: 'Aportes por Transferencias:', value: entriesTransfer, icon: <FontAwesomeIcon size='2x' icon={faMoneyBillTransfer} /> },
         { title: 'Aportes', subTitle: 'Numero total de aportes:', value: totalEntries, icon: <FontAwesomeIcon size='2x' icon={faCircleDollarToSlot} /> },
         { title: 'Usuarios', subTitle: 'Usuarios registrados:', value: totalUser, icon: <FontAwesomeIcon size='2x' icon={faUser} /> },
         { title: 'Recaudado', subTitle: 'Total recaudado:', value: totalCollected, icon: <FontAwesomeIcon size='2x' icon={faDollar} /> },
-        { title: 'Gastos', subTitle: 'Gastos totales:', value: 100, icon: <FontAwesomeIcon size='2x' icon={faBagShopping} /> },
+        { title: 'Gastos', subTitle: 'Gastos totales:', value: totalExpenses, icon: <FontAwesomeIcon size='2x' icon={faBagShopping} /> },
     ];
 
     return (

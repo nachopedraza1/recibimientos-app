@@ -20,10 +20,20 @@ interface Props {
     headRows: string[],
     totalText?: string,
     hiddenTotal?: boolean,
+    extendedTable?: boolean,
+    usersTable?: boolean,
     handleChangePage: (event: unknown, newPage: number) => void
 }
 
-export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, headRows, totalText, hiddenTotal = false }) => {
+export const CustomTable: FC<Props> = (
+    { handleChangePage,
+        isLoading,
+        results,
+        headRows,
+        totalText,
+        usersTable = false,
+        extendedTable = false,
+        hiddenTotal = false }) => {
 
     return (
         <TableContainer component={CustomPaper}>
@@ -40,7 +50,12 @@ export const CustomTable: FC<Props> = ({ handleChangePage, isLoading, results, h
                     {
                         isLoading
                             ? <LoadDataTables />
-                            : <RowsPaginated rows={results.rows} page={results.page!} />
+                            : <RowsPaginated
+                                rows={results.rows}
+                                page={results.page!}
+                                extendedTable={extendedTable}
+                                usersTable={usersTable}
+                            />
                     }
                 </TableBody>
 
