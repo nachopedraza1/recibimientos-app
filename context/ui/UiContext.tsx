@@ -8,6 +8,7 @@ interface ContextProps {
 
     toggleModal: (modalType: 'mercadopago' | 'paypal') => void;
     handleChangeTab: (tabValue: number) => void;
+    toggleSidebar: () => void;
 }
 
 

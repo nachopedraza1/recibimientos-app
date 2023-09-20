@@ -1,6 +1,7 @@
 export * from './Blob';
 export * from './Navbar';
 export * from './Footer';
+export * from './Sidebar';
 export * from './TabPanel';
 export * from './UserButtons';
 export * from './NavbarAdmin';

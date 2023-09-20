@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { Navbar, Footer } from '@/components/ui';
+import { Navbar, Sidebar, Footer } from '@/components/ui';
 import { Grid } from '@mui/material';
 
 
@@ -28,7 +28,12 @@ export const MainLayout = ({ title, children, description, containerPageClass }:
                 <meta name="og:image" content="/favicon.png" />
             </Head>
 
-            {!asPath.includes('/auth') && <Navbar />}
+            {!asPath.includes('/auth') &&
+                <>
+                    <Navbar />
+                    <Sidebar />
+                </>
+            }
 
             <main className={containerPageClass} style={{ overflow: 'hidden' }}>
                 {children}

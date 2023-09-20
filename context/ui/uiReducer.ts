@@ -13,6 +13,7 @@ export const uiReducer = (state: UiState, action: UiActionType): UiState => {
         case '[Ui] - toggleSidebarMobile':
             return {
                 ...state,
+                sidebarMobile: !state.sidebarMobile
             }
         case '[Ui] - changeTabValue':
             return {

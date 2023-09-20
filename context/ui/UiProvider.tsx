@@ -26,10 +26,15 @@ export const UiProvider: FC<{ children: ReactNode }> = ({ children }) => {
         dispatch({ type: '[Ui] - toggleModal', payload: modalType })
     }
 
+    const toggleSidebar = () => {
+        dispatch({ type: '[Ui] - toggleSidebarMobile' })
+    }
+
     return (
         <UiContext.Provider value={{
             ...state,
             handleChangeTab,
+            toggleSidebar,
             toggleModal,
         }}>
             {children}

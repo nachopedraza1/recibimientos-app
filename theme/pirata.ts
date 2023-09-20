@@ -7,7 +7,8 @@ export const pirata = createTheme({
             main: "#08b8ef"
         },
         background: {
-            default: "#121112"
+            default: "#121112",
+           /*  paper: 'red' */
         },
     },
     typography: {
@@ -113,5 +114,10 @@ export const pirata = createTheme({
                 }
             }
         },
+        MuiDrawer: {
+            styleOverrides: {
+                
+            }
+        }
     }
 });
