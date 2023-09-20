@@ -1,10 +1,12 @@
 import { useContext } from 'react';
+import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 import { UiContext } from "@/context/ui";
 
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChartLine, faGear, faMoneyBillTransfer, faRightFromBracket, faSackDollar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faGear, faHome, faMoneyBillTransfer, faRightFromBracket, faSackDollar, faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 const tabs = [
@@ -18,13 +20,25 @@ const tabs = [
 
 export const DrawerAdmin = () => {
 
+    const router = useRouter();
+
     const { handleChangeTab } = useContext(UiContext);
 
     return (
         <>
             <Toolbar />
+            <Divider />
+            <ListItem disablePadding>
+                <ListItemButton onClick={() => router.push('/')}>
+                    <ListItemIcon>
+                        <FontAwesomeIcon icon={faHome} />
+                    </ListItemIcon>
+                    <ListItemText primary={'Inicio'} />
+                </ListItemButton>
+            </ListItem>
+            <Divider />
             <List>
-                {tabs.slice(0, 4).map(({ text, icon, tabValue }) => (
+                {tabs.slice(1, 4).map(({ text, icon, tabValue }) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={() => handleChangeTab(tabValue)}>
                             <ListItemIcon>
@@ -37,9 +51,9 @@ export const DrawerAdmin = () => {
             </List>
             <Divider />
             <List>
-                {tabs.slice(4, 6).map(({ text, icon, tabValue }) => (
+                {tabs.slice(4, 6).map(({ text, icon, tabValue }, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton onClick={() => handleChangeTab(tabValue)}>
+                        <ListItemButton onClick={() => index === 1 ? signOut() : handleChangeTab(tabValue)}>
                             <ListItemIcon>
                                 {icon}
                             </ListItemIcon>

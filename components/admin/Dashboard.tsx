@@ -1,35 +1,39 @@
 import { FC } from "react"
-
-import { Grid, Card, CardContent, Typography } from "@mui/material";
+import useSWR from "swr";
 
 import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faM, faMoneyBillTransfer, faCircleDollarToSlot, faUser, faDollar, faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import { Grid, Card, CardContent, Typography, CircularProgress } from "@mui/material";
 
 import { DashboardStats } from "@/interfaces";
 
-export const Dashboard: FC<DashboardStats> = (
-    { entriesTransfer,
-        entriesMercadoPago,
-        entriesPaypal,
-        totalCollected,
-        totalEntries,
-        totalExpenses,
-        totalUser
-    }) => {
+export const Dashboard: FC = () => {
+
+    const { data } = useSWR<DashboardStats>('/api/admin');
+
+    if (!data) {
+        return (
+            <Grid container justifyContent='center' alignItems='center' minHeight='80vh'>
+                <CircularProgress />
+            </Grid>
+        )
+    }
+
+    const { entriesMercadoPago, entriesPaypal, entriesTransfer, totalCollected, totalEntries, totalExpenses, totalUser } = data;
 
     const cardsData = [
-        { title: 'MercadoPago', subTitle: 'Aportes por MercadoPago:', value: entriesMercadoPago, icon: <FontAwesomeIcon size='2x' icon={faM} /> },
-        { title: 'Paypal', subTitle: 'Aportes por Paypal:', value: entriesPaypal, icon: <FontAwesomeIcon size='2x' icon={faPaypal} /> },
-        { title: 'Transferencias', subTitle: 'Aportes por Transferencias:', value: entriesTransfer, icon: <FontAwesomeIcon size='2x' icon={faMoneyBillTransfer} /> },
-        { title: 'Aportes', subTitle: 'Numero total de aportes:', value: totalEntries, icon: <FontAwesomeIcon size='2x' icon={faCircleDollarToSlot} /> },
-        { title: 'Usuarios', subTitle: 'Usuarios registrados:', value: totalUser, icon: <FontAwesomeIcon size='2x' icon={faUser} /> },
-        { title: 'Recaudado', subTitle: 'Total recaudado:', value: totalCollected, icon: <FontAwesomeIcon size='2x' icon={faDollar} /> },
-        { title: 'Gastos', subTitle: 'Gastos totales:', value: totalExpenses, icon: <FontAwesomeIcon size='2x' icon={faBagShopping} /> },
+        { title: 'MercadoPago', subTitle: 'Aportes por mercadoPago:', value: entriesMercadoPago, icon: <FontAwesomeIcon size='2x' icon={faM} color="#00bbf0" /> },
+        { title: 'Paypal', subTitle: 'Aportes por paypal:', value: entriesPaypal, icon: <FontAwesomeIcon size='2x' icon={faPaypal} color="#009ee3" /> },
+        { title: 'Transferencias', subTitle: 'Aportes por transferencias:', value: entriesTransfer, icon: <FontAwesomeIcon size='2x' icon={faMoneyBillTransfer} color="#008000" /> },
+        { title: 'Aportes', subTitle: 'Numero total de aportes:', value: totalEntries, icon: <FontAwesomeIcon size='2x' icon={faCircleDollarToSlot} color="#ffb900" /> },
+        { title: 'Usuarios', subTitle: 'Usuarios registrados:', value: totalUser, icon: <FontAwesomeIcon size='2x' icon={faUser} color="#ff9a3c" /> },
+        { title: 'Recaudado', subTitle: 'Total recaudado:', value: totalCollected, icon: <FontAwesomeIcon size='2x' icon={faDollar} color="#008000" /> },
+        { title: 'Gastos', subTitle: 'Gastos totales:', value: totalExpenses, icon: <FontAwesomeIcon size='2x' icon={faBagShopping} color="#c3195d" /> },
     ];
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className="fadeIn">
             {
                 cardsData.map(({ icon, subTitle, title, value }) => (
                     <Grid item xs={12} sm={4} md={3} key={title}>

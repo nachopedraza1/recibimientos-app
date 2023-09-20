@@ -3,6 +3,7 @@ import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react"
 import { SnackbarProvider } from 'notistack';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { Analytics } from '@vercel/analytics/react';
 import { SWRConfig } from 'swr';
 
 import { AuthProvider } from '@/context/auth';
@@ -37,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <AppThemeProvider>
                   <TransitionPage>
                     <Component {...pageProps} />
+                    <Analytics mode='production' />
                   </TransitionPage>
                 </AppThemeProvider>
               </UiProvider>

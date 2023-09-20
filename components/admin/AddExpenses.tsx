@@ -1,8 +1,10 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form'
-import axios from 'axios';
 
-import { History } from '@/components/admin';
+import { create } from '@/database/crudActions';
+import { usePaginationRequest } from '@/hooks';
+
+import { CustomTable } from '@/components';
 import { Grid, TextField, Button, Typography } from '@mui/material';
 
 type FormData = {
@@ -12,19 +14,17 @@ type FormData = {
 
 export const AddExpenses: FC = () => {
 
-    const [loading, setLoading] = useState(false);
+    const { handleChangePage, isLoading, results } = usePaginationRequest('expenses');
 
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
 
-    const onSubmit = async ({ item, amount }: FormData) => {
-        setLoading(true);
-        const { data } = await axios.post('/api/expenses', { name: item, amount });
-        setLoading(false);
+    const onSubmit = ({ item, amount }: FormData) => {
+        create({ item, amount }, 'expenses');
     }
 
     return (
         <>
-            <Grid container alignItems="top" gap={2} component={'form'} onSubmit={handleSubmit(onSubmit)}>
+            <Grid container alignItems="top" gap={2} component={'form'} onSubmit={handleSubmit(onSubmit)} className='fadeIn'>
 
                 <Grid item xs={12}>
                     <Typography variant="h6" fontWeight={600}> Agregar gastos </Typography>
@@ -64,16 +64,20 @@ export const AddExpenses: FC = () => {
                 </Grid>
 
                 <Grid item mt={1}>
-                    <Button variant='contained' type='submit' disabled={loading}>
+                    <Button variant='contained' type='submit' disabled={isLoading}>
                         Agregar
                     </Button>
                 </Grid>
             </Grid>
 
-            <History
-                title='Ultimos gastos'
-                type='expenses'
+            <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos gastos </Typography>
+            <CustomTable
                 headRows={['Fecha', 'Producto', 'Monto']}
+                handleChangePage={handleChangePage}
+                isLoading={isLoading}
+                results={results}
+                totalText='Ingresos totales:'
+                extendedTable={false}
             />
         </>
     )

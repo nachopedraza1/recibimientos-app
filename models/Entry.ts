@@ -3,16 +3,16 @@ import { User } from "@/models";
 import { IEntry } from "@/interfaces";
 
 const entrySchema = new Schema({
-    userId: { type: Schema.Types.ObjectId, required: true, ref: User },
+    userId: { type: Schema.Types.ObjectId, ref: User },
     name: { type: String, required: true },
     amount: { type: Number, required: true },
     status: { type: String, required: true, },
-    paymentId: { type: String, required: true },
+    paymentId: { type: String },
     method: {
         type: String,
         required: true,
         enum: {
-            values: ['mercadopago', 'paypal', 'transfer'],
+            values: ['mercadopago', 'paypal', 'transferencia'],
             message: '{VALUE} not a valid value',
         }
     },

@@ -72,7 +72,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             totalRows,
             totalAmount: `$${format(totalAmount[0].total)}`,
         });
-        
+
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
@@ -81,15 +81,19 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
 const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { name, amount } = req.body;
+    const { name = '', amount = '', method = '' } = req.body;
 
-    if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' });
-    if (amount.length <= 3 || amount.length > 20) return res.status(400).json({ message: 'Bad request - Amount' })
+    if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+    if (amount.length <= 3 || amount.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+
+    const validMethods = ['mercadopago', 'paypal', 'transferencia'];
+
+    if (!validMethods.includes(method)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
 
     try {
         await db.connect();
-        const entry = new Entry({ name, amount });
-        await entry.save();
+        const newEntry = new Entry({ name, amount, method, status: 'COMPLETED' });
+        await newEntry.save();
         await db.disconnect();
 
         return res.status(200).json({ message: 'Aporte registrado con éxito.' })

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 import { PaginationData } from '@/interfaces';
 
@@ -10,6 +10,7 @@ export const usePaginationRequest = (tableData: 'entries' | 'expenses' | 'users'
     const handleChangePage = (event: unknown | null, newPage: number,) => {
         setPage(newPage);
     }
+
 
     const { data, isLoading } = useSWR<PaginationData>(`/api/${tableData}?page=${page + 1}`, {
         revalidateOnFocus: false,
@@ -26,7 +27,8 @@ export const usePaginationRequest = (tableData: 'entries' | 'expenses' | 'users'
     useEffect(() => {
         if (!data) return;
         setResults({ ...data, page });
-    }, [isLoading, page])
+    }, [isLoading, page, data])
+
 
     return {
         page,

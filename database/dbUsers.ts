@@ -1,8 +1,8 @@
 
 import bcrypt from 'bcryptjs';
-import { db } from "./"
-
+import { db } from "@/database"
 import { User } from '@/models';
+
 import { IUser } from '@/interfaces';
 
 export const checkUserEmailPassword = async (email: string, password: string): Promise<IUser | null> => {

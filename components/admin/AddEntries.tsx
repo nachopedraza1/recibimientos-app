@@ -1,8 +1,10 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form'
-import axios from 'axios';
 
-import { History } from '@/components/admin';
+import { create } from '@/database/crudActions';
+import { usePaginationRequest } from '@/hooks';
+
+import { CustomTable } from '@/components';
 import { Grid, TextField, MenuItem, Button, Typography } from '@mui/material';
 
 
@@ -14,19 +16,17 @@ type FormData = {
 
 export const AddEntries: FC = () => {
 
-    const [loading, setLoading] = useState(false);
+    const { handleChangePage, isLoading, results } = usePaginationRequest('entries');
 
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
 
-    const onSubmit = async ({ name, method, amount }: FormData) => {
-        setLoading(true);
-
-        setLoading(false);
+    const onSubmit = ({ name, amount, method }: FormData) => {
+        create({ name, amount, method }, 'entries');
     }
 
     return (
         <>
-            <Grid container alignItems="top" gap={2} component={'form'} onSubmit={handleSubmit(onSubmit)}>
+            <Grid container alignItems="top" gap={2} component={'form'} onSubmit={handleSubmit(onSubmit)} className='fadeIn'>
 
                 <Grid item xs={12}>
                     <Typography variant="h6" fontWeight={600}> Agregar aporte </Typography>
@@ -66,7 +66,7 @@ export const AddEntries: FC = () => {
                         <MenuItem value="">
                             <em>Ninguno</em>
                         </MenuItem>
-                        <MenuItem value='transfer'>Transferencia</MenuItem>
+                        <MenuItem value='transferencia'>Transferencia</MenuItem>
                         <MenuItem value='mercadopago'>Mercado Pago</MenuItem>
                         <MenuItem value='paypal'>Paypal</MenuItem>
                     </TextField>
@@ -90,16 +90,20 @@ export const AddEntries: FC = () => {
                 </Grid>
 
                 <Grid item mt={1}>
-                    <Button variant='contained' type='submit' disabled={loading}>
+                    <Button variant='contained' type='submit' disabled={isLoading}>
                         Agregar
                     </Button>
                 </Grid>
             </Grid>
 
-            <History
-                type='entries'
-                title='Ultimos aportes'
+            <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos aportes </Typography>
+            <CustomTable
                 headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
+                handleChangePage={handleChangePage}
+                isLoading={isLoading}
+                results={results}
+                totalText='Ingresos totales:'
+                extendedTable
             />
         </>
     )

@@ -25,7 +25,7 @@ export const NavbarAdmin: FC<Props> = ({ window }) => {
             <AppBar
                 position="fixed"
                 sx={{
-                    backgroundColor: 'white',
+                    backgroundColor: 'black',
                     width: { sm: 'calc(100% - 240}px)' },
                     ml: { sm: '240px' },
                     zIndex: (theme) => theme.zIndex.drawer + 1

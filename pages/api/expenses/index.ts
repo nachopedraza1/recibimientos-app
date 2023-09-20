@@ -78,15 +78,15 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
 const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { name, amount } = req.body;
+    const { item = '', amount = '' } = req.body;
 
-    if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' });
-    if (amount.length <= 1 || amount.length > 20) return res.status(400).json({ message: 'Bad request - Amount' })
+    if (item.length <= 3 || item.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+    if (amount.length <= 1 || amount.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
 
 
     try {
         await db.connect();
-        const expense = new Expense({ name, amount });
+        const expense = new Expense({ name: item, amount });
         await expense.save();
         /* await db.disconnect(); */
 
