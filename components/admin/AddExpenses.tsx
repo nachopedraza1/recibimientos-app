@@ -72,7 +72,7 @@ export const AddExpenses: FC = () => {
 
             <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos gastos </Typography>
             <CustomTable
-                headRows={['Fecha', 'Producto', 'Monto']}
+                headRows={['Fecha', 'Producto', 'Monto', '']}
                 handleChangePage={handleChangePage}
                 isLoading={isLoading}
                 results={results}

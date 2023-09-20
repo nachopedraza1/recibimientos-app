@@ -21,7 +21,6 @@ interface Props {
     totalText?: string,
     hiddenTotal?: boolean,
     extendedTable?: boolean,
-    usersTable?: boolean,
     handleChangePage: (event: unknown, newPage: number) => void
 }
 
@@ -31,9 +30,9 @@ export const CustomTable: FC<Props> = (
         results,
         headRows,
         totalText,
-        usersTable = false,
         extendedTable = false,
         hiddenTotal = false }) => {
+
 
     return (
         <TableContainer component={CustomPaper}>
@@ -54,7 +53,6 @@ export const CustomTable: FC<Props> = (
                                 rows={results.rows}
                                 page={results.page!}
                                 extendedTable={extendedTable}
-                                usersTable={usersTable}
                             />
                     }
                 </TableBody>

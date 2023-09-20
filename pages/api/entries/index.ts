@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { isValidObjectId } from 'mongoose';
 
 import { format } from '@/utils';
 import { Entry } from '@/models'
@@ -19,6 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         case 'POST':
             return createEntries(req, res);
+
+        case 'DELETE':
+            return deleteEntry(req, res);
 
         default:
             return res.status(400).json({ message: 'Método inválido.' });
@@ -97,6 +101,32 @@ const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
         await db.disconnect();
 
         return res.status(200).json({ message: 'Aporte registrado con éxito.' })
+
+    } catch (error) {
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    }
+
+}
+
+
+const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { id } = req.body;
+
+    if (!isValidObjectId(id)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+
+    try {
+        await db.connect();
+
+        const entry = await Entry.findById(id)
+
+        if (!entry) {
+            return res.status(500).json({ message: 'No hay aporte con este ID.' })
+        }
+
+        await entry.deleteOne();
+
+        return res.status(200).json({ message: 'Eliminado con éxito.' })
 
     } catch (error) {
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })

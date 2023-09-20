@@ -13,3 +13,16 @@ export const create = async (body: {}, route: 'entries' | 'expenses' | 'users') 
         }
     }
 }
+
+export const deleteAction = async (id: any, route: 'entries' | 'expenses') => {
+
+    try {
+        await axios.delete(`/api/${route}?id=${id}`);
+        mutate(`/api/${route}?page=1`);
+        alertSnack('Eliminado con éxito', 'success');
+    } catch (error) {
+        if (isAxiosError(error)) {
+            alertSnack(`${error.response?.data.message}`, 'error');
+        }
+    }
+}

@@ -38,7 +38,7 @@ export const DrawerAdmin = () => {
             </ListItem>
             <Divider />
             <List>
-                {tabs.slice(1, 4).map(({ text, icon, tabValue }) => (
+                {tabs.slice(0, 4).map(({ text, icon, tabValue }) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={() => handleChangeTab(tabValue)}>
                             <ListItemIcon>

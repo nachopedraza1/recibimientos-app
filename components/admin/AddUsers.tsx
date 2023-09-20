@@ -16,7 +16,7 @@ export const AddUsers = () => {
                 isLoading={isLoading}
                 results={results}
                 totalText='Ingresos totales:'
-                usersTable
+                hiddenTotal
             />
         </Grid>
     )

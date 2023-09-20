@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { isValidObjectId } from 'mongoose';
 
 import { Expense } from '@/models';
 import { format } from '@/utils';
@@ -18,6 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         case 'POST':
             return createExpenses(req, res);
+
+        case 'DELETE':
+            return deleteExpenses(req, res);
 
         default:
             return res.status(400).json({ message: 'Método inválido.' });
@@ -40,7 +44,7 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         ] = await Promise.all([
             Expense.find()
                 .sort({ createdAt: -1 })
-                .select('name amount createdAt -_id')
+                .select('name amount createdAt _id')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),
@@ -55,8 +59,9 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         /* await db.disconnect(); */
 
-        const formatRows = rows.map(({ name, amount, createdAt }) => {
+        const formatRows = rows.map(({ name, amount, createdAt, _id }) => {
             return {
+                id: _id,
                 name,
                 createdAt: JSON.stringify(createdAt).slice(1, 11),
                 amount: `$${format(amount)}`
@@ -91,6 +96,31 @@ const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) =
         /* await db.disconnect(); */
 
         return res.status(200).json({ message: 'Gasto registrado con éxito.' })
+
+    } catch (error) {
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    }
+
+}
+
+const deleteExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { id } = req.query
+
+    if (!isValidObjectId(id)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+
+    try {
+        await db.connect();
+
+        const expense = await Expense.findById(id)
+
+        if (!expense) {
+            return res.status(500).json({ message: 'No hay gasto con este ID.' })
+        }
+
+        await expense.deleteOne();
+
+        return res.status(200).json({ message: 'Eliminado con éxito.' })
 
     } catch (error) {
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
