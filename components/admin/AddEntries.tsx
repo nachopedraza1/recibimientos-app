@@ -32,7 +32,7 @@ export const AddEntries: FC = () => {
                     <Typography variant="h6" fontWeight={600}> Agregar aporte </Typography>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={12} md={3}>
                     <TextField
                         fullWidth
                         type='text'
@@ -49,7 +49,7 @@ export const AddEntries: FC = () => {
                     />
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={12} md={3}>
                     <TextField
                         select
                         fullWidth
@@ -72,7 +72,7 @@ export const AddEntries: FC = () => {
                     </TextField>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={12} md={3}>
                     <TextField
                         fullWidth
                         type='number'

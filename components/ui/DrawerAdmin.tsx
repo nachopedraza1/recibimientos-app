@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { signOut } from 'next-auth/react';
 import { UiContext } from "@/context/ui";
@@ -16,13 +16,22 @@ const tabs = [
     { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} />, tabValue: 3 },
     { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} />, tabValue: 4 },
     { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} />, tabValue: 5 },
-]
+];
 
-export const DrawerAdmin = () => {
+interface Props {
+    drawerToggle: () => void;
+}
+
+export const DrawerAdmin: FC<Props> = ({ drawerToggle }) => {
 
     const router = useRouter();
 
     const { handleChangeTab } = useContext(UiContext);
+
+    const navigate = (tabValue: number) => {
+        handleChangeTab(tabValue);
+        drawerToggle();
+    }
 
     return (
         <>
@@ -40,7 +49,7 @@ export const DrawerAdmin = () => {
             <List>
                 {tabs.slice(0, 4).map(({ text, icon, tabValue }) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton onClick={() => handleChangeTab(tabValue)}>
+                        <ListItemButton onClick={() => navigate(tabValue)}>
                             <ListItemIcon>
                                 {icon}
                             </ListItemIcon>
@@ -53,7 +62,7 @@ export const DrawerAdmin = () => {
             <List>
                 {tabs.slice(4, 6).map(({ text, icon, tabValue }, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton onClick={() => index === 1 ? signOut() : handleChangeTab(tabValue)}>
+                        <ListItemButton onClick={() => index === 1 ? signOut() : navigate(tabValue)}>
                             <ListItemIcon>
                                 {icon}
                             </ListItemIcon>

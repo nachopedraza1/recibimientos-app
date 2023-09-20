@@ -25,8 +25,11 @@ export const SectionEntries: FC = () => {
                 data-aos="fade"
             >
 
-                <Typography variant="h3">
-                    Ultimos Ingresos
+                <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold'>
+                    Ultimos
+                    <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
+                        Ingresos
+                    </Typography>
                 </Typography>
 
                 <span className="mini-divider" />
@@ -45,12 +48,12 @@ export const SectionEntries: FC = () => {
                 />
 
                 <PaymentButtons />
-            </Grid>
+            </Grid >
 
             <Blob width="30%" top="10%" left="74%" />
             <Blob width="50%" top="27%" left="1%" />
             <Blob width="50%" top="52%" left="75%" />
-        </SectionLayout>
+        </SectionLayout >
 
     )
 }

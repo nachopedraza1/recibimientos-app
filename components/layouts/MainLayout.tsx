@@ -30,7 +30,7 @@ export const MainLayout = ({ title, children, description, containerPageClass }:
 
             {!asPath.includes('/auth') && <Navbar />}
 
-            <main className={containerPageClass}>
+            <main className={containerPageClass} style={{ overflow: 'hidden' }}>
                 {children}
             </main>
 

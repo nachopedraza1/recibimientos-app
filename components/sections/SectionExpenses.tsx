@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { usePaginationRequest } from '@/hooks';
 
 import { CustomTable } from '@/components';
-import { Blob, CustomDivider } from '@/components/ui';
 import { SectionLayout } from "@/components/layouts"
+import { Blob, CustomDivider } from '@/components/ui';
 import { Grid, Typography } from "@mui/material"
 
 
@@ -26,8 +26,11 @@ export const SectionExpenses: FC = () => {
             >
                 <CustomDivider type='recibimientos' />
 
-                <Typography variant="h3" mt={5}>
-                    Informe de Gastos
+                <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold'>
+                    Informe de
+                    <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
+                        Gastos
+                    </Typography>
                 </Typography>
 
                 <span className="mini-divider" />

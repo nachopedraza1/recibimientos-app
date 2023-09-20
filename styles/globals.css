@@ -156,6 +156,7 @@ nav .active {
     background: var(--glass-1-fill-carey, linear-gradient(294deg, hsla(0, 0%, 75%, .06) 0, transparent 100%), rgba(0, 0, 0, .14));
     box-shadow: -8px 4px 5px 0 rgba(0, 0, 0, .24);
     backdrop-filter: blur(26.5px);
+    margin: 20px;
 }
 
 .auth-providers {
@@ -438,8 +439,10 @@ nav .active {
 .cont-destacado {
     transition: all 0.4s;
     position: absolute;
-    top: -35px;
-    left: 57px;
+    top: -18px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
     background: #08b8ef;
     width: 160px;
     height: 35px;
@@ -455,8 +458,9 @@ nav .active {
     clip-path: polygon(52% 38%, 0 0, 100% 0);
     width: 40px;
     height: 40px;
-    top: -2px;
-    left: 118px;
+    top: 18px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1;
 }
 

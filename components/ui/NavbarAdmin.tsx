@@ -64,7 +64,7 @@ export const NavbarAdmin: FC<Props> = ({ window }) => {
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '240px' },
                     }}
                 >
-                    <DrawerAdmin />
+                    <DrawerAdmin drawerToggle={handleDrawerToggle} />
                 </Drawer>
                 <Drawer
                     variant="permanent"
@@ -74,7 +74,7 @@ export const NavbarAdmin: FC<Props> = ({ window }) => {
                     }}
                     open
                 >
-                    <DrawerAdmin />
+                    <DrawerAdmin drawerToggle={handleDrawerToggle} />
                 </Drawer>
             </Box>
         </>

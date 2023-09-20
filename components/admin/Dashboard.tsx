@@ -36,7 +36,7 @@ export const Dashboard: FC = () => {
         <Grid container spacing={2} className="fadeIn">
             {
                 cardsData.map(({ icon, subTitle, title, value }) => (
-                    <Grid item xs={12} sm={4} md={3} key={title}>
+                    <Grid item xs={12} md={6} lg={3} key={title}>
                         <Card sx={{ display: 'flex' }}>
                             <CardContent sx={{ width: 50, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 {icon}

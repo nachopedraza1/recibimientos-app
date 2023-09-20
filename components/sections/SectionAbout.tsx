@@ -19,9 +19,11 @@ export const SectionAbout: FC = () => {
                 pt={11}
             >
                 <Grid item xs={12} textAlign="center">
-                    <Typography variant="h3" data-aos="fade-in">
+
+                    <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold'>
                         Nosotros
                     </Typography>
+
                     <span className='mini-divider' data-aos="fade-in"></span>
                     <Typography variant="h6" data-aos="fade-in">
                         Somos un grupo de desarrolladores apasionados por el fútbol y, en particular, por nuestro amado club, el Club Atlético Belgrano.

@@ -22,7 +22,7 @@ export const TopDonates: FC = () => {
     return (
         <Grid container justifyContent="center" alignItems="end" gap={3} p={4} data-aos="fade-down" data-aos-delay="300">
             <Grid item xs={12} md={3} className='top-box'>
-                <Typography variant='h5' mb={3} textTransform='capitalize'> {!data ? <Skeleton sx={{ mx: 2 }} /> : data[1].name} </Typography>
+                <Typography variant='h5' mb={3} textTransform='capitalize' noWrap> {!data ? <Skeleton sx={{ mx: 2 }} /> : data[1].name} </Typography>
                 <Typography >Total de aportes: {!data ? '...' : data[1].countDonations} </Typography>
                 <Typography mb={2} textAlign="center">Total Aportado:</Typography>
                 <CustomDivider />
@@ -33,11 +33,11 @@ export const TopDonates: FC = () => {
             </Grid>
 
             <Grid item xs={12} md={3} className='top-box'>
-                <Box className="cont-destacado" >
+                <Box className="cont-destacado">
                     <Typography textAlign="center" fontWeight={600} mt={0.8}> MÁS APORTO </Typography>
                 </Box>
                 <Box className="triangle" />
-                <Typography variant='h5' mb={3} textTransform='capitalize'>  {!data ? <Skeleton sx={{ mx: 2 }} /> : data[0].name} </Typography>
+                <Typography variant='h5' mb={3} textTransform='capitalize' noWrap>  {!data ? <Skeleton sx={{ mx: 2 }} /> : data[0].name} </Typography>
                 <Box mb={2} textAlign="center">
                     <FontAwesomeIcon icon={faTrophy} color='#08b8ef' size='2x' />
                     <Typography >Total de aportes: {!data ? '...' : data[0].countDonations} </Typography>
@@ -51,7 +51,7 @@ export const TopDonates: FC = () => {
             </Grid>
 
             <Grid item xs={12} md={3} className='top-box'>
-                <Typography variant='h5' mb={3} textTransform='capitalize'>  {!data ? <Skeleton sx={{ mx: 2 }} /> : data[2].name}  </Typography>
+                <Typography variant='h5' mb={3} textTransform='capitalize' noWrap>  {!data ? <Skeleton sx={{ mx: 2 }} /> : data[2].name}  </Typography>
                 <Typography >Total de aportes: {!data ? '...' : data[2].countDonations} </Typography>
                 <Typography mb={2} textAlign="center">Total Aportado:</Typography>
                 <CustomDivider />

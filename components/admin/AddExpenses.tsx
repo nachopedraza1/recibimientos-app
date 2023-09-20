@@ -30,7 +30,7 @@ export const AddExpenses: FC = () => {
                     <Typography variant="h6" fontWeight={600}> Agregar gastos </Typography>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={12} md={3}>
                     <TextField
                         fullWidth
                         type='text'
@@ -46,7 +46,7 @@ export const AddExpenses: FC = () => {
                     />
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={12} md={3}>
                     <TextField
                         fullWidth
                         type='number'

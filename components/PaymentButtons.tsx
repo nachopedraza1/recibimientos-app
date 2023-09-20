@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 
 import { UiContext } from '@/context/ui';
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { MercadoPagoModal, PaypalModal } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
@@ -21,21 +21,23 @@ export const PaymentButtons: FC = () => {
             color="white"
             pt={10}
         >
-            <Typography variant="h3">
+
+            <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold'>
                 Aportar a
-                <Typography variant="h3" component='span' color="primary.main" mx={2}>
-                    recibimientos CAB
+                <Divider component={'br'} sx={{ display: { sm: 'none' } }} />
+                <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
+                    Recibimientos CAB
                 </Typography>
             </Typography>
 
             <span className="mini-divider" />
-            
+
             <Typography variant="h6" mb={2} >
                 Puedes realizar tu aporte a travez de las siguientes plataformas de pago,
                 o puedes optar por realizar una transferencia bancaria. Gracias, Pirata!
             </Typography>
 
-            <Box display='flex' justifyContent='center'>
+            <Box display='flex' justifyContent='center' flexWrap='wrap'>
                 <Box className='mercadopago-btn' onClick={() => toggleModal('mercadopago')} />
                 <Box className='paypal-btn' onClick={() => toggleModal('paypal')} />
             </Box>

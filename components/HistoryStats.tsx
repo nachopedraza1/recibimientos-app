@@ -50,19 +50,19 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
 
             <Grid container justifyContent="center" gap={3} mb={4}>
                 <Grid item xs={12} md={3} className='top-box'>
-                    <Typography variant='h6' mb={3}> Numero de aportes: </Typography>
+                    <Typography variant='h6' mb={3} noWrap> Numero de aportes: </Typography>
                     <Box textAlign="center" mt={2}>
                         <Typography variant="h5" color="primary.main"> {history.length} </Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={3} className='top-box'>
-                    <Typography variant='h6' mb={3}> Total aportado: </Typography>
+                    <Typography variant='h6' mb={3} noWrap> Total aportado: </Typography>
                     <Box textAlign="center" mt={2}>
                         <Typography variant="h5" color="primary.main">${totalDonated}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={3} className='top-box'>
-                    <Typography variant='h6' mb={3}> Ultimo aporte: </Typography>
+                    <Typography variant='h6' mb={3} noWrap> Ultimo aporte: </Typography>
                     <Box textAlign="center" mt={2}>
                         <Typography variant="h5" color="primary.main">{history[0].createdAt}</Typography>
                     </Box>
