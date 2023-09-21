@@ -4,6 +4,7 @@ import { NextAuthOptions } from "next-auth";
 
 import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 declare module "next-auth" {
     interface Session {
@@ -20,11 +21,15 @@ export const authOptions: NextAuthOptions = {
         Credentials({
             name: 'custom login',
             credentials: {
-                email: { label: 'Email:', type: 'email'},
+                email: { label: 'Email:', type: 'email' },
                 password: { label: 'Password:', type: 'password' }
             }, async authorize(credentials) {
                 return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
             },
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         })
     ],
 
@@ -45,6 +50,10 @@ export const authOptions: NextAuthOptions = {
                 token.accessToken = account.access_token;
 
                 switch (account.type) {
+
+                    case 'oauth':
+                        token.user = await dbUsers.oAuthToDbUser(user?.email || '', user?.name || '');
+                        break;
 
                     case 'credentials':
                         token.user = user;
