@@ -8,7 +8,6 @@ export const pirata = createTheme({
         },
         background: {
             default: "#121112",
-           /*  paper: 'red' */
         },
     },
     typography: {
@@ -116,7 +115,33 @@ export const pirata = createTheme({
         },
         MuiDrawer: {
             styleOverrides: {
-                
+                paper: {
+                    backgroundImage: 'none',
+                    borderRadius: '10px 0 0 10px',
+                    backgroundColor: '#242527',
+                }
+            }
+        },
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                    backgroundImage: 'none',
+                    backgroundColor: '#242527'
+                }
+            }
+        },
+        MuiListItemButton: {
+            styleOverrides: {
+                root: {
+                    padding:'10px 10px 10px 30px'
+                }
+            }
+        },
+        MuiListItemIcon: {
+            styleOverrides: {
+                root: {
+                    minWidth: '35px',
+                }
             }
         }
     }

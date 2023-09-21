@@ -15,7 +15,7 @@ const navLinks = [
     { id: 2, text: "nosotros", path: "/#nosotros" },
 ];
 
-export const Navbar: FC = () => {
+export const NavbarDesktop: FC = () => {
 
     const { status } = useSession();
 

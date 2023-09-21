@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { Navbar, Sidebar, Footer } from '@/components/ui';
+import { Footer, NavbarDesktop, NavbarMobile } from '@/components/ui';
 import { Grid } from '@mui/material';
 
 
@@ -13,10 +13,9 @@ interface Props {
     containerPageClass?: string,
 }
 
-export const MainLayout = ({ title, children, description, containerPageClass }: Props) => {
+export const MainLayout: FC<Props> = ({ title, children, description, containerPageClass }) => {
 
     const { asPath } = useRouter();
-
 
     return (
         <Grid>
@@ -30,8 +29,8 @@ export const MainLayout = ({ title, children, description, containerPageClass }:
 
             {!asPath.includes('/auth') &&
                 <>
-                    <Navbar />
-                    <Sidebar />
+                    <NavbarDesktop />
+                    <NavbarMobile />
                 </>
             }
 

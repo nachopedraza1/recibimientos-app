@@ -18,7 +18,7 @@ export const useNavbar = () => {
 
 
     const navigateWithoutHash = (event: FormEvent, text: string) => {
-
+        
         event.preventDefault();
 
         if (router.pathname !== '/') {

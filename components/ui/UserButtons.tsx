@@ -1,12 +1,11 @@
 import { useContext, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { AuthContext } from '@/context/auth';
 
-import { Menu, MenuItem, ListItemIcon, IconButton } from '@mui/material';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBars, faRightFromBracket, faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/router';
+import { Menu, MenuItem, ListItemIcon, IconButton } from '@mui/material';
 
 
 export const UserButtons = () => {

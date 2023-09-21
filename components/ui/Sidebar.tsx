@@ -1,58 +1,92 @@
-import { useContext } from "react";
-import router from "next/router";
-import Image from "next/image";
+import { FormEvent, useContext } from "react";
 
+import { useNavbar } from "@/hooks";
 import { UiContext } from "@/context/ui";
+import { AuthContext } from "@/context/auth";
+import { SidebarUserButtons } from "@/components/ui";
 
-import { faBars, faHome } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { AppBar, Box, Container, Divider, Drawer, Grid, IconButton, Link, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faFileInvoiceDollar, faHome, faMoneyBillTransfer, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { AppBar, Avatar, Box, Button, Divider, Drawer, Grid, IconButton, Link, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+
+
+const navlinks = [
+    { text: 'Inicio', path: 'inicio', icon: faHome },
+    { text: 'Ingresos', path: 'ingresos', icon: faMoneyBillTransfer },
+    { text: 'Gastos', path: 'gastos', icon: faFileInvoiceDollar },
+    { text: 'Nosotros', path: 'nosotros', icon: faUsers },
+];
 
 export const Sidebar = () => {
 
     const { toggleSidebar, sidebarMobile } = useContext(UiContext);
+    const { user } = useContext(AuthContext);
+
+    const { navigateWithoutHash } = useNavbar();
+
+    const toggleNavegation = (event: FormEvent, text: string) => {
+        navigateWithoutHash(event, text);
+        toggleSidebar();
+    }
 
     return (
-        <Box display={{ xs: "flex", md: "none" }}>
-            <AppBar sx={{ bgcolor: 'black' }}>
-                <Toolbar disableGutters>
-                    <Container maxWidth="lg">
-                        <Grid container justifyContent="space-between" alignItems='center'>
-                            <Link href="/">
-                                <Image src="/logo-loading.png" alt='RecibimientoCAB' width={80} height={40} style={{ marginTop: "6px" }} />
+        <Drawer
+            variant="temporary"
+            anchor="right"
+            open={sidebarMobile}
+            onClose={toggleSidebar}
+            ModalProps={{ keepMounted: true }}
+            sx={{ '& .MuiDrawer-paper': { width: '240px' } }}
+        >
+            <Toolbar >
+                <Grid container justifyContent="space-between" alignItems="center">
+                    {
+                        user ?
+                            <Box display='flex' alignItems='center'>
+                                <Avatar src="/default-avatar.jpg" />
+                                <Box ml={1}>
+                                    <Typography fontSize={13} noWrap textTransform='capitalize'> {user?.name} </Typography>
+                                    <Typography fontSize={10} noWrap> {user?.email} </Typography>
+                                </Box>
+                            </Box>
+                            :
+                            <Link href={'/auth/login'}>
+                                <Button
+                                    fullWidth
+                                    variant='contained'
+                                    sx={{ marginLeft: 1 }}
+                                >
+                                    Ingresar
+                                </Button>
                             </Link>
-                            <IconButton
-                                color="inherit"
-                                edge="start"
-                                onClick={toggleSidebar}
-                            >
-                                <FontAwesomeIcon icon={faBars} />
-                            </IconButton>
-                        </Grid>
-                    </Container >
-                </Toolbar>
-            </AppBar>
+                    }
+                    <IconButton
+                        color="inherit"
+                        edge="end"
+                        onClick={toggleSidebar}
+                    >
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </IconButton>
+                </Grid>
+            </Toolbar>
 
-            <Drawer
-                variant="temporary"
-                anchor="right"
-                open={sidebarMobile}
-                onClose={toggleSidebar}
-                ModalProps={{ keepMounted: true }}
-                sx={{ '& .MuiDrawer-paper': { width: '240px' } }}
-            >
-                <Toolbar />
-                <Divider />
-                <ListItem disablePadding>
-                    <ListItemButton onClick={() => router.push('/')}>
-                        <ListItemIcon>
-                            <FontAwesomeIcon icon={faHome} />
-                        </ListItemIcon>
-                        <ListItemText primary={'Inicio'} />
-                    </ListItemButton>
-                </ListItem>
+            <Divider />
+            {
+                navlinks.map(({ text, icon, path }) => (
+                    <ListItem disablePadding key={text}>
+                        <ListItemButton onClick={(e) => toggleNavegation(e, path)}>
+                            <ListItemIcon>
+                                <FontAwesomeIcon icon={icon} />
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))
+            }
+            <Divider />
 
-            </Drawer>
-        </Box >
+            {user && <SidebarUserButtons />}
+
+        </Drawer>
     )
 }

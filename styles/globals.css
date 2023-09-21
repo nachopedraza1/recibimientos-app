@@ -213,20 +213,17 @@ nav .active {
 }
 
 .social-list li:nth-child(1) a:hover .fab {
-    color: #3b5998;
+    color: #00aced;
 }
 
 .social-list li:nth-child(2) a:hover .fab {
-    color: #00aced;
+    color: #e4405f;
 }
 
 .social-list li:nth-child(3) a:hover .fab {
     color: red;
 }
 
-.social-list li:nth-child(4) a:hover .fab {
-    color: #e4405f;
-}
 
 .mercadopago-btn {
     cursor: pointer;

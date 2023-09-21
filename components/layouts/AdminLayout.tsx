@@ -1,9 +1,8 @@
 import { ReactNode, FC } from 'react';
 import Head from 'next/head';
 
+import { NavbarAdmin } from '@/components/ui';
 import { Box, Toolbar } from '@mui/material';
-import { NavbarAdmin } from '../ui';
-import { Sidebar } from '../ui/Sidebar';
 
 export const AdminLayout: FC<{ children: ReactNode }> = ({ children }) => {
 
