@@ -98,7 +98,7 @@ export const AddEntries: FC = () => {
 
             <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos aportes </Typography>
             <CustomTable
-                headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
+                headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto', '']}
                 handleChangePage={handleChangePage}
                 isLoading={isLoading}
                 results={results}

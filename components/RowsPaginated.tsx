@@ -68,9 +68,20 @@ export const RowsPaginated: FC<Props> = ({ rows = [], page, extendedTable }) => 
 
                     {
                         selectedTab === 2 && asPath.includes('/admin') &&
-                        < TableCell align="center">
+                        <TableCell align="center">
                             <Tooltip title="Eliminar" placement="left" arrow>
                                 <IconButton onClick={() => deleteAction(row.id, 'expenses')} disableRipple sx={{ p: 0 }}>
+                                    <FontAwesomeIcon icon={faTrash} size="xs" color="#ff3333" />
+                                </IconButton>
+                            </Tooltip>
+                        </TableCell>
+                    }
+
+                    {
+                        selectedTab === 1 && asPath.includes('/admin') &&
+                        <TableCell align="center">
+                            <Tooltip title="Eliminar" placement="left" arrow>
+                                <IconButton onClick={() => deleteAction(row.id, 'entries')} disableRipple sx={{ p: 0 }}>
                                     <FontAwesomeIcon icon={faTrash} size="xs" color="#ff3333" />
                                 </IconButton>
                             </Tooltip>

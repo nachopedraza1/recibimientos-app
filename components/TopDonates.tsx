@@ -32,7 +32,7 @@ export const TopDonates: FC = () => {
                 <span className='toptwo-donate'></span>
             </Grid>
 
-            <Grid item xs={12} md={3} className='top-box'>
+            <Grid item xs={12} md={3} className='top-box' mt={{ xs: 4, md: 0 }}>
                 <Box className="cont-destacado">
                     <Typography textAlign="center" fontWeight={600} mt={0.8}> MÁS APORTO </Typography>
                 </Box>

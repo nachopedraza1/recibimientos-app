@@ -3,7 +3,7 @@ import { isValidObjectId } from 'mongoose';
 import axios from 'axios';
 
 import { db } from '@/database';
-import { Entry, User } from '@/models';
+import { Entry } from '@/models';
 
 import { PaypalOrderStatusResponse } from '@/interfaces';
 
@@ -105,10 +105,6 @@ const payOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                 method: 'paypal',
                 status: data.status,
                 paymentId
-            });
-
-            await User.findByIdAndUpdate(userId, {
-                $inc: { totalDonated: amountInArs }
             });
 
             await newEntry.save();

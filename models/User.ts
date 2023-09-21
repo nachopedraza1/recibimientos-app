@@ -5,8 +5,6 @@ const userSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    totalDonated: { type: Number, required: true },
-    countDonations: { type: Number, required: true },
     role: {
         type: String,
         enum: {

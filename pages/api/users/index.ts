@@ -1,15 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { db } from '@/database';
-import { User } from '@/models';
+import { Entry, User } from '@/models';
 import { format } from '@/utils';
 
-import { IUser, PaginationData } from '@/interfaces';
+import { PaginationData } from '@/interfaces';
+
+interface Tops {
+    name: string,
+    totalDonated: number,
+    countDonations: number,
+}
 
 type Data =
     | { message: string }
     | PaginationData
-    | IUser[]
+    | Tops[]
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -35,9 +41,30 @@ const getUsers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         try {
 
-            const tops = await User.find().select('name totalDonated countDonations')
-                .sort({ totalDonated: -1 })
-                .limit(3)
+            const findTops = await Entry.aggregate([
+                {
+                    $group: {
+                        _id: "$name",
+                        totalAmount: { $sum: "$amount" },
+                        totalCount: { $sum: 1 }
+                    }
+                },
+                {
+                    $sort: { totalAmount: -1 }
+                },
+                {
+                    $limit: 3
+                }
+
+            ])
+
+            const tops = findTops.map(top => {
+                return {
+                    name: top._id,
+                    totalDonated: top.totalAmount,
+                    countDonations: top.totalCount,
+                }
+            })
 
             /* await db.disconnect(); */
 

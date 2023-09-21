@@ -6,7 +6,6 @@ import { Entry } from '@/models'
 import { db } from '@/database';
 
 import { PaginationData } from '@/interfaces';
-import { getSession } from 'next-auth/react';
 
 type Data =
     | { message: string }
@@ -32,8 +31,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const session: any = getSession({ req });
-
     const page = parseInt(req.query.page as string) || 1;
     const perPage = 10;
 
@@ -48,7 +45,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         ] = await Promise.all([
             Entry.find()
                 .sort({ createdAt: -1 })
-                .select('name amount createdAt method status -_id')
+                .select('name amount createdAt method status _id')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),
@@ -63,16 +60,17 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         /* await db.disconnect(); */
 
-        const publicRows = rows.map(row => {
+        const formatRows = rows.map(row => {
             return {
                 ...row,
+                id: row._id,
                 createdAt: JSON.stringify(row.createdAt).slice(1, 11),
                 amount: `$${format(row.amount)}`
             }
         })
 
         return res.status(200).json({
-            rows: publicRows,
+            rows: formatRows,
             totalRows,
             totalAmount: `$${format(totalAmount[0].total)}`,
         });
@@ -96,7 +94,12 @@ const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
     try {
         await db.connect();
-        const newEntry = new Entry({ name, amount, method, status: 'COMPLETED' });
+        const newEntry = new Entry({
+            name: name.toLowerCase(),
+            amount,
+            method,
+            status: 'COMPLETED'
+        });
         await newEntry.save();
         await db.disconnect();
 
@@ -111,7 +114,7 @@ const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
 const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { id } = req.body;
+    const { id } = req.query;
 
     if (!isValidObjectId(id)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
 
@@ -129,6 +132,8 @@ const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         return res.status(200).json({ message: 'Eliminado con éxito.' })
 
     } catch (error) {
+        console.log(error);
+
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
     }
 

@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
     try {
         await db.connect();
-        const historyTime = await Entry.find({ userId: session.user._id })
+        const historyTime = await Entry.find({ name: session.user.name })
             .select('name amount status method createdAt -_id')
             .sort({ createdAt: -1 })
             .lean();
@@ -86,6 +86,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         }
 
     } catch (error) {
+        console.log(error);
+
         return {
             redirect: {
                 destination: '/',

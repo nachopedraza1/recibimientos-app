@@ -133,7 +133,7 @@ export const pirata = createTheme({
         MuiListItemButton: {
             styleOverrides: {
                 root: {
-                    padding:'10px 10px 10px 30px'
+                    padding: '10px 10px 10px 30px'
                 }
             }
         },
@@ -141,6 +141,20 @@ export const pirata = createTheme({
             styleOverrides: {
                 root: {
                     minWidth: '35px',
+                }
+            }
+        },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    backgroundColor: '#242527',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                },
+                arrow: {
+                    "&::before": {
+                        backgroundColor: "#242527",
+                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                    }
                 }
             }
         }

@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 
 import { UiContext } from '@/context/ui';
 
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography, Tooltip } from '@mui/material';
 import { MercadoPagoModal, PaypalModal } from '@/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
@@ -37,10 +37,12 @@ export const PaymentButtons: FC = () => {
                 o puedes optar por realizar una transferencia bancaria. Gracias, Pirata!
             </Typography>
 
-            <Box display='flex' justifyContent='center' flexWrap='wrap'>
-                <Box className='mercadopago-btn' onClick={() => toggleModal('mercadopago')} />
-                <Box className='paypal-btn' onClick={() => toggleModal('paypal')} />
-            </Box>
+            <Tooltip title={<Typography>Proximamente...</Typography>} arrow placement='top'>
+                <Box display='flex' justifyContent='center' flexWrap='wrap'>
+                    <Box className='mercadopago-btn btn-disabled ' onClick={() => toggleModal('mercadopago')} />
+                    <Box className='paypal-btn btn-disabled ' onClick={() => toggleModal('paypal')} />
+                </Box>
+            </Tooltip>
 
             <Box display="flex" justifyContent="center" alignItems="center" gap={1} letterSpacing={1} mt={2}>
                 <FontAwesomeIcon icon={faBuildingColumns} size='2x' />
