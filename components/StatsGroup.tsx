@@ -7,9 +7,9 @@ import { faMagicWandSparkles, faMedal, faStar } from "@fortawesome/free-solid-sv
 import { useInView } from 'react-intersection-observer'
 
 const stats = [
-    { title: "Recibimientos", value: 150, icon: <FontAwesomeIcon icon={faMagicWandSparkles} /> },
-    { title: "Aportes recibidos", value: 2000, icon: <FontAwesomeIcon icon={faMedal} /> },
-    { title: "Minutos 68", value: 200, icon: <FontAwesomeIcon icon={faStar} /> },
+    { title: "Recibimientos", value: 100, icon: <FontAwesomeIcon icon={faMagicWandSparkles} /> },
+    { title: "Aportes recibidos", value: 5000, icon: <FontAwesomeIcon icon={faMedal} /> },
+    { title: "Minutos 68", value: 100, icon: <FontAwesomeIcon icon={faStar} /> },
 ]
 
 export const StatsGroup: FC = () => {
