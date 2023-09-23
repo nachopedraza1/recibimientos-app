@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { getProviders, signIn } from 'next-auth/react';
 import { NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,6 +32,14 @@ const RegisterPage: NextPage = () => {
         await registerUser(name, email, password)
         setSubmitted(false);
     }
+
+    const [providers, setProviders] = useState<any>({});
+
+    useEffect(() => {
+        getProviders().then(prov => {
+            setProviders(prov)
+        })
+    }, [])
 
     return (
         <MainLayout title='Registro | Recibimientos CAB' containerPageClass="auth-container">
@@ -91,13 +100,13 @@ const RegisterPage: NextPage = () => {
                     <CustomDivider />
 
                     <Box className='auth-providers'>
-                        <IconButton>
+                        <IconButton onClick={() => signIn(providers.google.id)}>
                             <Image src='/google.png' width={33} height={33} alt='Ingresar con google' />
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled>
                             <Image src='/twitter.png' width={33} height={33} alt='Ingresar con twitter' />
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled>
                             <Image src='/facebook.png' width={33} height={33} alt='Ingresar con facebook' />
                         </IconButton>
                     </Box>

@@ -11,8 +11,9 @@ declare module "next-auth" {
         accessToken?: string;
     }
     interface User {
-        id?: string
-        _id: string
+        id?: string;
+        _id: string;
+        image?: string;
     }
 };
 
@@ -52,7 +53,7 @@ export const authOptions: NextAuthOptions = {
                 switch (account.type) {
 
                     case 'oauth':
-                        token.user = await dbUsers.oAuthToDbUser(user?.email || '', user?.name || '');
+                        token.user = await dbUsers.oAuthToDbUser(user?.email || '', user?.name || '', user?.image || '');
                         break;
 
                     case 'credentials':

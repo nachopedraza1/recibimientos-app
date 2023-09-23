@@ -24,7 +24,7 @@ export const TopDonates: FC = () => {
             <Grid item xs={12} md={3} className='top-box'>
                 <Typography variant='h5' mb={3} textTransform='capitalize' noWrap> {!data ? <Skeleton sx={{ mx: 2 }} /> : data[1].name} </Typography>
                 <Typography >Total de aportes: {!data ? '...' : data[1].countDonations} </Typography>
-                <Typography mb={2} textAlign="center">Total Aportado:</Typography>
+                <Typography mb={2} textAlign="center">Total aportado:</Typography>
                 <CustomDivider />
                 <Box textAlign="center" mt={2}>
                     <Typography variant="h5" color="primary.main"> {!data ? <Skeleton sx={{ mx: 2 }} /> : `$${format(data[1].totalDonated)}`} </Typography>
@@ -41,7 +41,7 @@ export const TopDonates: FC = () => {
                 <Box mb={2} textAlign="center">
                     <FontAwesomeIcon icon={faTrophy} color='#08b8ef' size='2x' />
                     <Typography >Total de aportes: {!data ? '...' : data[0].countDonations} </Typography>
-                    <Typography >Total Aportado:</Typography>
+                    <Typography >Total aportado:</Typography>
                 </Box>
                 <CustomDivider />
                 <Box textAlign="center" mt={2}>
@@ -53,7 +53,7 @@ export const TopDonates: FC = () => {
             <Grid item xs={12} md={3} className='top-box'>
                 <Typography variant='h5' mb={3} textTransform='capitalize' noWrap>  {!data ? <Skeleton sx={{ mx: 2 }} /> : data[2].name}  </Typography>
                 <Typography >Total de aportes: {!data ? '...' : data[2].countDonations} </Typography>
-                <Typography mb={2} textAlign="center">Total Aportado:</Typography>
+                <Typography mb={2} textAlign="center">Total aportado:</Typography>
                 <CustomDivider />
                 <Box textAlign="center" mt={2}>
                     <Typography variant="h5" color="primary.main">{!data ? <Skeleton sx={{ mx: 2 }} /> : `$${format(data[2].totalDonated)}`}  </Typography>

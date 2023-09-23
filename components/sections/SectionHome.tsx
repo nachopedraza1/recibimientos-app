@@ -17,7 +17,7 @@ export const SectionHome: FC = () => {
                 <Grid item xs={12} textAlign="center">
 
                     <Typography variant="h3" display={{ xs: 'none', sm: 'block' }} data-aos="fade-down">
-                        Página oficial de recibimientos CAB
+                        Página oficial de Recibimientos CAB
                     </Typography>
 
                     <Box display={{ xs: 'block', sm: 'none' }} data-aos="fade-down">
@@ -25,7 +25,7 @@ export const SectionHome: FC = () => {
                             Página oficial
                         </Typography>
 
-                        <Typography variant="h4" color='primary.main' fontWeight='bold'>
+                        <Typography variant="h4" color='primary.main'>
                             Recibimientos CAB
                         </Typography>
 
@@ -38,7 +38,7 @@ export const SectionHome: FC = () => {
                         <Typography fontSize={{ xs: 18, sm: 22 }} component='span' color='primary.main' mx={1} fontWeight='bold'>
                             MAS GRANDES
                         </Typography>
-                        del pais!
+                        del país!
                     </Typography>
 
                     <Button

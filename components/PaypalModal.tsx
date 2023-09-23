@@ -22,7 +22,7 @@ export const PaypalModal: FC = () => {
     return (
         <ModalLayout modalType='paypal' modalStatus={modalStatus.paypal!} >
 
-            <Typography variant="h4" fontWeight={600} textAlign="center">
+            <Typography variant="h4">
                 PayPal
             </Typography>
 

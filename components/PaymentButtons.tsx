@@ -33,11 +33,10 @@ export const PaymentButtons: FC = () => {
             <span className="mini-divider" />
 
             <Typography variant="h6" mb={2} >
-                Puedes realizar tu aporte a travez de las siguientes plataformas de pago,
-                o puedes optar por realizar una transferencia bancaria. Gracias, Pirata!
+                Puedes realizar tu aporte a través de las siguientes plataformas de pago, o puedes optar por realizar una transferencia bancaria. ¡Gracias, Pirata!
             </Typography>
 
-            <Tooltip title={<Typography>Proximamente...</Typography>} arrow placement='top'>
+            <Tooltip title={<Typography>Próximamente...</Typography>} arrow placement='top'>
                 <Box display='flex' justifyContent='center' flexWrap='wrap'>
                     <Box className='mercadopago-btn btn-disabled ' onClick={() => toggleModal('mercadopago')} />
                     <Box className='paypal-btn btn-disabled ' onClick={() => toggleModal('paypal')} />

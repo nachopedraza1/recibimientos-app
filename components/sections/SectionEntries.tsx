@@ -26,7 +26,7 @@ export const SectionEntries: FC = () => {
             >
 
                 <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold'>
-                    Ultimos
+                    Últimos
                     <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
                         Ingresos
                     </Typography>

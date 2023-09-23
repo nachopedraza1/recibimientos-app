@@ -86,10 +86,10 @@ const LoginPage: NextPage = () => {
                         <IconButton onClick={() => signIn(providers.google.id)}>
                             <Image src='/google.png' width={33} height={33} alt='Ingresar con google' />
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled>
                             <Image src='/twitter.png' width={33} height={33} alt='Ingresar con twitter' />
                         </IconButton>
-                        <IconButton>
+                        <IconButton disabled>
                             <Image src='/facebook.png' width={33} height={33} alt='Ingresar con facebook' />
                         </IconButton>
                     </Box>

@@ -6,7 +6,7 @@ import { Entry } from '@/models';
 import { format } from '@/utils';
 
 import { MainLayout } from '@/components/layouts';
-import { PaymentButtons, HistoryStats } from '@/components';
+import { PaymentButtons, HistoryStats, ChangeNameModal } from '@/components';
 import { Container, Grid, Typography } from '@mui/material';
 
 import { Rows } from '@/interfaces';
@@ -35,7 +35,8 @@ const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ hist
                             :
                             (
                                 <>
-                                    <Typography variant="h5"> Aun no hay aportes para mostrar. </Typography>
+                                    <Typography variant="h5"> Aun no hay aportes que mostrar. </Typography>
+                                    <ChangeNameModal />
                                     <PaymentButtons />
                                 </>
                             )

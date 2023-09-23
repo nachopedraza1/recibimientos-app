@@ -5,6 +5,7 @@ import { Entry, User } from '@/models';
 import { format } from '@/utils';
 
 import { PaginationData } from '@/interfaces';
+import { isValidObjectId } from 'mongoose';
 
 interface Tops {
     name: string,
@@ -21,7 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     switch (req.method) {
         case 'GET':
-            return getUsers(req, res)
+            return getUsers(req, res);
+
+        case 'PUT':
+            return updateAccount(req, res);
 
         default:
             return res.status(200).json({ message: 'Example' })
@@ -109,5 +113,28 @@ const getUsers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+    }
+}
+
+
+const updateAccount = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { name = '', id } = req.body;
+
+    if (name.length <= 6 || name.length > 20) return res.status(400).json({ message: 'Error al procesar la solicitud' });
+    if (!isValidObjectId(id)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+
+    try {
+        await db.connect();
+
+        const exist = await User.findOne({ name });
+
+        if (exist) return res.status(400).json({ message: 'Ya existe un usuario con este nombre.' });
+
+        await User.findByIdAndUpdate(id, { name: name.toLowerCase() });
+
+        return res.status(200).json({ message: 'Usuario actualizado.' });
+    } catch (error) {
+        return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
     }
 }

@@ -43,8 +43,8 @@ export const Sidebar = () => {
                     {
                         user ?
                             <Box display='flex' alignItems='center'>
-                                <Avatar src="/default-avatar.jpg" />
-                                <Box ml={1}>
+                                <Avatar src={user?.image ? user.image : '/default-avatar.jpg'} />
+                                <Box ml={1} maxWidth={115}>
                                     <Typography fontSize={13} noWrap textTransform='capitalize'> {user?.name} </Typography>
                                     <Typography fontSize={10} noWrap> {user?.email} </Typography>
                                 </Box>
