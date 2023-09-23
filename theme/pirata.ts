@@ -14,6 +14,10 @@ export const pirata = createTheme({
         fontFamily: 'Poppins',
         h3: {
             fontWeight: 'bold',
+        },
+        h4: {
+            fontWeight: 'bold',
+            textAlign: 'center',
         }
     },
     components: {

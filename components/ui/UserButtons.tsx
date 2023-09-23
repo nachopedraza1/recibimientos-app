@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { AuthContext } from '@/context/auth';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faBars, faRightFromBracket, faCircleUser, faGear } from '@fortawesome/free-solid-svg-icons';
-import { Menu, MenuItem, ListItemIcon, IconButton } from '@mui/material';
+import { faUser, faBars, faRightFromBracket, faGear } from '@fortawesome/free-solid-svg-icons';
+import { Menu, MenuItem, ListItemIcon, IconButton, Avatar } from '@mui/material';
 
 
 export const UserButtons = () => {
@@ -29,8 +29,9 @@ export const UserButtons = () => {
     return (
         <>
             <IconButton onClick={handleClick} color='primary' sx={{ p: 0, pl: 2 }} disableRipple>
-                <FontAwesomeIcon icon={faCircleUser} />
+                <Avatar src={user?.image ? user.image : '/default-avatar.jpg'} />
             </IconButton >
+
 
             <Menu
                 disableScrollLock

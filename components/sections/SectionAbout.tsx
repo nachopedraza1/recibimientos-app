@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Grid, Typography } from "@mui/material"
+import { Grid, Tooltip, Typography } from "@mui/material"
 
 
 import { StatsGroup } from "@/components";
 import { SectionLayout } from "@/components/layouts"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 export const SectionAbout: FC = () => {
     return (
@@ -36,32 +36,27 @@ export const SectionAbout: FC = () => {
 
                     <ul className="social-list">
                         <li >
-                            <a href="#">
-                                <i className="fab">
-                                    <FontAwesomeIcon icon={faFacebook} />
-                                </i>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="#">
+                            <a href="https://x.com/recibimientocab" target='_blank'>
                                 <i className="fab">
                                     <FontAwesomeIcon icon={faTwitter} />
                                 </i>
                             </a>
                         </li>
-                        <li >
-                            <a href="#">
-                                <i className="fab">
-                                    <FontAwesomeIcon icon={faYoutube} />
-                                </i>
-                            </a>
-                        </li>
                         <li>
-                            <a href="#">
+                            <a href="https://instagram.com/recibimientos.cab" target='_blank'>
                                 <i className="fab">
                                     <FontAwesomeIcon icon={faInstagram} />
                                 </i>
                             </a>
+                        </li>
+                        <li >
+                            <Tooltip title='Próximamente...' placement='right' arrow>
+                                <a>
+                                    <i className="fab">
+                                        <FontAwesomeIcon icon={faYoutube} />
+                                    </i>
+                                </a>
+                            </Tooltip>
                         </li>
                     </ul>
 

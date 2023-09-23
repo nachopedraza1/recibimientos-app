@@ -35,7 +35,8 @@ export const SectionExpenses: FC = () => {
 
                 <span className="mini-divider" />
                 <Typography variant="h6" mb={5}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, inventore incidunt in architecto sed veniam quod saepe officiis quam necessitatibus nisi, aliquam doloremque dicta tempore facilis.
+                En este informe se reflejarán detalladamente todos los gastos asociados a los recibimientos,
+                 proporcionando una visión completa de los recursos utilizados.
                 </Typography>
 
                 <CustomTable

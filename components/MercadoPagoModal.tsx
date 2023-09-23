@@ -20,7 +20,7 @@ export const MercadoPagoModal: FC = () => {
     return (
         <ModalLayout modalType='mercadopago' modalStatus={modalStatus.mercadopago!}>
 
-            <Typography variant="h4" fontWeight={600} textAlign="center">
+            <Typography variant="h4">
                 Mercado Pago
             </Typography>
 

@@ -42,7 +42,7 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
         <>
             <CustomBreadcrumbs />
 
-            <Typography variant="h4" fontWeight={600}>
+            <Typography variant="h4">
                 Historial de Aportes
             </Typography>
 

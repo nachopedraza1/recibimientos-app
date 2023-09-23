@@ -28,6 +28,7 @@ nav {
     position: relative;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    max-height: 37px;
     display: flex;
     align-items: center;
 }
@@ -82,8 +83,11 @@ nav .nosotros,
 
 nav .profile,
 .nav-link:nth-child(5) {
-    width: 35.5px;
-    left: 375px;
+    top: -4.5px;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    left: 378px;
 }
 
 nav .active {
@@ -139,11 +143,6 @@ nav .active {
     font-size: 1rem;
     color: white;
     margin-left: 5px;
-}
-
-.auth-container h4 {
-    text-align: center;
-    font-weight: 600;
 }
 
 .auth-box {

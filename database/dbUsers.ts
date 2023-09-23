@@ -25,7 +25,7 @@ export const checkUserEmailPassword = async (email: string, password: string): P
     return { _id, name, email, role };
 }
 
-export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string) => {
+export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string, image: string) => {
 
     await db.connect();
     const user = await User.findOne({ email: oAuthEmail });
@@ -33,7 +33,7 @@ export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string) => {
     if (user) {
         /* await db.disconnect(); */
         const { _id, name, email, role } = user;
-        return { _id, name, email, role };
+        return { _id, name, email, role, image };
     }
 
     const newUser = new User({ email: oAuthEmail, name: oAuthName, password: '@', role: 'user' });
@@ -41,6 +41,6 @@ export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string) => {
     /* await db.disconnect(); */
 
     const { _id, name, email, role } = newUser;
-    return { _id, name, email, role };
+    return { _id, name, email, role, image };
 
 }
