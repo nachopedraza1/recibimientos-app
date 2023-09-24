@@ -26,13 +26,16 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
     const { name = '', email = '', password = '' } = req.body;
 
-    if (name.length <= 6 || name.length > 20) return res.status(400).json({ message: 'Bad request - Name' })
-    if (isEmail(email) || email.length > 35) return res.status(400).json({ message: 'Bad request - Email' })
+    const lowercaseName = name.toLowerCase();
+    const lowercaseEmail = email.toLowerCase();
+
+    if (lowercaseName.length <= 6 || lowercaseName.length > 20) return res.status(400).json({ message: 'Bad request - Name' })
+    if (isEmail(lowercaseEmail) || lowercaseEmail.length > 35) return res.status(400).json({ message: 'Bad request - Email' })
     if (password.length < 6 || password.length > 25) return res.status(400).json({ message: 'Bad request - Password' })
 
     await db.connect();
 
-    const isExist = await User.findOne({ $or: [{ email }, { name }], })
+    const isExist = await User.findOne({ $or: [{ email: lowercaseEmail }, { name: lowercaseName }], })
 
     if (isExist) {
         /* await db.disconnect(); */
@@ -42,8 +45,8 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
     try {
 
         const user = new User({
-            name: name.toLowerCase(),
-            email: email.toLowerCase(),
+            name: name,
+            email: email,
             role: 'user',
             totalDonated: 0,
             password: bcrypt.hashSync(password)

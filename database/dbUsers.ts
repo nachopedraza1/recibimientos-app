@@ -27,8 +27,11 @@ export const checkUserEmailPassword = async (email: string, password: string): P
 
 export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string, image: string) => {
 
+    const lowercaseName = oAuthName.toLowerCase();
+    const lowercaseEmail = oAuthEmail.toLowerCase();
+
     await db.connect();
-    const user = await User.findOne({ $or: [{ email: oAuthEmail }, { name: oAuthName }], })
+    const user = await User.findOne({ $or: [{ email: lowercaseEmail }, { name: lowercaseName }], })
 
     if (user) {
         /* await db.disconnect(); */
