@@ -32,11 +32,11 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 
     await db.connect();
 
-    const isExist = await User.findOne({ email })
+    const isExist = await User.findOne({ $or: [{ email }, { name }], })
 
     if (isExist) {
         /* await db.disconnect(); */
-        return res.status(400).json({ message: 'Ya existe un usuario registrado con este email.' })
+        return res.status(400).json({ message: 'Ya existe un usuario registrado con estos datos.' })
     }
 
     try {

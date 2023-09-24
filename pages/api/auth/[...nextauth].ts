@@ -6,6 +6,7 @@ import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
+
 declare module "next-auth" {
     interface Session {
         accessToken?: string;
@@ -31,7 +32,7 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-        })
+        }),
     ],
 
     session: {
@@ -49,6 +50,8 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, account, user }) {
             if (account) {
                 token.accessToken = account.access_token;
+                console.log({ account, user });
+
 
                 switch (account.type) {
 

@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             return updateAccount(req, res);
 
         default:
-            return res.status(200).json({ message: 'Example' })
+            return res.status(200).json({ message: 'Método no válido.' })
     }
 }
 
