@@ -8,7 +8,10 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     const url = req.nextUrl.clone();
     const requestUrl = req.nextUrl.pathname;
 
-    if (requestUrl.includes('/api')) {
+
+    const routesPay = ['/api/paypal/checkout', '/api/mercadopago/checkout'];
+    if (routesPay.includes(requestUrl)) {
+
         if (!session) {
             return new Response(JSON.stringify({ message: 'No autorizado' }), {
                 status: 401,
@@ -21,13 +24,66 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     }
 
 
+    const routesAdmin = ['/api/entries', '/api/expenses'];
+    if (routesAdmin.includes(requestUrl)) {
+
+        if (req.method === 'GET') return NextResponse.next();
+
+        if (!session || session.user.role !== 'admin') {
+            return new Response(JSON.stringify({ message: 'No autorizado' }), {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        return NextResponse.next();
+    }
+
+
+
+    if (requestUrl.includes('/api/users')) {
+        if (req.method === 'POST') return NextResponse.next();
+
+        if (!session) {
+            return new Response(JSON.stringify({ message: 'No autorizado' }), {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+    }
+
+
+
     if (requestUrl.includes('/auth')) {
+
         if (session) {
             url.pathname = '/';
             return NextResponse.redirect(url)
         }
+
         return NextResponse.next();
     }
+
+
+    
+    if (requestUrl.includes('/api/admin')) {
+
+        if (!session || session.user.role !== 'admin') {
+            return new Response(JSON.stringify({ message: 'No autorizado' }), {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        return NextResponse.next();
+    }
+
 
 
     if (requestUrl.includes('/admin')) {
@@ -36,6 +92,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
             url.pathname = '/';
             return NextResponse.redirect(url)
         }
+
         return NextResponse.next();
     }
 
@@ -44,11 +101,16 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
 export const config = {
     matcher: [
-        '/admin',
-        '/auth/login',
-        '/auth/register',
-        '/api/paypal/checkout',
-        '/api/mercadopago/checkout',
+        '/admin',//Only auth admins
+        '/auth/login', //Only unauth
+        '/auth/register',//Only unauth
+        '/api/paypal/checkout', //Only auth
+        '/api/mercadopago/checkout',//Only auth
+
+        '/api/admin',// => //Private GET
+        '/api/entries',// =>Private POST && DELETE
+        '/api/expenses',// =>Private POST && DELETE
+        '/api/users', //Private POST && PUT
     ],
 };
 

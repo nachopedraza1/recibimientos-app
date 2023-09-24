@@ -17,7 +17,7 @@ interface Tops {
 
 export const TopDonates: FC = () => {
 
-    const { data } = useSWR<Tops[]>('/api/users?tops=true');
+    const { data } = useSWR<Tops[]>('/api/users/tops');
 
     return (
         <Grid container justifyContent="center" alignItems="end" gap={3} p={4} data-aos="fade-down" data-aos-delay="300">

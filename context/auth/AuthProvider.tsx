@@ -60,7 +60,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const registerUser = async (name: string, email: string, password: string) => {
         try {
-            const { data } = await axios.post('/api/auth/register', { name, email, password })
+            const { data } = await axios.post('/api/users', { name, email, password })
             dispatch({ type: '[Auth] - Login', payload: data.user });
             await signIn('credentials', { email, password });
         } catch (error) {

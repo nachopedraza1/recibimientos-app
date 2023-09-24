@@ -31,7 +31,7 @@ export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string, image
     const lowercaseEmail = oAuthEmail.toLowerCase();
 
     await db.connect();
-    const user = await User.findOne({ $or: [{ email: lowercaseEmail }, { name: lowercaseName }], })
+    const user = await User.findOne({ email: lowercaseEmail })
 
     if (user) {
         /* await db.disconnect(); */
@@ -40,8 +40,8 @@ export const oAuthToDbUser = async (oAuthEmail: string, oAuthName: string, image
     }
 
     const newUser = new User({
-        name: oAuthName.toLowerCase(),
-        email: oAuthEmail,
+        name: lowercaseName,
+        email: lowercaseEmail,
         password: '@',
         role: 'user'
     });
