@@ -22,7 +22,6 @@ const style = {
     borderRadius: '10px',
     boxShadow: 24,
     p: 4,
-    mx: 2,
     "&:focus": {
         outline: "none"
     }
@@ -56,6 +55,8 @@ export const ChangeNameModal: FC = () => {
 
     return (
         <>
+            <Typography variant="h5" mt={8}> Aun no hay aportes que mostrar. </Typography>
+            
             <Typography>
                 ¿Tienes aportes, pero aún no los ves reflejados en tu historial?
                 <Typography
@@ -122,7 +123,8 @@ export const ChangeNameModal: FC = () => {
                                 <Chip
                                     color='warning'
                                     icon={<FontAwesomeIcon icon={faWarning} />}
-                                    label='Al actualizar tu cuenta se cerrará la sesión.'
+                                    label='Al actualizar se cerrará la sesión.'
+                                    variant='outlined'
                                     sx={{ width: '100%', mt: 1 }}
                                 />
 

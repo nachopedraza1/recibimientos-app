@@ -35,7 +35,6 @@ const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ hist
                             :
                             (
                                 <>
-                                    <Typography variant="h5"> Aun no hay aportes que mostrar. </Typography>
                                     <ChangeNameModal />
                                     <PaymentButtons />
                                 </>
