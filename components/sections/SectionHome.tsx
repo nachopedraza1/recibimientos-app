@@ -46,7 +46,7 @@ export const SectionHome: FC = () => {
                         variant='contained'
                         size='large'
                         sx={{ mt: 1 }}
-                        onClick={(e) => navigateWithoutHash(e, 'ingresos')}
+                        onClick={(e) => navigateWithoutHash(e, 'payment')}
                     >
                         Realiza tu aporte ahora
                     </Button>

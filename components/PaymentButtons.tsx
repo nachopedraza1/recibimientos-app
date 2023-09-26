@@ -20,6 +20,7 @@ export const PaymentButtons: FC = () => {
             textAlign="center"
             color="white"
             pt={10}
+            id='payment'
         >
 
             <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold'>
