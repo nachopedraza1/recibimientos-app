@@ -104,7 +104,7 @@ export const ChangeNameModal: FC = () => {
                                     {...register('name', {
                                         required: 'El campo requerido.',
                                         minLength: { value: 6, message: 'Mínimo 6 caracteres' },
-                                        maxLength: { value: 20, message: 'Máximo 20 caracteres' },
+                                        maxLength: { value: 30, message: 'Máximo 30 caracteres' },
                                         pattern: { value: /^[A-Za-z\s]+$/, message: 'No se permiten números.' }
                                     })}
                                     error={!!errors.name}

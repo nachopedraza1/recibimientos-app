@@ -77,7 +77,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
     const lowercaseName = name.toLowerCase();
     const lowercaseEmail = email.toLowerCase();
 
-    if (lowercaseName.length <= 6 || lowercaseName.length > 20) return res.status(400).json({ message: 'Bad request - Name' })
+    if (lowercaseName.length <= 6 || lowercaseName.length > 30) return res.status(400).json({ message: 'Bad request - Name' })
     if (isEmail(lowercaseEmail) || lowercaseEmail.length > 35) return res.status(400).json({ message: 'Bad request - Email' })
     if (password.length < 6 || password.length > 25) return res.status(400).json({ message: 'Bad request - Password' })
 
@@ -118,7 +118,7 @@ const updateAccount = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
     const lowercaseName = name.toLowerCase();
 
-    if (lowercaseName.length <= 6 || lowercaseName.length > 20) return res.status(400).json({ message: 'Error al procesar la solicitud' });
+    if (lowercaseName.length <= 6 || lowercaseName.length > 30) return res.status(400).json({ message: 'Error al procesar la solicitud' });
     if (!isValidObjectId(id)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
 
     try {
