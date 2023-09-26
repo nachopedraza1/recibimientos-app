@@ -81,7 +81,7 @@ export const AddEntries: FC = () => {
                         placeholder='Monto aportado...'
                         {...register('amount', {
                             required: { message: 'Este campo es requerido', value: true },
-                            minLength: { message: 'Minimo 2 números', value: 2 },
+                            minLength: { message: 'Minimo 3 números', value: 3 },
                             pattern: { message: 'Solo números', value: /^[0-9]*$/ }
                         })}
                         error={!!errors.amount}

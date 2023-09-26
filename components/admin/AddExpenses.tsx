@@ -39,7 +39,7 @@ export const AddExpenses: FC = () => {
                         placeholder='Ingrese el producto...'
                         {...register('item', {
                             required: { message: 'Este campo es requerido', value: true },
-                            minLength: { message: 'Mínimo 3 caracteres', value: 3 },
+                            minLength: { message: 'Mínimo 5 caracteres', value: 5 },
                         })}
                         error={!!errors.item}
                         helperText={errors.item?.message}
@@ -55,7 +55,7 @@ export const AddExpenses: FC = () => {
                         placeholder='Monto aportado...'
                         {...register('amount', {
                             required: { message: 'Este campo es requerido', value: true },
-                            minLength: { message: 'Minimo 2 números', value: 2 },
+                            minLength: { message: 'Minimo 3 números', value: 3 },
                             pattern: { message: 'Solo números', value: /^[0-9]*$/ }
                         })}
                         error={!!errors.amount}

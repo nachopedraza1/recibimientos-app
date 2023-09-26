@@ -85,8 +85,8 @@ const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
     const { name = '', amount = '', method = '' } = req.body;
 
-    if (name.length <= 3 || name.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
-    if (amount.length <= 3 || amount.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    if (name.length <= 3 || name.length > 30) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+    if (amount.length < 3 || amount.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
 
     const validMethods = ['mercadopago', 'paypal', 'transferencia'];
 
