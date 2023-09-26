@@ -85,7 +85,7 @@ const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) =
 
     const { item = '', amount = '' } = req.body;
 
-    if (item.length <= 3 || item.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+    if (item.length <= 3 || item.length > 35) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
     if (amount.length < 3 || amount.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
 
 
