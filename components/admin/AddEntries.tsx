@@ -42,6 +42,7 @@ export const AddEntries: FC = () => {
                         {...register('name', {
                             required: { message: 'Este campo es requerido', value: true },
                             minLength: { message: 'Mínimo 5 caracteres', value: 5 },
+                            maxLength: { message: 'Máximo 35 caracteres', value: 35 },
                             pattern: { message: 'No puede ingresar números aquí.', value: /^[A-Za-z\s]+$/ }
                         })}
                         error={!!errors.name}

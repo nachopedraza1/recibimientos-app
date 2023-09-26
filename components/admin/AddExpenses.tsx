@@ -40,6 +40,7 @@ export const AddExpenses: FC = () => {
                         {...register('item', {
                             required: { message: 'Este campo es requerido', value: true },
                             minLength: { message: 'Mínimo 5 caracteres', value: 5 },
+                            maxLength: { message: 'Máximo 35 caracteres', value: 35 },
                         })}
                         error={!!errors.item}
                         helperText={errors.item?.message}
