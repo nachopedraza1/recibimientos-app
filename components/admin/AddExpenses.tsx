@@ -77,7 +77,7 @@ export const AddExpenses: FC = () => {
                 handleChangePage={handleChangePage}
                 isLoading={isLoading}
                 results={results}
-                totalText='Ingresos totales:'
+                totalText='Gastos totales:'
                 extendedTable={false}
             />
         </>

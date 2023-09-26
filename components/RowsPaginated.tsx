@@ -21,10 +21,9 @@ export const RowsPaginated: FC<Props> = ({ rows = [], page, extendedTable }) => 
 
     const { asPath } = useRouter();
 
-    const emptyRows = Math.max(0, (page * 10) - rows.length);
+    const emptyRows = Math.max(0, ((page === 0 ? 1 : page) * 10) - rows.length);
 
     const { selectedTab } = useContext(UiContext);
-
 
     return (
         <>
