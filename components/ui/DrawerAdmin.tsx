@@ -30,7 +30,7 @@ export const DrawerAdmin: FC<Props> = ({ drawerToggle }) => {
 
     const navigate = (tabValue: number) => {
         handleChangeTab(tabValue);
-        drawerToggle();
+        window.innerWidth < 600 && drawerToggle();
     }
 
     return (

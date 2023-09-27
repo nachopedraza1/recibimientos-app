@@ -37,18 +37,20 @@ export const PaymentButtons: FC = () => {
                 Puedes realizar tu aporte a través de las siguientes plataformas de pago, o puedes optar por realizar una transferencia bancaria. ¡Gracias, Pirata!
             </Typography>
 
-            <Tooltip title={<Typography>Próximamente...</Typography>} arrow placement='top'>
-                <Box display='flex' justifyContent='center' flexWrap='wrap'>
-                    <Box className='mercadopago-btn btn-disabled' onClick={() => toggleModal('mercadopago')} />
-                    <Box className='paypal-btn btn-disabled ' onClick={() => toggleModal('paypal')} />
-                </Box>
-            </Tooltip>
+            <Box display='flex' justifyContent='center' flexWrap='wrap'>
+                <Tooltip title={<Typography>Próximamente...</Typography>} arrow placement='top'>
+                    <Box className='mercadopago-btn btn-disabled' /* onClick={() => toggleModal('mercadopago')} */ />
+                </Tooltip>
+                <Tooltip title={<Typography>Próximamente...</Typography>} arrow placement='top'>
+                    <Box className='paypal-btn btn-disabled ' /* onClick={() => toggleModal('paypal')} */ />
+                </Tooltip>
+            </Box>
 
             <Box display="flex" justifyContent="center" alignItems="center" gap={1} letterSpacing={1} mt={2}>
                 <FontAwesomeIcon icon={faBuildingColumns} size='2x' />
                 <Box>
-                    <Typography>Alias: RECIBIMIENTOSCAB1905</Typography>
-                    <Typography>CBU: 0110213230021325584197</Typography>
+                    <Typography>Alias: RECIBIMIENTOSCAB68</Typography>
+                    <Typography>CBU: 1430001713009620630017</Typography>
                 </Box>
             </Box>
 

@@ -264,8 +264,7 @@ nav .active {
 .btn-disabled {
     background-color: #ccc;
     color: #999;
-    cursor: not-allowed;
-    pointer-events: none;
+    cursor: wait;
     opacity: 0.6;
     user-select: none;
 }

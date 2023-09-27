@@ -5,7 +5,7 @@ import { Breadcrumbs, Link as MuiLink, Typography } from "@mui/material";
 export const CustomBreadcrumbs: FC = () => {
     return (
 
-        <Breadcrumbs sx={{ justifyContent: "center", mt: 6, mb: 1 }}>
+        <Breadcrumbs sx={{ justifyContent: "center", mt: 13, mb: 1 }}>
             <MuiLink
                 href="/"
                 component={Link}

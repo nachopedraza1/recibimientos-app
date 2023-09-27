@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 
 import { CustomDivider } from '@/components/ui';
 import { MainLayout } from '@/components/layouts';
-import { Box, Button, CircularProgress, Grid, TextField, Typography, IconButton } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, TextField, Typography, IconButton, Tooltip } from '@mui/material';
 
 
 type FormData = {
@@ -99,16 +99,20 @@ const RegisterPage: NextPage = () => {
 
                     <CustomDivider />
 
-                    <Box className='auth-providers'>
+                    <Box className="auth-providers">
                         <IconButton onClick={() => signIn(providers.google.id)}>
                             <Image src='/google.png' width={33} height={33} alt='Ingresar con google' />
                         </IconButton>
-                        <IconButton disabled>
-                            <Image src='/twitter.png' width={33} height={33} alt='Ingresar con twitter' />
-                        </IconButton>
-                        <IconButton disabled>
-                            <Image src='/facebook.png' width={33} height={33} alt='Ingresar con facebook' />
-                        </IconButton>
+                        <Tooltip title={'Próximamente...'} arrow placement='top'>
+                            <IconButton>
+                                <Image src='/twitter.png' width={33} height={33} alt='Ingresar con twitter' />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={'Próximamente...'} arrow placement='top'>
+                            <IconButton>
+                                <Image src='/facebook.png' width={33} height={33} alt='Ingresar con facebook' />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
 
                     <Typography textAlign="center" mt={1}>

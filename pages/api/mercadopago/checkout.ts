@@ -53,7 +53,7 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
                 failure: url,
                 pending: url,
             },
-            notification_url: `${url}/api/mercadopago/notify`,
+            notification_url: `${url}/api/mercadopago/notify?source_news=webhooks`,
         }
 
         const response = await mercadopago.preferences.create(preference);

@@ -7,7 +7,7 @@ import { format } from '@/utils';
 
 import { MainLayout } from '@/components/layouts';
 import { PaymentButtons, HistoryStats, ChangeNameModal } from '@/components';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 import { Rows } from '@/interfaces';
 

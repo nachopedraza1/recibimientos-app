@@ -7,7 +7,7 @@ const entrySchema = new Schema({
     name: { type: String, required: true },
     amount: { type: Number, required: true },
     status: { type: String, required: true, },
-    paymentId: { type: String },
+    paymentId: { type: String, unique: true },
     method: {
         type: String,
         required: true,
