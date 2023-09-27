@@ -17,7 +17,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse<Data>) 
             return createPreference(req, res);
 
         default:
-            res.status(400).json({ message: 'Método inválido.' })
+            return res.status(400).json({ message: 'Método inválido.' })
     }
 
 }

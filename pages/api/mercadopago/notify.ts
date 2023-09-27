@@ -19,10 +19,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             const { body } = await mercadopago.payment.findById(Number(paymentId));
 
+            if (body.status === 'rejected') return;
+
             await db.connect();
             const entry = await Entry.findOne({ paymentId });
 
             if (!entry) {
+                console.log('entry');
                 const newEntry = new Entry({
                     userId: body.additional_info.items[0].id,
                     name: body.additional_info.payer.first_name,
@@ -38,7 +41,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             entry.status = body.status;
-
             await entry.save();
             /* await db.disconnect(); */
 
