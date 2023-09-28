@@ -39,7 +39,7 @@ export const PaymentButtons: FC = () => {
 
             <Box display='flex' justifyContent='center' flexWrap='wrap'>
                 <Tooltip title={<Typography>Próximamente...</Typography>} arrow placement='top'>
-                    <Box className='mercadopago-btn btn-disabled' /* onClick={() => toggleModal('mercadopago')} */ />
+                    <Box className='mercadopago-btn' onClick={() => toggleModal('mercadopago')} />
                 </Tooltip>
                 <Tooltip title={<Typography>Próximamente...</Typography>} arrow placement='top'>
                     <Box className='paypal-btn btn-disabled ' /* onClick={() => toggleModal('paypal')} */ />
