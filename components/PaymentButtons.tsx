@@ -49,8 +49,9 @@ export const PaymentButtons: FC = () => {
             <Box display="flex" justifyContent="center" alignItems="center" gap={1} letterSpacing={1} mt={2}>
                 <FontAwesomeIcon icon={faBuildingColumns} size='2x' />
                 <Box>
-                    <Typography>Alias: RECIBIMIENTOSCAB68</Typography>
-                    <Typography>CBU: 1430001713009620630017</Typography>
+                    <Typography>Alias: RECIBIMIENTOSCAB1968</Typography>
+                    <Typography>CBU: 0000003100076377822709</Typography>
+                    <Typography>Titular: Facundo Gaston Quiroga</Typography>
                 </Box>
             </Box>
 
