@@ -18,6 +18,7 @@ const entrySchema = new Schema({
     },
 }, {
     timestamps: {
+        // UTC -3
         currentTime: () => {
             let date = new Date();
             let newDate = new Date(date.getTime() + (date.getTimezoneOffset() * 60 * 1000 * -1));
