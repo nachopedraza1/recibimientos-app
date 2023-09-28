@@ -34,7 +34,7 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
         return res.status(400).json({ message: 'Algo ha salido mal. Por favor, comuníquese con un administrador.' })
     }
 
-    const url = process.env.SITE_URL;
+    const url = process.env.SITE_URL || 'https://www.recibimientoscab.com';
 
     try {
         const preference: CreatePreferencePayload = {
