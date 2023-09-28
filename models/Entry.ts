@@ -17,7 +17,9 @@ const entrySchema = new Schema({
         }
     },
 }, {
-    timestamps: true,
+    timestamps: {
+        currentTime: () => new Date().getTime() - 3 * 60 * 60 * 1000,
+    }
 });
 
 const entryModel: Model<IEntry> = mongoose.models.Entry || mongoose.model('Entry', entrySchema);
