@@ -1,4 +1,5 @@
 export * from './user';
+export * from './match';
 export * from './entry';
 export * from './paypal';
 export * from './expenses';
