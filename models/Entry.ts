@@ -1,7 +1,6 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { User } from "@/models";
 import { IEntry } from "@/interfaces";
-import moment from 'moment-timezone';
 
 const entrySchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: User },
@@ -19,7 +18,6 @@ const entrySchema = new Schema({
     },
 }, {
     timestamps: {
-        //@ts-ignore
         currentTime: () => {
             let date = new Date();
             let newDate = new Date(date.getTime() + (date.getTimezoneOffset() * 60 * 1000 * -1));
