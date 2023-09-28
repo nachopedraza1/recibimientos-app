@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useMemo } from "react";
 import { TableRow, TableCell, IconButton, Tooltip } from '@mui/material';
 
 import { UiContext } from "@/context/ui";
@@ -21,7 +21,7 @@ export const RowsPaginated: FC<Props> = ({ rows = [], page, extendedTable }) => 
 
     const { asPath } = useRouter();
 
-    const emptyRows = Math.max(0, ((page === 0 ? 1 : page) * 10) - rows.length);
+    const emptyRows = 10 - rows.length;
 
     const { selectedTab } = useContext(UiContext);
 
