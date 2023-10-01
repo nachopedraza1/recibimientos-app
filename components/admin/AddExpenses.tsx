@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { create } from '@/database/crudActions';
 import { usePaginationRequest } from '@/hooks';
 
-import { CustomTable } from '@/components';
+import { CustomTable } from '@/components/tables';
 import { Grid, TextField, Button, Typography } from '@mui/material';
 
 type FormData = {
@@ -78,7 +78,7 @@ export const AddExpenses: FC = () => {
                 isLoading={isLoading}
                 results={results}
                 totalText='Gastos totales:'
-                extendedTable={false}
+                tableType='expensesPublic'
             />
         </>
     )

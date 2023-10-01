@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { useNavbar } from '@/hooks';
 
+import { CustomDivider } from '@/components/ui';
 import { SectionLayout } from '@/components/layouts';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { CustomDivider } from '../ui';
 
 export const SectionHome: FC = () => {
 

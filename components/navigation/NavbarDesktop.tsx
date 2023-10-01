@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 
 import { useNavbar } from '@/hooks';
 
-import { UserButtons } from '@/components/ui';
+import { UserButtons } from '@/components/navigation';
 import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 
 const navLinks = [

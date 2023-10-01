@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { DrawerAdmin } from '@/components/ui';
+import { DrawerAdmin } from '@/components/navigation';
 import { AppBar, Toolbar, IconButton, Typography, Box, Drawer } from '@mui/material';
 
 import { faBars } from '@fortawesome/free-solid-svg-icons';

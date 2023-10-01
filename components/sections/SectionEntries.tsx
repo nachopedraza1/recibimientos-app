@@ -2,8 +2,10 @@ import { FC } from 'react';
 import { usePaginationRequest } from '@/hooks';
 
 import { Blob } from '@/components/ui';
+import { TopDonates } from "@/components";
+import { CustomTable } from '@/components/tables';
 import { SectionLayout } from "@/components/layouts";
-import { CustomTable, PaymentButtons, TopDonates } from "@/components";
+import { SectionDonate } from '@/components/sections';
 
 import { Grid, Typography } from "@mui/material";
 
@@ -45,9 +47,10 @@ export const SectionEntries: FC = () => {
                     isLoading={isLoading}
                     results={results}
                     totalText='Ingresos totales:'
+                    tableType='entriesPublic'
                 />
 
-                <PaymentButtons />
+                <SectionDonate />
             </Grid >
 
             <Blob width="30%" top="10%" left="74%" />

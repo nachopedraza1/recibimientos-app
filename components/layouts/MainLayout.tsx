@@ -2,7 +2,8 @@ import { FC, ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { Footer, NavbarDesktop, NavbarMobile } from '@/components/ui';
+import { Footer } from '@/components/footer';
+import { NavbarDesktop, NavbarMobile } from '@/components/navigation';
 import { Grid } from '@mui/material';
 
 

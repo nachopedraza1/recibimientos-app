@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { RowsPaginated } from '@/components';
 import { LoadDataTables } from '@/components/ui'
+import { RowsPaginated } from '@/components/tables';
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper, Box } from '@mui/material';
 
 import { PaginationData } from '@/interfaces';
@@ -20,7 +20,7 @@ interface Props {
     headRows: string[],
     totalText?: string,
     hiddenTotal?: boolean,
-    extendedTable?: boolean,
+    tableType: 'entriesPublic' | 'entriesPrivate' | 'expensesPublic' | 'usersPrivate' | 'matchesPrivate',
     handleChangePage: (event: unknown, newPage: number) => void
 }
 
@@ -30,7 +30,7 @@ export const CustomTable: FC<Props> = (
         results,
         headRows,
         totalText,
-        extendedTable = false,
+        tableType,
         hiddenTotal = false }) => {
 
 
@@ -52,7 +52,7 @@ export const CustomTable: FC<Props> = (
                             : <RowsPaginated
                                 rows={results.rows}
                                 page={results.page!}
-                                extendedTable={extendedTable}
+                                tableType={tableType}
                             />
                     }
                 </TableBody>

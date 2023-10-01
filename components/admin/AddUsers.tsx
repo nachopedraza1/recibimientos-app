@@ -1,5 +1,6 @@
-import { CustomTable } from "@/components";
 import { usePaginationRequest } from "@/hooks";
+
+import { CustomTable } from '@/components/tables';
 import { Grid, Typography } from "@mui/material";
 
 

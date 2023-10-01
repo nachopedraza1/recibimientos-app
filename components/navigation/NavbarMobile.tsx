@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { UiContext } from "@/context/ui";
 
-import { Sidebar } from "@/components/ui";
+import { Sidebar } from "@/components/navigation";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppBar, Toolbar, Container, Grid, IconButton, Box } from "@mui/material";

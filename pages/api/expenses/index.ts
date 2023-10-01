@@ -59,12 +59,11 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         /* await db.disconnect(); */
 
-        const formatRows = rows.map(({ name, amount, createdAt, _id }) => {
+        const formatRows = rows.map(row => {
             return {
-                id: _id,
-                name,
-                createdAt: JSON.stringify(createdAt).slice(1, 11),
-                amount: `$${format(amount)}`
+                ...row,
+                createdAt: JSON.stringify(row.createdAt).slice(1, 11),
+                amount: `$${format(row.amount)}`
             }
         });
 

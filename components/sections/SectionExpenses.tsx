@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { usePaginationRequest } from '@/hooks';
 
-import { CustomTable } from '@/components';
+import { CustomTable } from '@/components/tables';
 import { SectionLayout } from "@/components/layouts"
 import { Blob, CustomDivider } from '@/components/ui';
 import { Grid, Typography } from "@mui/material"
@@ -35,8 +35,8 @@ export const SectionExpenses: FC = () => {
 
                 <span className="mini-divider" />
                 <Typography variant="h6" mb={5}>
-                En este informe se reflejarán detalladamente todos los gastos asociados a los recibimientos,
-                 proporcionando una visión completa de los recursos utilizados.
+                    En este informe se reflejarán detalladamente todos los gastos asociados a los recibimientos,
+                    proporcionando una visión completa de los recursos utilizados.
                 </Typography>
 
                 <CustomTable
@@ -45,6 +45,7 @@ export const SectionExpenses: FC = () => {
                     isLoading={isLoading}
                     results={results}
                     totalText='Gastos totales:'
+                    tableType='expensesPublic'
                 />
 
             </Grid>

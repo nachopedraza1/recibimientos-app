@@ -63,7 +63,6 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         const formatRows = rows.map(row => {
             return {
                 ...row,
-                id: row._id,
                 createdAt: JSON.stringify(row.createdAt).slice(1, 11),
                 amount: `$${format(row.amount)}`
             }

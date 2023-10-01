@@ -26,7 +26,7 @@ const style = {
 };
 
 interface Props {
-    modalType: 'mercadopago' | 'paypal',
+    modalType: 'mercadopago' | 'paypal' | 'match',
     modalStatus: boolean,
     children: ReactNode,
 }

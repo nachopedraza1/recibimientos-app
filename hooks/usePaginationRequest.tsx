@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import useSWR, { mutate } from "swr";
 
 import { PaginationData } from '@/interfaces';
 
-export const usePaginationRequest = (tableData: 'entries' | 'expenses' | 'users') => {
+export const usePaginationRequest = (tableData: 'entries' | 'expenses' | 'users' | 'matches') => {
 
     const [page, setPage] = useState<number>(0);
 

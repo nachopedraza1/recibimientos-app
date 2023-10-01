@@ -11,11 +11,12 @@ import { faChartLine, faGear, faHome, faMoneyBillTransfer, faRightFromBracket, f
 
 const tabs = [
     { text: 'Estadisticas', icon: <FontAwesomeIcon icon={faChartLine} />, tabValue: 0 },
-    { text: 'Agregar Aportes', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 1 },
-    { text: 'Agregar Gastos', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, tabValue: 2 },
-    { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} />, tabValue: 3 },
-    { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} />, tabValue: 4 },
-    { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} />, tabValue: 5 },
+    { text: 'Nuevo Recibimiento', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 1 },
+    { text: 'Agregar Aportes', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 2 },
+    { text: 'Agregar Gastos', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, tabValue: 3 },
+    { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} />, tabValue: 4 },
+    { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} />, tabValue: 5 },
+    { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} />, tabValue: 6 },
 ];
 
 interface Props {
@@ -47,7 +48,7 @@ export const DrawerAdmin: FC<Props> = ({ drawerToggle }) => {
             </ListItem>
             <Divider />
             <List>
-                {tabs.slice(0, 4).map(({ text, icon, tabValue }) => (
+                {tabs.slice(0, 5).map(({ text, icon, tabValue }) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={() => navigate(tabValue)}>
                             <ListItemIcon>
@@ -60,7 +61,7 @@ export const DrawerAdmin: FC<Props> = ({ drawerToggle }) => {
             </List>
             <Divider />
             <List>
-                {tabs.slice(4, 6).map(({ text, icon, tabValue }, index) => (
+                {tabs.slice(5, 7).map(({ text, icon, tabValue }, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={() => index === 1 ? signOut() : navigate(tabValue)}>
                             <ListItemIcon>

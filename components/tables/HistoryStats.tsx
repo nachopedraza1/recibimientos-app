@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { CustomTable } from "@/components"
+import { CustomTable } from "@/components/tables"
 import { CustomBreadcrumbs } from "@/components/ui"
 import { Typography, Grid, Box } from "@mui/material"
 
@@ -73,8 +73,8 @@ export const HistoryStats: FC<Props> = ({ history, totalDonated }) => {
                 headRows={['Fecha', 'Nombre', 'Método', 'Estado', 'Monto']}
                 handleChangePage={handleChangePage}
                 results={results}
-                extendedTable
                 hiddenTotal
+                tableType="entriesPrivate"
             />
 
         </>

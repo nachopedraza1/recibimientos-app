@@ -5,7 +5,7 @@ import { UiContext } from '@/context/ui';
 
 import { TabPanel } from '@/components/ui';
 import { AdminLayout } from '@/components/layouts';
-import { AddEntries, AddExpenses, AddUsers, Dashboard } from '@/components/admin';
+import { AddEntries, AddExpenses, AddMatch, AddUsers, Dashboard } from '@/components/admin';
 import { Typography } from '@mui/material';
 
 
@@ -21,18 +21,22 @@ const AdminPage: NextPage = () => {
             </TabPanel>
 
             <TabPanel value={selectedTab} index={1}>
-                <AddEntries />
+                <AddMatch />
             </TabPanel>
 
             <TabPanel value={selectedTab} index={2}>
-                <AddExpenses />
+                <AddEntries />
             </TabPanel>
 
             <TabPanel value={selectedTab} index={3}>
-                <AddUsers />
+                <AddExpenses />
             </TabPanel>
 
             <TabPanel value={selectedTab} index={4}>
+                <AddUsers />
+            </TabPanel>
+
+            <TabPanel value={selectedTab} index={5}>
                 <Typography>En desarrollo...</Typography>
             </TabPanel>
 

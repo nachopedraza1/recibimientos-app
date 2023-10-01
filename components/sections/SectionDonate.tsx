@@ -2,12 +2,13 @@ import { FC, useContext } from 'react';
 
 import { UiContext } from '@/context/ui';
 
+import { MercadoPagoModal, PaypalModal } from '@/components/modals';
 import { Box, Divider, Grid, Typography, Tooltip } from '@mui/material';
-import { MercadoPagoModal, PaypalModal } from '@/components';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
 
-export const PaymentButtons: FC = () => {
+export const SectionDonate: FC = () => {
 
     const { toggleModal } = useContext(UiContext);
 

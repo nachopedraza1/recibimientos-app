@@ -6,7 +6,9 @@ import { Entry } from '@/models';
 import { format } from '@/utils';
 
 import { MainLayout } from '@/components/layouts';
-import { PaymentButtons, HistoryStats, ChangeNameModal } from '@/components';
+import { HistoryStats } from '@/components/tables';
+import { ChangeNameModal } from '@/components/modals';
+import { SectionDonate } from '@/components/sections';
 import { Container, Grid } from '@mui/material';
 
 import { Rows } from '@/interfaces';
@@ -36,7 +38,7 @@ const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ hist
                             (
                                 <>
                                     <ChangeNameModal />
-                                    <PaymentButtons />
+                                    <SectionDonate />
                                 </>
                             )
                     }
