@@ -8,6 +8,7 @@ const entrySchema = new Schema({
     amount: { type: Number, required: true },
     status: { type: String, required: true, },
     paymentId: { type: String, unique: true },
+    category: { type: String, required: true },
     method: {
         type: String,
         required: true,

@@ -10,13 +10,14 @@ export const AddUsers = () => {
 
     return (
         <Grid container className="fadeIn">
-            <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos registros  </Typography>
+            <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos registros </Typography>
             <CustomTable
                 headRows={['Fecha Registro', 'Nombre', 'Email', 'Rol', '']}
                 handleChangePage={handleChangePage}
                 isLoading={isLoading}
                 results={results}
                 totalText='Ingresos totales:'
+                tableType="usersPrivate"
                 hiddenTotal
             />
         </Grid>

@@ -3,6 +3,7 @@ export interface IEntry {
     userId: string,
     name: string,
     amount: number,
+    category?: string,
     createdAt: string,
     paymentId?: number,
     status?: string,

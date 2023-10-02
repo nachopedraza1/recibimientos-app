@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { db } from '@/database';
-import { Match } from '@/models';
+import { Entry, Match } from '@/models';
 import { format } from '@/utils';
 
 import { IMatch, PaginationData } from '@/interfaces'
@@ -50,15 +50,35 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         /* await db.disconnect(); */
 
-        const formatRows = rows.map(row => {
-            return {
-                ...row,
-                objectiveAmount: `$${format(row.objectiveAmount)}`
-            }
-        })
+        const formatRows = async () => {
+            const promises = rows.map(async (row) => {
+
+                const totalDonated = await Entry.aggregate([
+                    {
+                        $match: { category: 'talleres' }
+                    }, {
+                        $group: {
+                            _id: null,
+                            total: { $sum: '$amount' }
+                        }
+                    }]);
+
+                return {
+                    ...row,
+                    totalDonated: `$${format(totalDonated[0].total)}`,
+                    objectiveAmount: `$${format(row.objectiveAmount)}`
+                };
+            });
+
+            const formattedRows = await Promise.all(promises);
+
+            return formattedRows;
+        };
+
+        const resp = await formatRows();
 
         return res.status(200).json({
-            rows: formatRows,
+            rows: resp,
             totalRows,
         });
 
