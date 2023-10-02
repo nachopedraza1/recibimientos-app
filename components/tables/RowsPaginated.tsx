@@ -119,13 +119,17 @@ export const RowsPaginated: FC<Props> = ({ tableType, rows = [], page }) => {
                     {tableType === 'matchesPrivate' && (
                         <>
                             <TableCell align="center" scope="row">
-                                {row.dateEvent.substring(0, 10)}
+                                {row.dateEvent!.substring(0, 10)}
                             </TableCell>
 
                             <TableCell align="center">
                                 {row.name}
                             </TableCell>
 
+                            <TableCell align="center" sx={{ textTransform: 'lowercase' }}>
+                                {row.objectiveAmount}
+                            </TableCell>
+                            
                             <TableCell align="center" sx={{ textTransform: 'lowercase' }}>
                                 {row.objectiveAmount}
                             </TableCell>

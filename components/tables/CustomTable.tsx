@@ -33,7 +33,6 @@ export const CustomTable: FC<Props> = (
         tableType,
         hiddenTotal = false }) => {
 
-
     return (
         <TableContainer component={CustomPaper}>
             <Table>

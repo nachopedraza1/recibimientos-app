@@ -15,8 +15,8 @@ export interface Rows {
     amount?: string,
     createdAt?: string,
     active?: boolean,
-    objectiveAmount: string,
-    dateEvent: string,
+    objectiveAmount?: string,
+    dateEvent?: string,
     status?: string | 'approved' | 'COMPLETED',
     method?: "mercadopago" | "paypal" | "transfer",
 }
