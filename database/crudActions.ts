@@ -14,7 +14,7 @@ export const createAction = async (body: {}, route: 'entries' | 'expenses' | 'us
     }
 }
 
-export const deleteAction = async (_id: any, route: 'entries' | 'expenses') => {
+export const deleteAction = async (_id: any, route: 'entries' | 'expenses' | 'matches') => {
 
     try {
         await axios.delete(`/api/${route}?id=${_id}`);

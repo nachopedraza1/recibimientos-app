@@ -5,6 +5,7 @@ import { Entry, Match } from '@/models';
 import { format } from '@/utils';
 
 import { IMatch, PaginationData } from '@/interfaces'
+import { isValidObjectId } from 'mongoose';
 
 type Data =
     | { message: string }
@@ -22,6 +23,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         case 'PUT':
             return updateMatch(req, res);
+
+        case 'DELETE':
+            return deleteMatch(req, res);
 
         default:
             return res.status(400).json({ message: 'Method not allowed.' })
@@ -65,10 +69,13 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         }
                     }]);
 
+                const overage = totalDonated[0].total > row.objectiveAmount ? totalDonated[0].total - row.objectiveAmount : 0
+
                 return {
                     ...row,
                     totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total) : '0'}`,
-                    objectiveAmount: `$${format(row.objectiveAmount)}`
+                    overage: `$${format(overage)}`,
+                    objectiveAmount: `$${format(row.objectiveAmount)} `
                 };
             });
 
@@ -107,7 +114,7 @@ const createMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         if (exist) return res.status(400).json({ message: 'Este recibimiento ya existe.' });
 
         const newMatch = new Match({
-            name,
+            name: name.toLowerCase(),
             dateEvent,
             objectiveAmount,
             active: false,
@@ -138,7 +145,7 @@ const updateMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         if (!match) return res.status(400).json({ message: 'No existe un recibimiento.' });
 
-        /* if (match.active) return res.status(400).json({ message: 'Ya existe un recibimiento activo.' }); */
+        await Match.updateMany({ active: true }, { active: false });
 
         await Match.findOneAndUpdate({ name: matchName }, { active: !match.active });
 
@@ -148,4 +155,34 @@ const updateMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         console.log(error);
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
     }
+}
+
+
+const deleteMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { id } = req.query;
+
+    if (!isValidObjectId(id)) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+
+    try {
+        await db.connect();
+
+        const match = await Match.findById(id)
+
+        if (!match) {
+            return res.status(500).json({ message: 'No hay recibimiento con este ID.' })
+        }
+
+        if (match?.active) return res.status(400).json({ message: 'No se puede eliminar un recibimiento activo.' })
+
+        await match.deleteOne();
+
+        return res.status(200).json({ message: 'Eliminado con éxito.' })
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' })
+    }
+
 }

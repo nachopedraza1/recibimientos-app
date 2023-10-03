@@ -9,6 +9,11 @@ interface ContextProps {
     toggleModal: (modalType: 'mercadopago' | 'paypal') => void;
     handleChangeTab: (tabValue: number) => void;
     toggleSidebar: () => void;
+
+
+    //Switches admin panel
+    activeSwitch: string | null;
+    updateActiveSwitch: (matchName: string) => void;
 }
 
 

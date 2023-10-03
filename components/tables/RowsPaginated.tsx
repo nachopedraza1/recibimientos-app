@@ -1,4 +1,4 @@
-import { FC, useContext, useMemo, useState } from "react";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { UiContext } from "@/context/ui";
@@ -142,21 +142,30 @@ export const RowsPaginated: FC<Props> = ({ tableType, rows = [], page }) => {
                     )}
 
                     {
-                        selectedTab === 3 && asPath.includes('/admin') &&
+                        selectedTab === 1 && asPath.includes('/admin') &&
                         <TableCell align="center">
                             <Tooltip title="Eliminar" placement="left" arrow>
-                                <IconButton onClick={() => deleteAction(row._id, 'expenses')} disableRipple sx={{ p: 0 }}>
+                                <IconButton onClick={() => deleteAction(row._id, 'matches')} disableRipple sx={{ p: 0 }}>
                                     <FontAwesomeIcon icon={faTrash} size="xs" color="#ff3333" />
                                 </IconButton>
                             </Tooltip>
                         </TableCell>
                     }
-
                     {
                         selectedTab === 2 && asPath.includes('/admin') &&
                         <TableCell align="center">
                             <Tooltip title="Eliminar" placement="left" arrow>
                                 <IconButton onClick={() => deleteAction(row._id, 'entries')} disableRipple sx={{ p: 0 }}>
+                                    <FontAwesomeIcon icon={faTrash} size="xs" color="#ff3333" />
+                                </IconButton>
+                            </Tooltip>
+                        </TableCell>
+                    }
+                    {
+                        selectedTab === 3 && asPath.includes('/admin') &&
+                        <TableCell align="center">
+                            <Tooltip title="Eliminar" placement="left" arrow>
+                                <IconButton onClick={() => deleteAction(row._id, 'expenses')} disableRipple sx={{ p: 0 }}>
                                     <FontAwesomeIcon icon={faTrash} size="xs" color="#ff3333" />
                                 </IconButton>
                             </Tooltip>

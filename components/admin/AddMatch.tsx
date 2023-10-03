@@ -86,7 +86,7 @@ export const AddMatch: FC = () => {
             </Grid>
 
             <CustomTable
-                headRows={['recibimiento', 'título', 'recaudado', 'objetivo', 'Activo']}
+                headRows={['recibimiento', 'título', 'recaudado', 'objetivo', 'Activo', '']}
                 handleChangePage={handleChangePage}
                 isLoading={isLoading}
                 results={results}
