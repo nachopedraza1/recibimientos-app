@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import mercadopago from 'mercadopago';
 
 import { db } from '@/database';
-import { Entry } from '@/models';
+import { Entry, Match } from '@/models';
 
 mercadopago.configure({
     access_token: process.env.SECRET_MP!
@@ -26,11 +26,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 await db.connect();
                 const entry = await Entry.findOne({ paymentId });
 
+                const category = await Match.findOne({ active: true });
+
                 if (!entry) {
                     const newEntry = new Entry({
                         userId: body.additional_info.items[0].id,
                         name: body.additional_info.payer.first_name,
                         amount: body.transaction_details.total_paid_amount,
+                        category: category?.name,
                         method: 'mercadopago',
                         status: body.status,
                         paymentId

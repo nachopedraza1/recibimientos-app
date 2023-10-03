@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form'
 
-import { create } from '@/database/crudActions';
+import { createAction } from '@/database/crudActions';
 import { usePaginationRequest } from '@/hooks';
 
 import { CustomTable } from '@/components/tables';
@@ -21,7 +21,7 @@ export const AddEntries: FC = () => {
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
 
     const onSubmit = ({ name, amount, method }: FormData) => {
-        create({ name, amount, method }, 'entries');
+        createAction({ name, amount, method }, 'entries');
     }
 
     return (

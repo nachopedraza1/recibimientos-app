@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { isValidObjectId } from 'mongoose';
 
 import { format } from '@/utils';
-import { Entry } from '@/models'
+import { Entry, Match } from '@/models'
 import { db } from '@/database';
 
 import { PaginationData } from '@/interfaces';
@@ -93,11 +93,15 @@ const createEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
     try {
         await db.connect();
+
+        const category = await Match.findOne({ active: true });
+
         const newEntry = new Entry({
             name: name.toLowerCase(),
             amount,
             method,
-            status: 'COMPLETED'
+            category: category?.name,
+            status: 'COMPLETED',
         });
         await newEntry.save();
         await db.disconnect();

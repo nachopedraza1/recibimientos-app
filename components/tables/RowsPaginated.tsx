@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { UiContext } from "@/context/ui";
@@ -7,6 +7,7 @@ import { deleteAction } from "@/database/crudActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+import { SwitchTableRow } from "@/components/tables";
 import { TableRow, TableCell, IconButton, Tooltip } from '@mui/material';
 import { Rows } from "@/interfaces";
 
@@ -127,15 +128,15 @@ export const RowsPaginated: FC<Props> = ({ tableType, rows = [], page }) => {
                             </TableCell>
 
                             <TableCell align="center" sx={{ textTransform: 'lowercase' }}>
-                                {row.objectiveAmount}
+                                {row.totalDonated}
                             </TableCell>
-                            
+
                             <TableCell align="center" sx={{ textTransform: 'lowercase' }}>
                                 {row.objectiveAmount}
                             </TableCell>
 
                             <TableCell align="center">
-                                {row.active}
+                                <SwitchTableRow row={row} />
                             </TableCell>
                         </>
                     )}

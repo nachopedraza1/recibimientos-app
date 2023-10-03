@@ -20,6 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         case 'POST':
             return createMatch(req, res);
 
+        case 'PUT':
+            return updateMatch(req, res);
+
         default:
             return res.status(400).json({ message: 'Method not allowed.' })
     }
@@ -31,9 +34,8 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const page = parseInt(req.query.page as string) || 1;
     const perPage = 10;
 
-    await db.connect();
-
     try {
+        await db.connect();
 
         const [
             rows,
@@ -55,7 +57,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
                 const totalDonated = await Entry.aggregate([
                     {
-                        $match: { category: 'talleres' }
+                        $match: { category: row.name }
                     }, {
                         $group: {
                             _id: null,
@@ -65,7 +67,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
                 return {
                     ...row,
-                    totalDonated: `$${format(totalDonated[0].total)}`,
+                    totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total) : '0'}`,
                     objectiveAmount: `$${format(row.objectiveAmount)}`
                 };
             });
@@ -76,6 +78,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         };
 
         const resp = await formatRows();
+
 
         return res.status(200).json({
             rows: resp,
@@ -119,4 +122,30 @@ const createMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
     }
 
+}
+
+const updateMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+
+    const { matchName } = req.body;
+
+    if (!matchName) return res.status(400).json({ message: 'Algo salio mal.' });
+
+    await db.connect();
+
+    try {
+
+        const match = await Match.findOne({ name: matchName });
+
+        if (!match) return res.status(400).json({ message: 'No existe un recibimiento.' });
+
+        /* if (match.active) return res.status(400).json({ message: 'Ya existe un recibimiento activo.' }); */
+
+        await Match.findOneAndUpdate({ name: matchName }, { active: !match.active });
+
+        return res.status(200).json({ message: 'Recibimiento actualizado.' });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Algo salio mal, revisar logs del servidor.' });
+    }
 }

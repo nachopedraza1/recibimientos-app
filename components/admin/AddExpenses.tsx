@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form'
 
-import { create } from '@/database/crudActions';
+import { createAction } from '@/database/crudActions';
 import { usePaginationRequest } from '@/hooks';
 
 import { CustomTable } from '@/components/tables';
@@ -19,7 +19,7 @@ export const AddExpenses: FC = () => {
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
 
     const onSubmit = ({ item, amount }: FormData) => {
-        create({ item, amount }, 'expenses');
+        createAction({ item, amount }, 'expenses');
     }
 
     return (

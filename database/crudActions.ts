@@ -2,7 +2,7 @@ import { mutate } from 'swr';
 import { alertSnack } from '@/utils';
 import axios, { isAxiosError } from 'axios';
 
-export const create = async (body: {}, route: 'entries' | 'expenses' | 'users' | 'matches') => {
+export const createAction = async (body: {}, route: 'entries' | 'expenses' | 'users' | 'matches') => {
     try {
         await axios.post(`/api/${route}`, body);
         mutate(`/api/${route}?page=1`);
