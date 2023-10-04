@@ -41,7 +41,7 @@ export const ModalLayout: FC<Props> = ({ children, modalType, modalStatus }) => 
         <div>
             <Modal
                 open={modalStatus}
-                onClose={() => toggleModal(modalType)}
+                onClose={() => toggleModal(modalType)} 
                 closeAfterTransition
                 slots={{ backdrop: Backdrop }}
                 sx={{ overflowY: 'scroll' }}
