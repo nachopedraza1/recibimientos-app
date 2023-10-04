@@ -27,6 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 const getTops = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
+    const limit = parseInt(req.query.limit as string) || 3;
+
     await db.connect();
 
     try {
@@ -36,14 +38,14 @@ const getTops = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                 $group: {
                     _id: "$name",
                     totalAmount: { $sum: "$amount" },
-                    totalCount: { $sum: 1 }
+                    totalCount: { $sum: 1 },
                 }
             },
             {
                 $sort: { totalAmount: -1 }
             },
             {
-                $limit: 3
+                $limit: limit
             }
         ]);
 

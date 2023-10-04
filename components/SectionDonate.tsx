@@ -20,7 +20,7 @@ export const SectionDonate: FC = () => {
             justifyContent="center"
             textAlign="center"
             color="white"
-            pt={8}
+            pt={4}
             id='payment'
         >
 

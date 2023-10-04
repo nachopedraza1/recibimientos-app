@@ -34,7 +34,7 @@ const ExpensesPage = () => {
                     </Typography>
 
                     <span className="mini-divider" />
-                    <Typography variant="h6">
+                    <Typography variant="h6" mb={3}>
                         En este informe se reflejarán detalladamente todos los gastos asociados a los recibimientos,
                         proporcionando una visión completa de los recursos utilizados.
                     </Typography>
@@ -49,6 +49,10 @@ const ExpensesPage = () => {
                     />
 
                 </Grid>
+
+                <Blob width="50%" top="7%" left="74%" />
+                <Blob width="50%" top="24%" left="5%" />
+                <Blob width="50%" top="52%" left="40%" />
             </Container>
         </MainLayout>
     )

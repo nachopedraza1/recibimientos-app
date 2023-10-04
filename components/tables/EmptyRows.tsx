@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { TableRow, Typography } from '@mui/material';
+import Link from 'next/link';
+import { Link as MuiLink, TableRow, Typography } from '@mui/material';
 
 export const EmptyRows = () => {
     return (
@@ -9,7 +10,8 @@ export const EmptyRows = () => {
                 position: 'absolute',
                 top: '50%',
                 left: '50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, -50%)',
+                textAlign: 'center'
             }}
         >
             <Image src='/logo-loading.png' width={120} height={120} alt='Recibimientos CAB' />
@@ -17,7 +19,10 @@ export const EmptyRows = () => {
                 Aun no hay resultados disponibles.
             </Typography>
             <Typography>
-                Puedes acceder al historial de recibimientos aqui.
+                Puedes acceder al historial de recibimientos
+                <MuiLink component={Link} href={'/recibimientos'} ml={0.5} >
+                    aqui.
+                </MuiLink>
             </Typography>
             <span className='mini-divider'></span>
         </TableRow>

@@ -34,8 +34,8 @@ const EntriesPage = () => {
                     </Typography>
 
                     <span className="mini-divider" />
-                    <Typography variant="h6">
-                    Aquí podras seguir en vivo la colecta actual para el recibimiento contra Boca, donde encontrarás información detallada sobre los aportes realizados hasta el momento.
+                    <Typography variant="h6" mb={3}>
+                        Aquí podras seguir en vivo la colecta actual para el recibimiento contra Boca, donde encontrarás información detallada sobre los aportes realizados hasta el momento.
                     </Typography>
 
                     <CustomTable
@@ -47,6 +47,10 @@ const EntriesPage = () => {
                         tableType='entriesPublic'
                     />
                 </Grid >
+
+                <Blob width="50%" top="7%" left="74%" />
+                <Blob width="50%" top="24%" left="5%" />
+                <Blob width="50%" top="52%" left="40%" />
             </Container>
         </MainLayout>
     )

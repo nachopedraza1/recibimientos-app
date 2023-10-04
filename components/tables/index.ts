@@ -1,4 +1,5 @@
 export * from './EmptyRows';
+export * from './TopTenTable';
 export * from './CustomTable';
 export * from './HistoryStats';
 export * from './RowsPaginated';
