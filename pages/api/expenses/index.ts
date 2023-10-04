@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isValidObjectId } from 'mongoose';
 
-import { Expense } from '@/models';
+import { Expense, Match } from '@/models';
 import { format } from '@/utils';
 import { db } from '@/database';
 
@@ -35,26 +35,36 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     await db.connect();
 
+
     try {
+
+        const activeMatch = await Match.findOne({ active: true });
+
+        if (!activeMatch) return res.status(400).json({ message: 'No hay recibimientos activos.' })
 
         const [
             rows,
             totalRows,
             totalAmount
         ] = await Promise.all([
-            Expense.find()
+            Expense.find({ category: activeMatch.name })
                 .sort({ createdAt: -1 })
                 .select('name amount createdAt _id')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),
-            Expense.find().count(),
-            Expense.aggregate([{
-                $group: {
-                    _id: null,
-                    total: { $sum: '$amount' }
+            Expense.find({ category: activeMatch.name }).count(),
+            Expense.aggregate([
+                {
+                    $match: { category: activeMatch.name }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: '$amount' }
+                    }
                 }
-            }])
+            ])
         ]);
 
         /* await db.disconnect(); */
@@ -67,10 +77,12 @@ const getExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             }
         });
 
+        const formattedTotalAmount = `$${format(totalAmount[0] ? totalAmount[0].total : 0)}`;
+
         return res.status(200).json({
             rows: formatRows,
             totalRows,
-            totalAmount: `$${format(totalAmount[0].total)}`,
+            totalAmount: formattedTotalAmount,
         });
 
     } catch (error) {
@@ -87,10 +99,17 @@ const createExpenses = async (req: NextApiRequest, res: NextApiResponse<Data>) =
     if (item.length <= 3 || item.length > 35) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
     if (amount.length < 3 || amount.length > 20) return res.status(400).json({ message: 'Algo salio mal, revisar logs del servidor.' });
 
+    const category = await Match.findOne({ active: true });
 
     try {
         await db.connect();
-        const expense = new Expense({ name: item, amount });
+
+        const expense = new Expense({
+            name: item,
+            amount,
+            category: category?.name
+        });
+
         await expense.save();
         /* await db.disconnect(); */
 

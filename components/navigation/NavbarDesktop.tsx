@@ -9,17 +9,17 @@ import { UserButtons } from '@/components/navigation';
 import { AppBar, Box, Button, Container, Grid, Toolbar } from '@mui/material';
 
 const navLinks = [
-    { id: 1, text: "inicio", path: "/#inicio" },
-    { id: 3, text: "ingresos", path: "/#ingresos" },
-    { id: 4, text: "gastos", path: "/#gastos" },
-    { id: 2, text: "nosotros", path: "/#nosotros" },
+    { id: 1, text: "inicio", path: "/" },
+    { id: 3, text: "ingresos", path: "/ingresos" },
+    { id: 4, text: "gastos", path: "/gastos" },
+    { id: 2, text: "nosotros", path: "/nosotros" },
 ];
 
 export const NavbarDesktop: FC = () => {
 
     const { status } = useSession();
 
-    const { activeSection, navbarBlur, navigateWithoutHash } = useNavbar();
+    const { activeSection, navbarBlur } = useNavbar();
 
     return (
         <Box display={{ xs: "none", md: "flex" }}>
@@ -36,7 +36,6 @@ export const NavbarDesktop: FC = () => {
 
                                 {navLinks.map(({ id, path, text }) => (
                                     <Link
-                                        onClick={(e) => navigateWithoutHash(e, text)}
                                         href={path}
                                         key={id}
                                         className={activeSection === text ? 'active nav-link' : 'nav-link'}

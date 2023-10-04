@@ -23,6 +23,8 @@ const entrySchema = new Schema({
     }
 });
 
+entrySchema.index({ name: 'text' });
+
 const entryModel: Model<IEntry> = mongoose.models.Entry || mongoose.model('Entry', entrySchema);
 
 export default entryModel;

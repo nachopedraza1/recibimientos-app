@@ -12,6 +12,8 @@ const CustomPaper = styled(Paper)((props) => ({
     backdropFilter: "blur(10px)",
     borderRadius: "10px",
     border: "1px solid rgba(255, 255, 255, 0.1)",
+    marginTop: '40px',
+    marginBottom: '40px',
 }));
 
 interface Props {
@@ -35,6 +37,7 @@ export const CustomTable: FC<Props> = (
 
     return (
         <TableContainer component={CustomPaper}>
+
             <Table>
                 <TableHead>
                     <TableRow>
@@ -44,7 +47,7 @@ export const CustomTable: FC<Props> = (
                     </TableRow>
                 </TableHead>
 
-                <TableBody>
+                <TableBody sx={{ position: 'relative' }}>
                     {
                         isLoading
                             ? <LoadDataTables />
@@ -60,7 +63,7 @@ export const CustomTable: FC<Props> = (
                     <TableRow>
                         <TablePagination
                             colSpan={6}
-                            count={results.totalRows}
+                            count={results.totalRows || 0}
                             rowsPerPage={10}
                             rowsPerPageOptions={[]}
                             page={results.page!}
@@ -79,6 +82,6 @@ export const CustomTable: FC<Props> = (
                 </Box>
             </Typography>
 
-        </TableContainer>
+        </TableContainer >
     )
 }

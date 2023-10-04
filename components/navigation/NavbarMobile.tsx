@@ -14,7 +14,6 @@ export const NavbarMobile: FC = () => {
 
     const { toggleSidebar } = useContext(UiContext)
 
-
     return (
         <>
             <Box display={{ xs: "flex", md: "none" }}>

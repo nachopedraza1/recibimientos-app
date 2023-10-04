@@ -69,11 +69,11 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         }
                     }]);
 
-                const overage = totalDonated[0].total > row.objectiveAmount ? totalDonated[0].total - row.objectiveAmount : 0
+                const overage = totalDonated[0] ? (totalDonated[0].total > row.objectiveAmount ? totalDonated[0].total - row.objectiveAmount : 0) : 0
 
                 return {
                     ...row,
-                    totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total) : '0'}`,
+                    totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total) : 0}`,
                     overage: `$${format(overage)}`,
                     objectiveAmount: `$${format(row.objectiveAmount)} `
                 };

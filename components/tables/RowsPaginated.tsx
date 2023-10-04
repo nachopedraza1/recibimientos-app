@@ -7,7 +7,7 @@ import { deleteAction } from "@/database/crudActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import { SwitchTableRow } from "@/components/tables";
+import { EmptyRows, SwitchTableRow } from "@/components/tables";
 import { TableRow, TableCell, IconButton, Tooltip } from '@mui/material';
 import { Rows } from "@/interfaces";
 
@@ -135,6 +135,10 @@ export const RowsPaginated: FC<Props> = ({ tableType, rows = [], page }) => {
                                 {row.objectiveAmount}
                             </TableCell>
 
+                            <TableCell align="center" sx={{ textTransform: 'lowercase' }}>
+                                {row.overage}
+                            </TableCell>
+
                             <TableCell align="center">
                                 <SwitchTableRow row={row} />
                             </TableCell>
@@ -179,6 +183,7 @@ export const RowsPaginated: FC<Props> = ({ tableType, rows = [], page }) => {
                 emptyRows > 0 &&
                 <TableRow style={{ height: 53.02 * emptyRows, padding: 0 }}>
                     <TableCell colSpan={6} />
+                    {rows.length < 1 && <EmptyRows />}
                 </TableRow>
             }
         </>

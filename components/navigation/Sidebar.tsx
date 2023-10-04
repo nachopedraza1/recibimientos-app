@@ -8,24 +8,26 @@ import { SidebarUserButtons } from "@/components/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faFileInvoiceDollar, faHome, faMoneyBillTransfer, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Avatar, Box, Button, Divider, Drawer, Grid, IconButton, Link, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { useRouter } from "next/router";
 
 
 const navlinks = [
-    { text: 'Inicio', path: 'inicio', icon: faHome },
-    { text: 'Ingresos', path: 'ingresos', icon: faMoneyBillTransfer },
-    { text: 'Gastos', path: 'gastos', icon: faFileInvoiceDollar },
-    { text: 'Nosotros', path: 'nosotros', icon: faUsers },
+    { text: 'Inicio', path: '/', icon: faHome },
+    { text: 'Ingresos', path: '/ingresos', icon: faMoneyBillTransfer },
+    { text: 'Gastos', path: '/gastos', icon: faFileInvoiceDollar },
+    { text: 'Nosotros', path: '/nosotros', icon: faUsers },
 ];
 
 export const Sidebar = () => {
 
+    const router = useRouter();
+
     const { toggleSidebar, sidebarMobile } = useContext(UiContext);
     const { user } = useContext(AuthContext);
 
-    const { navigateWithoutHash } = useNavbar();
 
-    const toggleNavegation = (event: FormEvent, text: string) => {
-        navigateWithoutHash(event, text);
+    const toggleNavegation = (path: string) => {
+        router.push(path)
         toggleSidebar();
     }
 
@@ -74,7 +76,7 @@ export const Sidebar = () => {
             {
                 navlinks.map(({ text, icon, path }) => (
                     <ListItem disablePadding key={text}>
-                        <ListItemButton onClick={(e) => toggleNavegation(e, path)}>
+                        <ListItemButton onClick={(e) => toggleNavegation(path)}>
                             <ListItemIcon>
                                 <FontAwesomeIcon icon={icon} />
                             </ListItemIcon>

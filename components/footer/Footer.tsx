@@ -11,7 +11,6 @@ export const Footer: FC = () => {
                 color='white'
                 borderTop='2px solid #0A97FE'
                 padding={1}
-                mt={3}
             >
                 Este sitio web no está afiliado ni tiene ninguna relación oficial con el Club Atlético Belgrano.
             </Grid>

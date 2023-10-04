@@ -38,24 +38,33 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     try {
 
+        const activeMatch = await Match.findOne({ active: true });
+
+        if (!activeMatch) return res.status(400).json({ message: 'No hay recibimientos activos.' })
+
         const [
             rows,
             totalRows,
             totalAmount
         ] = await Promise.all([
-            Entry.find()
+            Entry.find({ category: activeMatch.name })
                 .sort({ createdAt: -1 })
                 .select('name amount createdAt method status _id')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),
-            Entry.find().count(),
-            Entry.aggregate([{
-                $group: {
-                    _id: null,
-                    total: { $sum: '$amount' }
+            Entry.find({ category: activeMatch.name }).count(),
+            Entry.aggregate([
+                {
+                    $match: { category: activeMatch.name }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: '$amount' }
+                    }
                 }
-            }])
+            ])
         ]);
 
         /* await db.disconnect(); */
@@ -68,10 +77,12 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             }
         })
 
+        const formattedTotalAmount = `$${format(totalAmount[0] ? totalAmount[0].total : 0)}`;
+
         return res.status(200).json({
             rows: formatRows,
             totalRows,
-            totalAmount: `$${format(totalAmount[0].total)}`,
+            totalAmount: formattedTotalAmount,
         });
 
     } catch (error) {

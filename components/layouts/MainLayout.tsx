@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { Footer } from '@/components/footer';
 import { NavbarDesktop, NavbarMobile } from '@/components/navigation';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 
 interface Props {
@@ -40,6 +40,6 @@ export const MainLayout: FC<Props> = ({ title, children, description, containerP
             </main>
 
             {!asPath.includes('/auth') && <Footer />}
-        </Grid>
+        </Grid >
     )
 }

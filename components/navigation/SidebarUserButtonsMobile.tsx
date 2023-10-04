@@ -10,7 +10,7 @@ import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/mater
 
 const navlinksUser = [
     { text: 'Perfil', path: '', icon: faCircleUser },
-    { text: 'Historial', path: '/history', icon: faList },
+    { text: 'Historial', path: '/historial', icon: faList },
     { text: 'Admin Panel', path: '/admin', icon: faGear },
     { text: 'Cerrar Sesión', path: '', icon: faRightFromBracket },
 ]

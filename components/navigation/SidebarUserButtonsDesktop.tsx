@@ -48,7 +48,7 @@ export const UserButtons = () => {
                     </ListItemIcon>
                     Perfil
                 </MenuItem>
-                <MenuItem onClick={() => navigate('/history')}>
+                <MenuItem onClick={() => navigate('/historial')}>
                     <ListItemIcon>
                         <FontAwesomeIcon icon={faBars} />
                     </ListItemIcon>
