@@ -8,6 +8,7 @@ const entrySchema = new Schema({
     amount: { type: Number, required: true },
     status: { type: String, required: true, },
     paymentId: { type: String, unique: true },
+    category: { type: String, required: true },
     method: {
         type: String,
         required: true,
@@ -21,6 +22,8 @@ const entrySchema = new Schema({
         currentTime: () => new Date().getTime() - 3 * 60 * 60 * 1000,
     }
 });
+
+entrySchema.index({ name: 'text' });
 
 const entryModel: Model<IEntry> = mongoose.models.Entry || mongoose.model('Entry', entrySchema);
 

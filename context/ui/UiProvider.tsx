@@ -1,4 +1,4 @@
-import { FC, useReducer, ReactNode } from 'react';
+import { FC, useReducer, ReactNode, useState } from 'react';
 import { UiContext, uiReducer } from '@/context/ui';
 
 
@@ -30,12 +30,20 @@ export const UiProvider: FC<{ children: ReactNode }> = ({ children }) => {
         dispatch({ type: '[Ui] - toggleSidebarMobile' })
     }
 
+    const [activeSwitch, setActiveSwitch] = useState<string | null>(null);
+
+    const updateActiveSwitch = (matchName: string) => {
+        setActiveSwitch(matchName);
+    };
+
     return (
         <UiContext.Provider value={{
             ...state,
             handleChangeTab,
             toggleSidebar,
             toggleModal,
+            activeSwitch,
+            updateActiveSwitch,
         }}>
             {children}
         </UiContext.Provider>

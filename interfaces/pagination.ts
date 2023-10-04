@@ -7,13 +7,17 @@ export interface PaginationData {
 }
 
 export interface Rows {
-    id?: string,
+    _id?: string,
     name?: string,
     email?: string,
     role?: string,
-    totalDonated?: string,
-    amount?: string,
+    active?: boolean,
+    dateEvent?: string,
     createdAt?: string,
+    totalDonated?: string,
+    amount?: string | number,
+    overage?: string | number,
+    objectiveAmount?: string | number,
     status?: string | 'approved' | 'COMPLETED',
     method?: "mercadopago" | "paypal" | "transfer",
 }
