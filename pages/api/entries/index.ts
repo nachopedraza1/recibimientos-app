@@ -47,7 +47,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             totalRows,
             totalAmount
         ] = await Promise.all([
-            Entry.find({ category: activeMatch.name })
+            Entry.find({ category: activeMatch.name, name: { $ne: 'administrador' } })
                 .sort({ createdAt: -1 })
                 .select('name amount createdAt method status _id')
                 .skip((page - 1) * perPage)
@@ -70,6 +70,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         /* await db.disconnect(); */
 
         const formatRows = rows.map(row => {
+
             return {
                 ...row,
                 createdAt: JSON.stringify(row.createdAt).slice(1, 11),

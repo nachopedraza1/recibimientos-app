@@ -24,7 +24,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     }
 
 
-    const routesAdmin = ['/api/entries', '/api/expenses'];
+    const routesAdmin = ['/api/entries', '/api/expenses','/api/matches'];
     if (routesAdmin.includes(requestUrl)) {
 
         if (req.method === 'GET') return NextResponse.next();
@@ -110,6 +110,7 @@ export const config = {
         '/api/admin',// => //Private GET
         '/api/entries',// =>Private POST && DELETE
         '/api/expenses',// =>Private POST && DELETE
+        '/api/matches',// =>Private POST && DELETE && PUT
         '/api/users', //Private POST && PUT
     ],
 };

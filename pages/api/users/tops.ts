@@ -39,7 +39,10 @@ const getTops = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         const findTops = await Entry.aggregate([
             {
-                $match: { category: activeMatch.name }
+                $match: {
+                    category: activeMatch.name,
+                    name: { $ne: 'administrador' }
+                },
             },
             {
                 $group: {
@@ -57,6 +60,7 @@ const getTops = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         ]);
 
         const tops = findTops.map(top => {
+
             return {
                 name: top._id,
                 totalDonated: top.totalAmount,
