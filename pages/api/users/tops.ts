@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Entry } from '@/models';
+import { Entry, Match } from '@/models';
 import { db } from '@/database';
 
 
@@ -33,7 +33,14 @@ const getTops = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     try {
 
+        const activeMatch = await Match.findOne({ active: true });
+
+        if (!activeMatch) return res.status(400).json({ message: 'No hay recibimientos activos.' })
+
         const findTops = await Entry.aggregate([
+            {
+                $match: { category: activeMatch.name }
+            },
             {
                 $group: {
                     _id: "$name",
