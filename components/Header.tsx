@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { CustomDivider } from '@/components/ui';
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { CounterMatch } from '.';
 
 export const Header: FC = () => {
 
@@ -35,6 +36,7 @@ export const Header: FC = () => {
                     del país!
                 </Typography>
 
+
                 <Button
                     data-aos="fade-up" data-aos-delay="800"
                     variant='contained'
@@ -44,7 +46,12 @@ export const Header: FC = () => {
                 >
                     Realiza tu aporte ahora
                 </Button>
+
+
+                {/* <Grid item xs={12} position='absolute' width='100%' top='70%'>
+                    <CounterMatch total={'400000'} />
+                </Grid> */}
             </Grid>
-        </Grid>
+        </Grid >
     )
 }

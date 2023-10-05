@@ -1,7 +1,8 @@
 import { createContext } from 'react';
+import { IMatch } from '@/interfaces';
 
 interface ContextProps {
-    activeMatch: string;
+    activeMatch: IMatch | null;
 }
 
 

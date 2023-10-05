@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { LoadDataTables } from '@/components/ui'
 import { RowsPaginated } from '@/components/tables';
@@ -21,6 +21,7 @@ interface Props {
     headRows: string[],
     totalText?: string,
     hiddenTotal?: boolean,
+    children?: ReactNode,
     tableType: 'entriesPublic' | 'entriesPrivate' | 'expensesPublic' | 'usersPrivate' | 'matchesPrivate',
     handleChangePage: (event: unknown, newPage: number) => void
 }
@@ -32,11 +33,12 @@ export const CustomTable: FC<Props> = (
         headRows,
         totalText,
         tableType,
+        children,
         hiddenTotal = false }) => {
 
     return (
         <TableContainer component={CustomPaper}>
-
+            {children}
             <Table>
                 <TableHead>
                     <TableRow>

@@ -52,7 +52,7 @@ export const NavbarAdmin: FC<Props> = ({ window }) => {
                         <Typography fontWeight={600} color='primary.main'>
                             Recibimiento activo:
                             <Typography component='span' color='white' textTransform='capitalize' ml={1}>
-                                {activeMatch}
+                                {activeMatch?.name}
                             </Typography>
                         </Typography>
                     </Grid>

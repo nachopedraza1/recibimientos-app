@@ -7,11 +7,11 @@ import { ConfigContext, configReducer } from '@/context/config';
 import { IMatch } from '@/interfaces';
 
 export interface ConfigState {
-    activeMatch: string;
+    activeMatch: IMatch | null;
 }
 
 const Config_INITIAL_STATE: ConfigState = {
-    activeMatch: '',
+    activeMatch: null,
 }
 
 
@@ -29,7 +29,7 @@ export const ConfigProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     useEffect(() => {
         reloadData();
-        dispatch({ type: '[Config] - setActiveMatch', payload: data?.name });
+        dispatch({ type: '[Config] - setActiveMatch', payload: data });
     }, [data, activeSwitch]);
 
     return (

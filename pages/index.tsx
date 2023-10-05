@@ -23,7 +23,7 @@ const Landing: NextPage = () => {
           data-aos="fade"
         >
 
-          <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold'>
+          <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold' >
             Más
             <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
               aportaron
@@ -53,7 +53,7 @@ const Landing: NextPage = () => {
         <Blob width="30%" top="70%" left="0%" />
         <Blob width="50%" top="85%" left="75%" />
       </Container>
-    </MainLayout>
+    </MainLayout >
   )
 }
 

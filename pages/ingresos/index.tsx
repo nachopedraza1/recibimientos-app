@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { usePaginationRequest } from '@/hooks';
 
@@ -6,11 +6,27 @@ import { Blob } from '@/components/ui';
 import { MainLayout } from '@/components/layouts';
 import { CustomTable } from '@/components/tables';
 
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const EntriesPage = () => {
 
-    const { handleChangePage, isLoading, results } = usePaginationRequest('entries');
+    const { handleChangePage, isLoading, results: data } = usePaginationRequest('entries');
+
+    const [results, setResults] = useState(data);
+
+    console.log(results);
+
+    const onSearch = async (text: string) => {
+        const { data } = await axios.get(`/api/search/${text}`)
+        setResults(data);
+    }
+
+    useEffect(() => {
+        setResults(data)
+    }, [data])
 
     return (
         <MainLayout title='Ingresos | Recibimientos CAB'>
@@ -38,6 +54,27 @@ const EntriesPage = () => {
                         Aquí podras seguir en vivo la colecta actual para el recibimiento contra Boca, donde encontrarás información detallada sobre los aportes realizados hasta el momento.
                     </Typography>
 
+                    {/* <CounterMatch total={results.totalAmount!} /> */}
+
+                   {/*  <Grid container justifyContent='center' mb={4}>
+                        <Grid item xs={3.3}>
+                            <TextField
+                                fullWidth
+                                size='small'
+                                label='Buscar'
+                                placeholder='Buscar aporte...'
+                                InputProps={{
+                                    sx: { borderRadius: 50 },
+                                    endAdornment: (
+                                        <IconButton onClick={() => onSearch('sanchez')}>
+                                            <FontAwesomeIcon icon={faSearch} size='sm' />
+                                        </IconButton>
+                                    ),
+                                }}
+                            />
+                        </Grid>
+                    </Grid> */}
+
                     <CustomTable
                         headRows={['Fecha', 'Nombre', 'Monto']}
                         handleChangePage={handleChangePage}
@@ -45,7 +82,22 @@ const EntriesPage = () => {
                         results={results}
                         totalText='Ingresos totales:'
                         tableType='entriesPublic'
-                    />
+                    >
+                        {/* <Grid container padding={2}>
+                            <Grid item xs={3}>
+                                <TextField
+                                    fullWidth
+                                    size='small'
+                                    label='Buscar'
+                                    placeholder='Buscar aporte...'
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+
+                            </Grid>
+                        </Grid> */}
+
+                    </CustomTable>
                 </Grid >
 
                 <Blob width="50%" top="7%" left="74%" />

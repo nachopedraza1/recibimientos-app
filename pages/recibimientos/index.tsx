@@ -10,12 +10,12 @@ import { Container, Grid, Typography } from '@mui/material';
 
 const RecibimientosPage = () => {
 
-    /*  const { handleChangePage, isLoading, results } = usePaginationRequest('entries'); */
+   /*  const { handleChangePage, isLoading, results } = usePaginationRequest('entries'); */
 
     return (
         <MainLayout title='Recibimientos CAB'>
             <Container>
-                <InDevelopment />
+                 <InDevelopment />
 
                 {/* <Grid
                     container
