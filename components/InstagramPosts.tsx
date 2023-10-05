@@ -21,7 +21,7 @@ export const InstagramPosts: FC = () => {
     return (
         <>
             <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold' mt={8}>
-                Ultimas
+                Últimas
                 <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
                     noticias CAB
                 </Typography>

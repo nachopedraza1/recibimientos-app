@@ -1,12 +1,11 @@
-import { FormEvent, useContext } from "react";
+import { useContext } from "react";
 
-import { useNavbar } from "@/hooks";
 import { UiContext } from "@/context/ui";
 import { AuthContext } from "@/context/auth";
 
 import { SidebarUserButtons } from "@/components/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faFileInvoiceDollar, faHome, faMoneyBillTransfer, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faFileInvoiceDollar, faHome, faMoneyBillTransfer, faUsers, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
 import { Avatar, Box, Button, Divider, Drawer, Grid, IconButton, Link, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import { useRouter } from "next/router";
 
@@ -15,7 +14,7 @@ const navlinks = [
     { text: 'Inicio', path: '/', icon: faHome },
     { text: 'Ingresos', path: '/ingresos', icon: faMoneyBillTransfer },
     { text: 'Gastos', path: '/gastos', icon: faFileInvoiceDollar },
-    { text: 'Recibimientos', path: '/recibimientos', icon: faFileInvoiceDollar },
+    { text: 'Recibimientos', path: '/recibimientos', icon: faWandMagicSparkles },
     { text: 'Nosotros', path: '/nosotros', icon: faUsers },
 ];
 
@@ -79,7 +78,7 @@ export const Sidebar = () => {
                     <ListItem disablePadding key={text}>
                         <ListItemButton onClick={(e) => toggleNavegation(path)}>
                             <ListItemIcon>
-                                <FontAwesomeIcon icon={icon} />
+                                <FontAwesomeIcon icon={icon} color='#08b8ef' />
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>

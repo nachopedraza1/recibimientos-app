@@ -1,16 +1,21 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
+
+import { ConfigContext } from '@/context/config';
 
 import { DrawerAdmin } from '@/components/navigation';
-import { AppBar, Toolbar, IconButton, Typography, Box, Drawer } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Box, Drawer, Grid } from '@mui/material';
 
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 interface Props {
     window?: () => Window;
 }
 
 export const NavbarAdmin: FC<Props> = ({ window }) => {
+
+    const { activeMatch } = useContext(ConfigContext);
 
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -34,16 +39,23 @@ export const NavbarAdmin: FC<Props> = ({ window }) => {
                 <Toolbar>
                     <IconButton
                         color="inherit"
-                        aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
                         sx={{ mr: 2, display: { sm: 'none' } }}
                     >
                         <FontAwesomeIcon icon={faBars} />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Admin Panel
-                    </Typography>
+                    <Grid container justifyContent='space-between' alignItems='center'>
+                        <Typography>
+                            Admin Panel
+                        </Typography>
+                        <Typography fontWeight={600} color='primary.main'>
+                            Recibimiento activo:
+                            <Typography component='span' color='white' textTransform='capitalize' ml={1}>
+                                {activeMatch}
+                            </Typography>
+                        </Typography>
+                    </Grid>
                 </Toolbar>
             </AppBar>
 

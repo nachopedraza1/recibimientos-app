@@ -40,20 +40,29 @@ const getDashboard = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
             Entry.find({ method: 'paypal' }).count(),
             Entry.find().count(),
             User.find().count(),
-            Entry.aggregate([{
-                $group: {
-                    _id: null,
-                    total: { $sum: '$amount' }
+            Entry.aggregate([
+                {
+                    $match: {
+                        name: { $ne: 'administrador' }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: '$amount' }
+                    }
                 }
-            }]),
-            Expense.aggregate([{
-                $group: {
-                    _id: null,
-                    total: { $sum: '$amount' }
+            ]),
+            Expense.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: '$amount' }
+                    }
                 }
-            }])
+            ])
         ])
-        
+
         /* await db.disconnect(); */
 
         return res.status(200).json({

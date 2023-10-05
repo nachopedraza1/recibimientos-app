@@ -6,11 +6,12 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { Analytics } from '@vercel/analytics/react';
 import { SWRConfig } from 'swr';
 
-import { AuthProvider } from '@/context/auth';
 import { UiProvider } from '@/context/ui';
+import { AuthProvider } from '@/context/auth';
+import { ConfigProvider } from '@/context/config';
 
-import { AppThemeProvider } from "@/theme";
 import { TransitionPage } from '@/components/layouts';
+import { AppThemeProvider } from "@/theme";
 
 import '@/styles/globals.css';
 import 'aos/dist/aos.css';
@@ -35,12 +36,14 @@ export default function App({ Component, pageProps }: AppProps) {
           <AuthProvider>
             <SnackbarProvider>
               <UiProvider>
-                <AppThemeProvider>
-                  <TransitionPage>
-                    <Component {...pageProps} />
-                    <Analytics mode='production' />
-                  </TransitionPage>
-                </AppThemeProvider>
+                <ConfigProvider>
+                  <AppThemeProvider>
+                    <TransitionPage>
+                      <Component {...pageProps} />
+                      <Analytics mode='production' />
+                    </TransitionPage>
+                  </AppThemeProvider>
+                </ConfigProvider>
               </UiProvider>
             </SnackbarProvider>
           </AuthProvider>

@@ -45,7 +45,7 @@ export const TopTenTable: FC = () => {
                             :
                             <>
                                 {data?.slice(3, 10).map((row, index) => (
-                                    <TableRow>
+                                    <TableRow key={index}>
                                         <TableCell align="center" scope="row">
                                             <Typography variant='h6' fontWeight={600} color='primary.main'>
                                                 {index + 4 + '°'}

@@ -183,9 +183,9 @@ export const RowsPaginated: FC<Props> = ({ tableType, rows = [], page }) => {
                 emptyRows > 0 &&
                 <TableRow style={{ height: 53.02 * emptyRows, padding: 0 }}>
                     <TableCell colSpan={6} />
-                    {rows.length < 1 && <EmptyRows />}
                 </TableRow>
             }
+            {rows.length < 1 && <EmptyRows />}
         </>
     )
 }

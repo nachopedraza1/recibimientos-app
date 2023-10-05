@@ -10,6 +10,7 @@ import { isValidObjectId } from 'mongoose';
 type Data =
     | { message: string }
     | PaginationData
+    | IMatch
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -36,7 +37,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const page = parseInt(req.query.page as string) || 1;
+    const active = req.query.active;
     const perPage = 10;
+
+
+    if (active) {
+        await db.connect();
+        const activeMatch = await Match.findOne({ active: true }).select('name active objectiveAmount dateEvent');
+        if (!activeMatch) return res.status(400).json({ message: 'No hay recibimiento activo.' })
+        return res.status(200).json(activeMatch);
+    }
 
     try {
         await db.connect();

@@ -10,14 +10,14 @@ import { Container, Grid, Typography } from '@mui/material';
 
 const RecibimientosPage = () => {
 
-   /*  const { handleChangePage, isLoading, results } = usePaginationRequest('entries'); */
+    /*  const { handleChangePage, isLoading, results } = usePaginationRequest('entries'); */
 
     return (
         <MainLayout title='Recibimientos CAB'>
             <Container>
                 <InDevelopment />
 
-                {/*  <Grid
+                {/* <Grid
                     container
                     direction="column"
                     justifyContent="center"
@@ -38,10 +38,6 @@ const RecibimientosPage = () => {
                     <Typography variant="h6" mb={3}>
                         Aquí podras ver el historial de todos los recibimientos, donde encontrarás información detallada sobre los aportes realizados hasta el momento.
                     </Typography>
-
-                    <Grid container>
-
-                    </Grid>
 
                     <CustomTable
                         headRows={['Fecha', 'Nombre', 'Monto']}

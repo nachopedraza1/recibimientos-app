@@ -6,17 +6,17 @@ import { UiContext } from "@/context/ui";
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChartLine, faGear, faHome, faMoneyBillTransfer, faRightFromBracket, faSackDollar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faGear, faHome, faMoneyBillTransfer, faRightFromBracket, faSackDollar, faUser, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 
 
 const tabs = [
-    { text: 'Estadisticas', icon: <FontAwesomeIcon icon={faChartLine} />, tabValue: 0 },
-    { text: 'Nuevo Recibimiento', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 1 },
-    { text: 'Agregar Aportes', icon: <FontAwesomeIcon icon={faSackDollar} />, tabValue: 2 },
-    { text: 'Agregar Gastos', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} />, tabValue: 3 },
-    { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} />, tabValue: 4 },
-    { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} />, tabValue: 5 },
-    { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} />, tabValue: 6 },
+    { text: 'Estadisticas', icon: <FontAwesomeIcon icon={faChartLine} color='#08b8ef' />, tabValue: 0 },
+    { text: 'Nuevo Recibimiento', icon: <FontAwesomeIcon icon={faWandMagicSparkles} color='#08b8ef' />, tabValue: 1 },
+    { text: 'Agregar Aportes', icon: <FontAwesomeIcon icon={faSackDollar} color='#08b8ef' />, tabValue: 2 },
+    { text: 'Agregar Gastos', icon: <FontAwesomeIcon icon={faMoneyBillTransfer} color='#08b8ef' />, tabValue: 3 },
+    { text: 'Usuarios', icon: <FontAwesomeIcon icon={faUser} color='#08b8ef' />, tabValue: 4 },
+    { text: 'Configuración', icon: <FontAwesomeIcon icon={faGear} color='#08b8ef' />, tabValue: 5 },
+    { text: 'Cerrar sesión', icon: <FontAwesomeIcon icon={faRightFromBracket} color='#08b8ef' />, tabValue: 6 },
 ];
 
 interface Props {
@@ -41,7 +41,7 @@ export const DrawerAdmin: FC<Props> = ({ drawerToggle }) => {
             <ListItem disablePadding>
                 <ListItemButton onClick={() => router.push('/')}>
                     <ListItemIcon>
-                        <FontAwesomeIcon icon={faHome} />
+                        <FontAwesomeIcon icon={faHome} color='#08b8ef' />
                     </ListItemIcon>
                     <ListItemText primary={'Inicio'} />
                 </ListItemButton>

@@ -5,7 +5,7 @@ import { Link as MuiLink, TableRow, Typography } from '@mui/material';
 
 export const EmptyRows = () => {
     return (
-        <TableRow
+        <div
             style={{
                 position: 'absolute',
                 top: '50%',
@@ -24,7 +24,6 @@ export const EmptyRows = () => {
                     aqui.
                 </MuiLink>
             </Typography>
-            <span className='mini-divider'></span>
-        </TableRow>
+        </div>
     )
 }

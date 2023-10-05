@@ -40,7 +40,7 @@ export const SidebarUserButtons: FC = () => {
                             onClick={() => index === 3 ? logoutUser() : navigate(path)}
                         >
                             <ListItemIcon>
-                                <FontAwesomeIcon icon={icon} />
+                                <FontAwesomeIcon icon={icon} color='#08b8ef' />
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
