@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextPage } from 'next';
 
 import { Blob } from '@/components/ui';
 import { MainLayout } from '@/components/layouts';
@@ -6,7 +7,7 @@ import { InstagramPosts, StatsGroup } from '@/components';
 import { Grid, Typography, Container } from '@mui/material';
 
 
-const AboutPage = () => {
+const AboutPage: NextPage = () => {
     return (
         <MainLayout title='Nosotros | Recibimientos CAB'>
             <Container>

@@ -1,19 +1,27 @@
 import { NextPage, GetServerSideProps } from 'next';
 import { getSession } from "next-auth/react";
-
-import { db } from '@/database';
-import { Entry } from '@/models';
-import { format } from '@/utils';
+import useSWR from 'swr';
 
 import { SectionDonate } from '@/components';
 import { MainLayout } from '@/components/layouts';
 import { HistoryStats } from '@/components/tables';
 import { ChangeNameModal } from '@/components/modals';
-import { Container, Grid } from '@mui/material';
+
+import { CircularProgress, Container, Grid } from '@mui/material';
 
 import { Rows } from '@/interfaces';
 
 const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ history, totalDonated }) => {
+
+    const { data } = useSWR('/api/users/history');
+
+    if (!data) {
+        return (
+            <Grid container minHeight='100vh' justifyContent='center' alignItems='center'>
+                <CircularProgress />
+            </Grid>
+        )
+    }
 
     return (
         <MainLayout title='Historial | Recibimientos CAB' containerPageClass="bg-history">
@@ -24,14 +32,15 @@ const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ hist
                 justifyContent="center"
                 textAlign="center"
                 color="white"
+                className='fadeIn'
             >
                 <Container>
                     {
-                        history.length > 0 ?
+                        data.rows.length > 0 ?
                             (
                                 <HistoryStats
-                                    history={history}
-                                    totalDonated={totalDonated}
+                                    history={data.rows}
+                                    totalDonated={data.totalAmount}
                                 />
                             )
                             :
@@ -62,42 +71,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         }
     }
 
-    try {
-        await db.connect();
-        const historyTime = await Entry.find({ name: session.user.name })
-            .select('name amount status method createdAt -_id')
-            .sort({ createdAt: -1 })
-            .lean();
-        /* await db.disconnect(); */
-
-        const history = historyTime.map(element => {
-            return {
-                ...element,
-                amount: `$${format(element.amount)}`,
-                createdAt: JSON.stringify(element.createdAt).slice(1, 11)
-            }
-        });
-
-        const totalDonated = format(historyTime.reduce((value, current) => current.amount + value, 0));
-
-        return {
-            props: {
-                history,
-                totalDonated
-            }
-        }
-
-    } catch (error) {
-        console.log(error);
-
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false
-            }
-        }
+    return {
+        props: {}
     }
-
 }
 
 

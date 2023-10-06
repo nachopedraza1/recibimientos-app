@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dayjs } from 'dayjs';
 
-import { usePaginationRequest } from '@/hooks';
 import { createAction } from '@/database/crudActions';
 
 import { CustomTable } from '@/components/tables';
@@ -14,8 +13,6 @@ import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { IMatch } from '@/interfaces';
 
 export const AddMatch: FC = () => {
-
-    const { handleChangePage, isLoading, results } = usePaginationRequest('matches');
 
     const { handleSubmit, register, formState: { errors } } = useForm<IMatch>()
 
@@ -78,7 +75,7 @@ export const AddMatch: FC = () => {
                 </Grid>
 
                 <Grid item mt={1}>
-                    <Button variant='contained' type='submit' disabled={isLoading}>
+                    <Button variant='contained' type='submit'>
                         Agregar
                     </Button>
                 </Grid>
@@ -87,11 +84,9 @@ export const AddMatch: FC = () => {
 
             <CustomTable
                 headRows={['recibimiento', 'título', 'recaudado', 'objetivo', 'extra', 'Activo', '']}
-                handleChangePage={handleChangePage}
-                isLoading={isLoading}
-                results={results}
                 totalText='Gastos totales:'
                 tableType='matchesPrivate'
+                requestType='matches'
                 hiddenTotal
             />
         </>

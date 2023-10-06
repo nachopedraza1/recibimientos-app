@@ -21,7 +21,10 @@ export const ConfigProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const [state, dispatch] = useReducer(configReducer, Config_INITIAL_STATE);
 
-    const { data } = useSWR<IMatch>('/api/matches?active=true');
+    const { data } = useSWR<IMatch>('/api/matches?active=true', {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: true,
+    });
 
     const reloadData = async () => {
         await mutate('/api/matches?active=true');

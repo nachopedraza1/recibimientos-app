@@ -32,6 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const page = parseInt(req.query.page as string) || 1;
+    const search = req.query.search as string || '';
     const perPage = 10;
 
     await db.connect();
@@ -47,13 +48,27 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             totalRows,
             totalAmount
         ] = await Promise.all([
-            Entry.find({ category: activeMatch.name, name: { $ne: 'administrador' } })
+            Entry.find({
+                category: activeMatch.name,
+                name: {
+                    $ne: 'administrador',
+                    $regex: new RegExp(search, 'i')
+                }
+            })
                 .sort({ createdAt: -1 })
                 .select('name amount createdAt method status _id')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),
-            Entry.find({ category: activeMatch.name }).count(),
+
+            Entry.find({
+                category: activeMatch.name,
+                name: {
+                    $ne: 'administrador',
+                    $regex: new RegExp(search, 'i')
+                }
+            }).count(),
+            
             Entry.aggregate([
                 {
                     $match: { category: activeMatch.name }

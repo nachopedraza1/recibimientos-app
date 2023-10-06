@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form'
 
 import { createAction } from '@/database/crudActions';
-import { usePaginationRequest } from '@/hooks';
 
 import { CustomTable } from '@/components/tables';
 import { Grid, TextField, Button, Typography } from '@mui/material';
@@ -13,8 +12,6 @@ type FormData = {
 }
 
 export const AddExpenses: FC = () => {
-
-    const { handleChangePage, isLoading, results } = usePaginationRequest('expenses');
 
     const { handleSubmit, register, formState: { errors } } = useForm<FormData>()
 
@@ -65,7 +62,7 @@ export const AddExpenses: FC = () => {
                 </Grid>
 
                 <Grid item mt={1}>
-                    <Button variant='contained' type='submit' disabled={isLoading}>
+                    <Button variant='contained' type='submit'>
                         Agregar
                     </Button>
                 </Grid>
@@ -74,11 +71,9 @@ export const AddExpenses: FC = () => {
             <Typography variant="h6" fontWeight={600} mt={2} mb={1}> Ultimos gastos </Typography>
             <CustomTable
                 headRows={['Fecha', 'Producto', 'Monto', '']}
-                handleChangePage={handleChangePage}
-                isLoading={isLoading}
-                results={results}
                 totalText='Gastos totales:'
                 tableType='expensesPublic'
+                requestType='expenses'
             />
         </>
     )

@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import React from 'react';
 
 import { usePaginationRequest } from '@/hooks';
@@ -8,9 +9,7 @@ import { MainLayout } from '@/components/layouts';
 
 import { Container, Grid, Typography } from '@mui/material';
 
-const ExpensesPage = () => {
-
-    const { handleChangePage, isLoading, results } = usePaginationRequest('expenses');
+const ExpensesPage: NextPage = () => {
 
     return (
         <MainLayout title='Gastos | Recibimientos CAB'>
@@ -41,10 +40,8 @@ const ExpensesPage = () => {
 
                     <CustomTable
                         headRows={['Fecha', 'Producto', 'Monto']}
-                        handleChangePage={handleChangePage}
-                        isLoading={isLoading}
-                        results={results}
                         totalText='Gastos totales:'
+                        requestType='expenses'
                         tableType='expensesPublic'
                     />
 

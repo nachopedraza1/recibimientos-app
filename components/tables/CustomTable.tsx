@@ -1,10 +1,11 @@
-import { FC, ReactNode } from 'react';
+import { FC, useEffect, useState } from 'react';
 
+import { usePaginationRequest } from '@/hooks';
+
+import { SearchBar } from '@/components';
 import { LoadDataTables } from '@/components/ui'
 import { RowsPaginated } from '@/components/tables';
 import { Table, TableHead, TableRow, TableBody, TableFooter, TablePagination, TableCell, TableContainer, Typography, styled, Paper, Box } from '@mui/material';
-
-import { PaginationData } from '@/interfaces';
 
 
 const CustomPaper = styled(Paper)((props) => ({
@@ -16,73 +17,77 @@ const CustomPaper = styled(Paper)((props) => ({
 }));
 
 interface Props {
-    results: PaginationData,
-    isLoading?: boolean,
     headRows: string[],
     totalText?: string,
     hiddenTotal?: boolean,
-    children?: ReactNode,
+    searchBar?: boolean
+    requestType: 'entries' | 'expenses' | 'users' | 'matches' | 'users/history',
     tableType: 'entriesPublic' | 'entriesPrivate' | 'expensesPublic' | 'usersPrivate' | 'matchesPrivate',
-    handleChangePage: (event: unknown, newPage: number) => void
 }
 
 export const CustomTable: FC<Props> = (
-    { handleChangePage,
-        isLoading,
-        results,
+    {
         headRows,
         totalText,
         tableType,
-        children,
+        requestType,
+        searchBar = false,
         hiddenTotal = false }) => {
 
+    const [query, setQuery] = useState('')
+    const { handleChangePage, isLoading, results } = usePaginationRequest(requestType, query);
+
+    const onSearch = ({ query }: { query: string }) => setQuery(query)
+
     return (
-        <TableContainer component={CustomPaper}>
-            {children}
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {headRows.map(text => (
-                            <TableCell key={text} sx={{ fontWeight: 'bold' }} align="center"> {text} </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
+        <>
+            {searchBar && <SearchBar onSearch={onSearch} />}
 
-                <TableBody sx={{ position: 'relative' }}>
-                    {
-                        isLoading
-                            ? <LoadDataTables />
-                            : <RowsPaginated
-                                rows={results.rows}
+            <TableContainer component={CustomPaper} >
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            {headRows.map(text => (
+                                <TableCell key={text} sx={{ fontWeight: 'bold' }} align="center"> {text} </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+
+                    <TableBody sx={{ position: 'relative' }}>
+                        {
+                            isLoading
+                                ? <LoadDataTables />
+                                : <RowsPaginated
+                                    rows={results.rows}
+                                    page={results.page!}
+                                    tableType={tableType}
+                                />
+                        }
+                    </TableBody>
+
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                colSpan={6}
+                                count={results.totalRows || 0}
+                                rowsPerPage={10}
+                                rowsPerPageOptions={[]}
                                 page={results.page!}
-                                tableType={tableType}
+                                onPageChange={handleChangePage}
                             />
-                    }
-                </TableBody>
+                        </TableRow>
+                    </TableFooter>
+                </Table>
 
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            colSpan={6}
-                            count={results.totalRows || 0}
-                            rowsPerPage={10}
-                            rowsPerPageOptions={[]}
-                            page={results.page!}
-                            onPageChange={handleChangePage}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>
-
-            <Typography variant="h5" fontWeight='bold' textAlign='center' m={3} display={!hiddenTotal ? '' : 'none'} className='fadeIn'>
-                <Box>
-                    {totalText}
-                    <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
-                        {results.totalAmount}
-                    </Typography>
-                </Box>
-            </Typography>
-
-        </TableContainer >
+                <Typography variant="h5" fontWeight='bold' textAlign='center' m={3} display={!hiddenTotal ? '' : 'none'} className='fadeIn'>
+                    <Box>
+                        {totalText}
+                        <Typography component='span' fontWeight='bold' variant="h5" color="primary.main" ml={1}>
+                            {results.totalAmount}
+                        </Typography>
+                    </Box>
+                </Typography>
+            </TableContainer >
+        </>
     )
 }
