@@ -33,7 +33,7 @@ export const InstagramPosts: FC = () => {
                 {
                     data?.map(({ id, username, caption, media_url, timestamp }) => (
 
-                        <Grid item xs={12} sm={6} md={3} key={id}>
+                        <Grid item xs={12} sm={6} md={3} key={id} textAlign='start'>
                             <Card>
                                 <CardHeader
                                     avatar={
@@ -57,7 +57,6 @@ export const InstagramPosts: FC = () => {
                                 />
                                 <CardContent sx={{ padding: 1 }}>
                                     <Typography variant="body2" color="text.secondary" sx={{
-                                        textAlign: 'start',
                                         overflow: "hidden",
                                         display: "-webkit-box",
                                         WebkitLineClamp: 4,

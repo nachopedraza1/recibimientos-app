@@ -168,6 +168,13 @@ export const pirata = createTheme({
                     textTransform: 'capitalize'
                 }
             }
+        },
+        MuiCardContent: {
+            styleOverrides: {
+                root: {
+                    padding: 10,
+                }
+            }
         }
     }
 });

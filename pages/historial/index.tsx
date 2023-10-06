@@ -11,7 +11,7 @@ import { CircularProgress, Container, Grid } from '@mui/material';
 
 import { Rows } from '@/interfaces';
 
-const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = ({ history, totalDonated }) => {
+const HistoryPage: NextPage<{ history: Rows[], totalDonated: string }> = () => {
 
     const { data } = useSWR('/api/users/history');
 

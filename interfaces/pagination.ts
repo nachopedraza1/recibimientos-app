@@ -15,9 +15,10 @@ export interface Rows {
     dateEvent?: string,
     createdAt?: string,
     totalDonated?: string,
-    amount?: string | number,
-    overage?: string | number,
-    objectiveAmount?: string | number,
+    imageMatch?: string,
+    amount?: string,
+    overage?: string,
+    objectiveAmount?: string,
     status?: string | 'approved' | 'COMPLETED',
     method?: "mercadopago" | "paypal" | "transfer",
 }

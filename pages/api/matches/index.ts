@@ -57,7 +57,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         ] = await Promise.all([
             Match.find()
                 .sort({ createdAt: -1 })
-                .select('name active objectiveAmount dateEvent')
+                .select('name active objectiveAmount dateEvent imageMatch')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),

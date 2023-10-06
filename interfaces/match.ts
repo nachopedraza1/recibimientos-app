@@ -5,4 +5,5 @@ export interface IMatch {
     active: boolean,
     dateEvent: string,
     objectiveAmount: number,
+    imageMatch: string,
 }

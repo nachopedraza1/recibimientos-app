@@ -68,7 +68,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                     $regex: new RegExp(search, 'i')
                 }
             }).count(),
-            
+
             Entry.aggregate([
                 {
                     $match: { category: activeMatch.name }

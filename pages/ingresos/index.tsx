@@ -40,8 +40,6 @@ const EntriesPage: NextPage = () => {
                         Aquí podras seguir en vivo la colecta actual para el recibimiento contra {activeMatch?.name || '...'}, donde encontrarás información detallada sobre los aportes realizados hasta el momento.
                     </Typography>
 
-                    {/* <CounterMatch total={results.totalAmount!} /> */}
-
                     <CustomTable
                         headRows={['Fecha', 'Nombre', 'Monto']}
                         totalText='Ingresos totales:'

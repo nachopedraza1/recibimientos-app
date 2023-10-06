@@ -18,8 +18,8 @@ export const AddMatch: FC = () => {
 
     const [dateValue, setDateValue] = useState<Dayjs | null>(null);
 
-    const onSubmit = ({ name, objectiveAmount }: IMatch) => {
-        createAction({ name, objectiveAmount, dateEvent: dateValue }, 'matches');
+    const onSubmit = ({ name, objectiveAmount, imageMatch }: IMatch) => {
+        createAction({ name, objectiveAmount, dateEvent: dateValue, imageMatch }, 'matches');
     }
 
     return (
@@ -30,7 +30,7 @@ export const AddMatch: FC = () => {
                     <Typography variant="h6" fontWeight={600}> Agregar recibimiento </Typography>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12}sm={5.8} md={3}>
                     <TextField
                         fullWidth
                         type='text'
@@ -47,7 +47,7 @@ export const AddMatch: FC = () => {
                     />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12}sm={5.8} md={2}>
                     <TextField
                         fullWidth
                         type='number'
@@ -64,7 +64,24 @@ export const AddMatch: FC = () => {
                     />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12}sm={5.8} md={2}>
+                    <TextField
+                        fullWidth
+                        type='number'
+                        variant='outlined'
+                        label='URL Image'
+                        placeholder='URL de la imagen...'
+                        {...register('imageMatch', {
+                            required: { message: 'Este campo es requerido', value: true },
+                            minLength: { message: 'Minimo 3 números', value: 3 },
+                            pattern: { message: 'Solo números', value: /^[0-9]*$/ }
+                        })}
+                        error={!!errors.imageMatch}
+                        helperText={errors.imageMatch?.message}
+                    />
+                </Grid>
+
+                <Grid item xs={12}sm={5.8} md={3}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                             label='Fecha del recibimiento'
@@ -80,7 +97,7 @@ export const AddMatch: FC = () => {
                     </Button>
                 </Grid>
 
-            </Grid>
+            </Grid >
 
             <CustomTable
                 headRows={['recibimiento', 'título', 'recaudado', 'objetivo', 'extra', 'Activo', '']}
