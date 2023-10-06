@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import { CustomDivider } from '@/components/ui';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { CounterMatch } from '.';
 
 export const Header: FC = () => {
 
