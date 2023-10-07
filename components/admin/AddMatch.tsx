@@ -67,14 +67,12 @@ export const AddMatch: FC = () => {
                 <Grid item xs={12}sm={5.8} md={2}>
                     <TextField
                         fullWidth
-                        type='number'
+                        type='text'
                         variant='outlined'
                         label='URL Image'
                         placeholder='URL de la imagen...'
                         {...register('imageMatch', {
                             required: { message: 'Este campo es requerido', value: true },
-                            minLength: { message: 'Minimo 3 números', value: 3 },
-                            pattern: { message: 'Solo números', value: /^[0-9]*$/ }
                         })}
                         error={!!errors.imageMatch}
                         helperText={errors.imageMatch?.message}

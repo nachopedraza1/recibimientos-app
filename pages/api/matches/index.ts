@@ -111,7 +111,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
 const createMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { dateEvent, name, objectiveAmount }: IMatch = req.body;
+    const { dateEvent, name, objectiveAmount, imageMatch }: IMatch = req.body;
 
     if (!dateEvent) return res.status(400).json({ message: 'La fecha es requerida.' });
     if (!name) return res.status(400).json({ message: 'El título es requerido.' })
@@ -125,6 +125,7 @@ const createMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         const newMatch = new Match({
             name: name.toLowerCase(),
+            imageMatch: imageMatch.toLowerCase(),
             dateEvent,
             objectiveAmount,
             active: false,

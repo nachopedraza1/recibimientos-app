@@ -13,7 +13,9 @@ export const usePaginationRequest = (tableType: PaginationType, search?: string)
         setPage(newPage);
     }
 
-    const { data, isLoading } = useSWR<PaginationData>(`/api/${tableType}?page=${page + 1}&search=${search || ''}`, {
+    const request = search ? `/api/${tableType}?page=${page + 1}&search=${search}` : `/api/${tableType}?page=${page + 1}`;
+
+    const { data, isLoading } = useSWR<PaginationData>(request, {
         revalidateOnFocus: false,
         revalidateOnReconnect: true,
     });
