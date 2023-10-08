@@ -1,25 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NextPage } from 'next';
-import Image from 'next/image';
 
 import { usePaginationRequest } from '@/hooks';
 
-import { Timmer } from '@/components';
+import { Blob } from '@/components/ui';
+import { CardLoading, MatchCard } from '@/components/cards';
 import { MainLayout } from '@/components/layouts';
-import { Blob, ProgressBar } from '@/components/ui';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoins, faEllipsisVertical, faSackDollar, faStar } from '@fortawesome/free-solid-svg-icons';
-import { Avatar, Card, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 
 
 const RecibimientosPage: NextPage = () => {
 
-    const { results } = usePaginationRequest('matches');
+    const { results, isLoading } = usePaginationRequest('matches');
 
-    if (!results) {
-        return <>Loading...</>
-    }
 
     return (
         <MainLayout title='Recibimientos CAB'>
@@ -46,73 +39,12 @@ const RecibimientosPage: NextPage = () => {
                 </Grid>
 
                 <Grid container spacing={2}>
-                    {results.rows.map(row => (
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card>
-                                <CardHeader
-                                    avatar={
-                                        <Avatar sx={{ bgcolor: '#121112' }}>
-                                            <Image src='/logo-loading.png' width={40} height={50} alt='Recibimientos CAB' />
-                                        </Avatar>
-                                    }
-                                    action={
-                                        <IconButton sx={{ margin: 1 }} disableRipple>
-                                            <FontAwesomeIcon icon={faEllipsisVertical} size='sm' />
-                                        </IconButton>
-                                    }
-                                    title={`Belgrano - ${row.name}`}
-                                    subheader={<Timmer time={row.dateEvent!} />}
-                                    sx={{ padding: 1 }}
-                                />
-                                <CardMedia
-                                    loading='eager'
-                                    component="img"
-                                    image={row.imageMatch}
-                                    alt="Recibimientos CAB"
-                                    sx={{ height: { xs: 'auto', sm: '370px' } }}
-                                />
-                                <CardContent>
-                                    <Grid container justifyContent='space-between'>
-                                        <Grid item xs={6} >
-                                            <Typography>
-                                                <FontAwesomeIcon icon={faStar} style={{ marginRight: 5 }} color='#08b8ef' />
-                                                Objetivo:
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item >
-                                            <Typography>
-                                                {row.objectiveAmount}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Typography>
-                                                <FontAwesomeIcon icon={faSackDollar} style={{ marginRight: 5 }} color='green' />
-                                                Recaudado:
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item >
-                                            <Typography>
-                                                {row.totalDonated}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Typography>
-                                                <FontAwesomeIcon icon={faCoins} style={{ marginRight: 5 }} color='yellow' />
-                                                Sobrante:
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography>
-                                                {row.overage}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <ProgressBar total={row.totalDonated!} objetive={row.objectiveAmount!} />
-                                </CardContent>
+                    {
+                        isLoading ?
+                            [1, 2, 3, 4, 5, 6].map(loadCard => <CardLoading key={loadCard} />)
+                            : results.rows.map(match => <MatchCard key={match.name} match={match} />)
+                    }
 
-                            </Card>
-                        </Grid>
-                    ))}
                 </Grid>
 
                 <Blob width="50%" top="7%" left="74%" />
