@@ -1,49 +1,50 @@
 import { FC } from "react";
-import { Grid, Tooltip } from "@mui/material";
+import Image from "next/image";
+import { Divider, Grid, Tooltip } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
+const socialLinks = [
+    { link: 'https://x.com/recibimientocab', icon: faTwitter },
+    { link: 'https://instagram.com/recibimientos.cab', icon: faInstagram },
+    { link: '', icon: faYoutube }
+]
+
 export const Footer: FC = () => {
     return (
-        <>
-            <ul className="social-list">
-                <li >
-                    <a href="https://x.com/recibimientocab" target='_blank'>
-                        <i className="fab">
-                            <FontAwesomeIcon icon={faTwitter} />
-                        </i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://instagram.com/recibimientos.cab" target='_blank'>
-                        <i className="fab">
-                            <FontAwesomeIcon icon={faInstagram} />
-                        </i>
-                    </a>
-                </li>
-                <li >
-                    <Tooltip title='Próximamente...' placement='right' arrow>
-                        <a>
-                            <i className="fab">
-                                <FontAwesomeIcon icon={faYoutube} />
-                            </i>
-                        </a>
-                    </Tooltip>
-                </li>
-            </ul>
 
-            <footer>
-                <Grid
-                    container
-                    justifyContent="center"
-                    bgcolor='black'
-                    color='white'
-                    borderTop='2px solid #0A97FE'
-                    padding={1}
-                >
-                    Este sitio web no está afiliado ni tiene ninguna relación oficial con el Club Atlético Belgrano.
+        <footer>
+            <Grid
+                container
+                justifyContent="center"
+                color='white'
+                padding={1}
+                bgcolor='transparent'
+            >
+                <Grid container justifyContent='center' alignItems='center' gap={1}>
+                    <Image src='/logo-footer1.png' alt="Recibimientos CAB" width={50} height={40} />
+                    
+                    <Image src='/logo-footer2.png' alt="Recibimientos CAB" width={50} height={40} />
+                    
+                    <Image src='/logo-footer5.png' alt="Recibimientos CAB" width={90} height={60} />
                 </Grid>
-            </footer>
-        </>
+
+{/*                 <Grid container justifyContent='center'>
+                    <ul className="social-list">
+                        {socialLinks.map(red => (
+                            <li >
+                                <a href={red.link} target='_blank'>
+                                    <i className="fab">
+                                        <FontAwesomeIcon icon={red.icon} />
+                                    </i>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </Grid> */}
+
+                Este sitio web no está afiliado ni tiene ninguna relación oficial con el Club Atlético Belgrano.
+            </Grid>
+        </footer>
     )
 }

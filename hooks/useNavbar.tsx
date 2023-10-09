@@ -23,6 +23,7 @@ export const useNavbar = () => {
 
     useEffect(() => {
         if (router.pathname === '/') return setActiveSection('inicio')
+        if (router.pathname.includes('/recibimientos')) return setActiveSection('recibimientos')
         setActiveSection(router.pathname.substring(1))
     }, [router.pathname])
 

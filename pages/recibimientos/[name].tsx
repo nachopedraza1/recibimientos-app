@@ -42,13 +42,13 @@ const RecibimientoPage: NextPage<Props> = ({ rows, name, totalCollected }) => {
 
                     <span className="mini-divider" />
                     <Typography variant="h6" mb={3}>
-                        Aquí podras ver el historial de todos los recibimientos, donde encontrarás información detallada sobre los aportes realizados hasta el momento.
+                        Aquí podras ver todos los aportes realizados para el recibimiento contra {name}.
                     </Typography>
 
                     <Typography variant='h5' fontWeight='bold' mb={2}>
                         <FontAwesomeIcon icon={faSackDollar} style={{ marginRight: 5 }} color='green' />
                         Total recaudado:
-                        <span style={{ color: 'primary.main', fontWeight: 'lighter', marginLeft: 10, textTransform: 'capitalize' }}> ${format(totalCollected)} </span>
+                        <span style={{ color: '#08b8ef', marginLeft: 10, textTransform: 'capitalize' }}> ${format(totalCollected)} </span>
                     </Typography>
                 </Grid>
 

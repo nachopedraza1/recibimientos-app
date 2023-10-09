@@ -9,7 +9,7 @@ import { Post } from '@/interfaces';
 
 export const InstagramPosts: FC = () => {
 
-    const { data, isLoading } = useSWR<Post[]>('/api/posts')
+    const { data, isLoading, error } = useSWR<Post[]>('/api/posts')
 
     return (
         <>
@@ -24,12 +24,12 @@ export const InstagramPosts: FC = () => {
 
             <Grid container spacing={2} mt={2} mb={4}>
                 {
-                    isLoading ?
-                        [1, 2, 3, 4, 5, 6].map(load => <CardLoading key={load} />)
+                    isLoading || error ?
+                        [1, 2, 3, 4, 5, 6, 7, 8].map(load => <CardLoading key={load} />)
                         :
                         data?.map(post => <InstagramCard key={post.id} post={post} />)
                 }
-            </Grid >
+            </Grid>
         </>
     )
 }

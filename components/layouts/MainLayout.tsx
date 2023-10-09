@@ -19,7 +19,7 @@ export const MainLayout: FC<Props> = ({ title, children, description, containerP
     const { asPath } = useRouter();
 
     return (
-        <Grid>
+        <Grid style={{ overflow: 'hidden' }}>
             <Head>
                 <title>{title || 'Recibimientos CAB'}</title>
                 <meta name="description" content={description || '¡Bienvenidos a nuestra página de Recibimientos de la Hinchada del Club Atlético Belgrano!'} />
@@ -35,7 +35,7 @@ export const MainLayout: FC<Props> = ({ title, children, description, containerP
                 </>
             }
 
-            <main className={containerPageClass} style={{ overflow: 'hidden' }}>
+            <main className={containerPageClass}>
                 {children}
             </main>
 

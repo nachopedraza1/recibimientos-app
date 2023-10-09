@@ -6,6 +6,7 @@ input:-webkit-autofill:active {
     transition-delay: background-color 5000s, color 5000s;
 }
 
+
 body {
     overflow-x: hidden;
 }
@@ -179,11 +180,17 @@ nav .active {
     height: 2px;
 }
 
+.mini-divider-vert {
+    background-color: white;
+    margin: 15px 15px;
+    width: 1.3px;
+    height: 35px;
+}
+
 
 .social-list {
-    margin-top: 20px;
-    padding: 0;
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -209,7 +216,7 @@ nav .active {
     width: 100%;
     height: 100%;
     display: block;
-    font-size: 34px;
+    font-size: 24px;
     color: #ffffff;
     transition: .5s;
 }

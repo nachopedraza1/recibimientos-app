@@ -1,17 +1,22 @@
-import { FC, useState } from "react"
+import { FC, useContext, useState } from "react"
 import Image from "next/image";
+import Link from "next/link";
+
+import { ConfigContext } from "@/context/config";
 
 import { Timmer } from "@/components/Timmer"
 import { ProgressBar } from "@/components/ui";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsisVertical, faStar, faSackDollar, faCoins } from "@fortawesome/free-solid-svg-icons"
-import { Grid, Card, CardHeader, Avatar, IconButton, CardMedia, CardContent, Typography, Skeleton } from "@mui/material"
+import { Grid, Card, CardHeader, Avatar, IconButton, CardMedia, CardContent, Typography, Skeleton, Tooltip } from "@mui/material"
 
 import { Rows } from "@/interfaces";
 
 
 export const MatchCard: FC<{ match: Rows }> = ({ match }) => {
+
+    const { activeMatch } = useContext(ConfigContext);
 
     const [imageLoading, setImageLoading] = useState(true);
 
@@ -30,9 +35,11 @@ export const MatchCard: FC<{ match: Rows }> = ({ match }) => {
                         </Avatar>
                     }
                     action={
-                        <IconButton sx={{ margin: 1 }} disableRipple disabled={imageLoading}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} size='sm' />
-                        </IconButton>
+                        <Tooltip placement="right" arrow title='Ver aportes'>
+                            <IconButton sx={{ margin: 1 }} disableRipple disabled={imageLoading} LinkComponent={Link} href={activeMatch?.name === match.name ? '/ingresos' : `/recibimientos/${match.name}`} >
+                                <FontAwesomeIcon icon={faEllipsisVertical} size='sm' />
+                            </IconButton>
+                        </Tooltip>
                     }
                     title={imageLoading ? <Skeleton width={150} /> : `Belgrano - ${match.name}`}
                     subheader={imageLoading ? <Skeleton /> : <Timmer time={match.dateEvent!} />}
