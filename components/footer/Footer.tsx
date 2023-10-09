@@ -47,11 +47,11 @@ export const Footer: FC = () => {
 
                 <Grid container justifyContent='center' alignItems='center' gap={1}>
                     <Image src='/logo-footer1.png' alt="Recibimientos CAB" width={50} height={40} />
-                    {/*   <span className="mini-divider-vert" /> */}
+                   
                     <Image src='/logo-footer2.png' alt="Recibimientos CAB" width={50} height={40} />
-                    {/*   <span className="mini-divider-vert" /> */}
+                   
                     <Image src='/logo-footer3.png' alt="Recibimientos CAB" width={90} height={60} />
-                    {/*   <span className="mini-divider-vert" /> */}
+                   
                     <Image src='/logo-footer5.png' alt="Recibimientos CAB" width={90} height={60} />
                 </Grid>
 
