@@ -27,10 +27,10 @@ export const InstagramPosts: FC<{ limit: number }> = ({ limit = 8 }) => {
 
             <Grid container spacing={2} mt={2} mb={4}>
                 {
-
-                    [...Array(limit)].map(load => (<CardLoading key={load} />))
-
-
+                    !data || isLoading || error ?
+                        [...Array(limit)].map(load => (<CardLoading key={load} />))
+                        :
+                        data.slice(0, limit).map(post => <InstagramCard key={post.id} post={post} />)
                 }
             </Grid>
         </>
