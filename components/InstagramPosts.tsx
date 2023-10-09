@@ -33,5 +33,3 @@ export const InstagramPosts: FC = () => {
         </>
     )
 }
-
-{/* <InstagramCard post={post} /> */ }

@@ -165,7 +165,8 @@ export const pirata = createTheme({
         MuiCardHeader: {
             styleOverrides: {
                 root: {
-                    textTransform: 'capitalize'
+                    textTransform: 'capitalize',
+                    padding: 10
                 }
             }
         },

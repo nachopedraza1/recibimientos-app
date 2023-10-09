@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 
+import { Blob } from '@/components/ui';
 import { MainLayout } from '@/components/layouts';
 import { TopTenTable } from '@/components/tables';
-import { Blob, CustomDivider } from '@/components/ui';
 import { Header, InstagramPosts, SectionDonate, TopDonates } from '@/components';
 import { Container, Grid, Typography } from '@mui/material';
 
@@ -31,6 +31,7 @@ const Landing: NextPage = () => {
           </Typography>
 
           <span className="mini-divider" />
+
           <Typography variant="h6" mb={5} >
             A través de este espacio, queremos rendir homenaje a todos los hinchas que hacen posible estos increíbles recibimientos y que demuestran que el fútbol va más allá de los resultados en la cancha,
             a continuación destacaremos las personas y organizaciones que más aportaron a

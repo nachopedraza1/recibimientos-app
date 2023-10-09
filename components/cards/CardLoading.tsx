@@ -1,40 +1,37 @@
 import { FC } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEllipsisVertical, faHeart, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"
-import { Grid, Card, CardHeader, Avatar, IconButton, CardContent, CardActions, Skeleton } from "@mui/material"
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
+import { Grid, Card, CardHeader, Avatar, IconButton, CardContent, Skeleton, CardMedia, Box } from "@mui/material"
 
 export const CardLoading: FC = () => {
     return (
-        <Grid item xs={12} sm={6} md={3} textAlign='start' className="fadeIn">
+        <Grid item xs={12} sm={6} md={3} className="fadeIn">
             <Card>
+
                 <CardHeader
                     avatar={
-                        <Avatar sx={{ bgcolor: 'transparent' }}>
+                        <Avatar sx={{ bgcolor: '#121112' }}>
                             <Skeleton variant="circular" width={'100%'} height={'100%'} />
                         </Avatar>
                     }
                     action={
-                        <IconButton disabled>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        <IconButton sx={{ margin: 1 }} disableRipple disabled>
+                            <FontAwesomeIcon icon={faEllipsisVertical} size='sm' />
                         </IconButton>
                     }
                     title={<Skeleton width={150} />}
                     subheader={<Skeleton />}
                 />
-                <Skeleton variant="rectangular" height={300} />
-                <CardContent sx={{ padding: 1 }}>
+
+                <Box height={370} />
+
+
+                <CardContent sx={{ minHeight: '136px' }}>
+                    <Skeleton />
                     <Skeleton />
                     <Skeleton />
                     <Skeleton />
                 </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton disabled>
-                        <FontAwesomeIcon icon={faHeart} size='sm' />
-                    </IconButton>
-                    <IconButton disabled>
-                        <FontAwesomeIcon icon={faUpRightFromSquare} size='sm' />
-                    </IconButton>
-                </CardActions>
             </Card>
         </Grid>
     )

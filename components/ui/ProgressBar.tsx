@@ -8,7 +8,7 @@ export const ProgressBar: FC<{ total: string, objetive: string }> = ({ total, ob
     const progressPercentage = Math.round((totalCollected / objetiveCollect) * 100);
 
     return (
-        <Box className='progress-bar' textAlign='center'>
+        <Box className='progress-bar fadeIn' textAlign='center'>
             <Box className='progress-content' sx={{ width: `${progressPercentage}%` }}>
                 <span style={{ fontSize: 15}}> {progressPercentage >= 100 ? 100 : progressPercentage}% </span>
             </Box>
