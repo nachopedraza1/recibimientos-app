@@ -9,7 +9,10 @@ import { Post } from '@/interfaces';
 
 export const InstagramPosts: FC = () => {
 
-    const { data, isLoading, error } = useSWR<Post[]>('/api/posts')
+    const { data, isLoading, error } = useSWR<Post[]>('/api/posts', {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: true,
+    })
 
     return (
         <>
