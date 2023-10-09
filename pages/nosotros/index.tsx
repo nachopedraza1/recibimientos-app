@@ -35,7 +35,7 @@ const AboutPage: NextPage = () => {
 
                         <StatsGroup />
 
-                        <InstagramPosts />
+                        <InstagramPosts limit={4} />
 
                     </Grid>
                 </Grid>

@@ -426,6 +426,16 @@ nav .active {
     font-weight: 600;
 }
 
+.top-box h6 {
+    position: absolute;
+    font-weight: 600;
+    top: 2px;
+    left: 1px;
+    transform: rotate(-40deg);
+    font-size: 13px;
+    z-index: 1;
+}
+
 .top-box h5::after {
     content: '';
     position: absolute;

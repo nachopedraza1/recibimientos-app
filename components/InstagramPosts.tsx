@@ -7,15 +7,12 @@ import { CardLoading, InstagramCard } from '@/components/cards';
 
 import { Post } from '@/interfaces';
 
-export const InstagramPosts: FC = () => {
+export const InstagramPosts: FC<{ limit: number }> = ({ limit }) => {
 
     const { data, isLoading, error } = useSWR<Post[]>('/api/posts', {
         revalidateOnFocus: false,
         revalidateOnReconnect: true,
     })
-
-    console.log(data);
-
 
     return (
         <>
@@ -31,9 +28,9 @@ export const InstagramPosts: FC = () => {
             <Grid container spacing={2} mt={2} mb={4}>
                 {
                     !data || isLoading || error ?
-                        [1, 2, 3, 4, 5, 6, 7, 8].map(load => <CardLoading key={load} />)
+                        [...Array(limit)].map(load => <CardLoading key={load} />)
                         :
-                        data?.map(post => <InstagramCard key={post.id} post={post} />)
+                        data?.slice(0, limit).map(post => <InstagramCard key={post.id} post={post} />)
                 }
             </Grid>
         </>

@@ -44,7 +44,7 @@ const Landing: NextPage = () => {
 
           <SectionDonate />
 
-          <InstagramPosts />
+          <InstagramPosts limit={8} />
 
         </Grid >
 

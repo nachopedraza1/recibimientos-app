@@ -1,9 +1,12 @@
 import { FC } from 'react';
+import useSWR from 'swr';
 
+import { format } from '@/utils';
 import { LoadDataTables } from '@/components/ui'
 import { Table, TableHead, TableRow, TableBody, TableCell, TableContainer, styled, Paper, Typography } from '@mui/material';
-import useSWR from 'swr';
-import { format } from '@/utils';
+
+import { faAward } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 
@@ -48,7 +51,7 @@ export const TopTenTable: FC = () => {
                                     <TableRow key={index}>
                                         <TableCell align="center" scope="row">
                                             <Typography variant='h6' fontWeight={600} color='primary.main'>
-                                                {index + 4 + '°'}
+                                                <FontAwesomeIcon icon={faAward} /> {index + 4 + '°'}
                                             </Typography>
                                         </TableCell>
                                         <TableCell align="center" scope="row">
