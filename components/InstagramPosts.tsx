@@ -14,6 +14,9 @@ export const InstagramPosts: FC = () => {
         revalidateOnReconnect: true,
     })
 
+    console.log(data);
+
+
     return (
         <>
             <Typography fontSize={{ xs: 34, md: 46 }} fontWeight='bold' mt={8}>
@@ -27,7 +30,7 @@ export const InstagramPosts: FC = () => {
 
             <Grid container spacing={2} mt={2} mb={4}>
                 {
-                    isLoading || error ?
+                    !data || isLoading || error ?
                         [1, 2, 3, 4, 5, 6, 7, 8].map(load => <CardLoading key={load} />)
                         :
                         data?.map(post => <InstagramCard key={post.id} post={post} />)
