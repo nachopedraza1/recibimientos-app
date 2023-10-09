@@ -50,7 +50,7 @@ export const TopTenTable: FC = () => {
                                 {data?.slice(3, 10).map((row, index) => (
                                     <TableRow key={index}>
                                         <TableCell align="center" scope="row">
-                                            <Typography variant='h6' fontWeight={600} color='primary.main'>
+                                            <Typography variant='h6' fontWeight={600} color='primary.main' noWrap>
                                                 <FontAwesomeIcon icon={faAward} /> {index + 4 + '°'}
                                             </Typography>
                                         </TableCell>

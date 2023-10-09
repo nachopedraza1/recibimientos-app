@@ -25,9 +25,9 @@ const RecibimientosPage: NextPage = () => {
                     pt={10}
                     data-aos="fade"
                 >
-                    <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold'>
+                    <Typography fontSize={{ xs: 30, sm: 35, md: 46 }} fontWeight='bold'>
                         Últimos
-                        <Typography fontSize={{ xs: 39, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
+                        <Typography fontSize={{ xs: 30, sm: 35, md: 46 }} fontWeight='bold' component={'span'} color='primary' mx={1}>
                             Recibimientos
                         </Typography>
                     </Typography>
