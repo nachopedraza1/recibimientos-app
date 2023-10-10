@@ -93,7 +93,7 @@ const getEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             }
         })
 
-        const formattedTotalAmount = `$${format(totalAmount[0] ? totalAmount[0].total - 63000 : 0)}`;
+        const formattedTotalAmount = `$${format(totalAmount[0] ? totalAmount[0].total - activeMatch.iva : 0)}`;
 
         return res.status(200).json({
             rows: formatRows,

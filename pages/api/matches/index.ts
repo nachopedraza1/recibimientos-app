@@ -57,7 +57,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         ] = await Promise.all([
             Match.find()
                 .sort({ createdAt: -1 })
-                .select('name active objectiveAmount dateEvent imageMatch')
+                .select('name active objectiveAmount dateEvent imageMatch iva')
                 .skip((page - 1) * perPage)
                 .limit(perPage)
                 .lean(),
@@ -79,11 +79,13 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         }
                     }]);
 
-                const overage = totalDonated[0] ? (totalDonated[0].total > row.objectiveAmount ? totalDonated[0].total - row.objectiveAmount : 0) : 0
+                const totalWithTax = totalDonated[0].total - row.iva;
+
+                const overage = totalWithTax > row.objectiveAmount ? totalWithTax - row.objectiveAmount : 0
 
                 return {
                     ...row,
-                    totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total - 63000) : 0}`,
+                    totalDonated: `$${format(totalWithTax)}`,
                     overage: `$${format(overage)}`,
                     objectiveAmount: `$${format(row.objectiveAmount)} `
                 };

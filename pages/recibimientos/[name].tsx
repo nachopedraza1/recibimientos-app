@@ -89,6 +89,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     await db.connect();
     const results = await Entry.find({ category: name }).select('name amount createdAt -_id').lean();
+    const match = await Match.findOne({ name })
     await db.disconnect();
 
     const rows = results.map((row, index) => ({
@@ -100,13 +101,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const totalCollected = rows.reduce((acc, current) => {
         const currentAmount = parseFloat(current.amount.replace(/\$|\.+/g, ''));
-        return acc + currentAmount;
+        return acc + currentAmount
     }, 0)
 
     return {
         props: {
             name,
-            totalCollected,
+            totalCollected: totalCollected - match?.iva!,
             rows: rows.filter(row => row.name !== 'administrador'),
         }
     }
