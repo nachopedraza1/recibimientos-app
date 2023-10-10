@@ -83,7 +83,7 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
                 return {
                     ...row,
-                    totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total) : 0}`,
+                    totalDonated: `$${totalDonated[0] ? format(totalDonated[0].total - 63000) : 0}`,
                     overage: `$${format(overage)}`,
                     objectiveAmount: `$${format(row.objectiveAmount)} `
                 };
@@ -129,6 +129,7 @@ const createMatch = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             dateEvent,
             objectiveAmount,
             active: false,
+            iva: 0
         })
 
         await newMatch.save();

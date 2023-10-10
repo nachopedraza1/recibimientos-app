@@ -1,6 +1,7 @@
 
 export interface IMatch {
-    _id?: string
+    _id?: string,
+    iva: number,
     name: string,
     active: boolean,
     dateEvent: string,

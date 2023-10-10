@@ -7,6 +7,7 @@ export const matchSchema = new Schema({
     objectiveAmount: { type: Number, required: true },
     dateEvent: { type: String, required: true },
     imageMatch: { type: String, required: true },
+    iva: { type: Number, required: true },
 }, {
     timestamps: {
         currentTime: () => new Date().getTime() - 3 * 60 * 60 * 1000,
