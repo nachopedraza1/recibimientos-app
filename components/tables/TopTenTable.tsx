@@ -45,7 +45,7 @@ export const TopTenTable: FC = () => {
 
                 <TableBody>
                     {
-                        isLoading
+                        isLoading || emptyRows >= 7
                             ? <LoadDataTables />
                             :
                             <>
