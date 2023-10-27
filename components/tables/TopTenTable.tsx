@@ -29,6 +29,8 @@ export const TopTenTable: FC = () => {
 
     const { data, isLoading } = useSWR<Tops[]>('/api/users/tops?limit=10');
 
+    const emptyRows = data && (10 - data.length) || 7;
+
     return (
         <TableContainer component={CustomPaper}>
 
@@ -65,6 +67,13 @@ export const TopTenTable: FC = () => {
                                         </TableCell>
                                     </TableRow>
                                 ))}
+
+                                {
+                                    emptyRows > 0 &&
+                                    <TableRow style={{ height: 53.02 * emptyRows, padding: 0 }}>
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                }
                             </>
                     }
                 </TableBody>

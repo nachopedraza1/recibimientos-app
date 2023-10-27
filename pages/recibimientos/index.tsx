@@ -40,7 +40,7 @@ const RecibimientosPage: NextPage = () => {
                     <Grid container spacing={2}>
                         {
                             isLoading ?
-                                [1, 2].map(loadCard => <CardLoading key={loadCard} />)
+                                [1, 2, 3, 4].map(loadCard => <CardLoading key={loadCard} />)
                                 : results.rows.map(match => <MatchCard key={match.name} match={match} />)
                         }
                     </Grid>
