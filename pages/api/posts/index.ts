@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (req.method === 'GET') {
 
         try {
-            const { data: { data } } = await axios.get<InstagramResponse>(`https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp,username&access_token=${process.env.INSTAGRAM_TOKEN!}&limit=8`);
+            const { data: { data } } = await axios.get<InstagramResponse>(`https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp,username&access_token=${process.env.INSTAGRAM_TOKEN!}&limit=10`);
             const postsData = data.filter(({ media_type }) => media_type === "IMAGE" || media_type === "CAROUSEL_ALBUM");
             return res.status(200).json(postsData);
 
