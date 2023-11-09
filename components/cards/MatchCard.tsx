@@ -41,7 +41,21 @@ export const MatchCard: FC<{ match: Rows }> = ({ match }) => {
                             </IconButton>
                         </Tooltip>
                     }
-                    title={imageLoading ? <Skeleton width={150} /> : `Belgrano - ${match.name}`}
+                    title={imageLoading ?
+                        <Skeleton width={150} />
+                        :
+                        <Tooltip title={`Belgrano - ${match.name}`} placement="top">
+                            <Typography fontSize={14} sx={{
+                                overflow: "hidden",
+                                display: "-webkit-box",
+                                WebkitLineClamp: 1,
+                                WebkitBoxOrient: "vertical"
+                            }}
+                            >
+                                Belgrano - {match.name}
+                            </Typography>
+                        </Tooltip>
+                    }
                     subheader={imageLoading ? <Skeleton /> : <Timmer time={match.dateEvent!} />}
                 />
 

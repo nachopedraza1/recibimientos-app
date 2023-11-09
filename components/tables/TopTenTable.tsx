@@ -27,7 +27,7 @@ interface Tops {
 
 export const TopTenTable: FC = () => {
 
-    const { data, isLoading } = useSWR<Tops[]>('/api/users/tops?limit=10');
+    const { data } = useSWR<Tops[]>('/api/users/tops?limit=10');
 
 
     return (
@@ -44,7 +44,7 @@ export const TopTenTable: FC = () => {
 
                 <TableBody>
                     {
-                        isLoading
+                        !data || data.length < 4
                             ? <LoadDataTables />
                             :
                             <>
