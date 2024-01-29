@@ -57,7 +57,6 @@ const createPreference = async (req: NextApiRequest, res: NextApiResponse<Data>)
         }
 
         const response = await mercadopago.preferences.create(preference);
-
         return res.status(200).json({ url: response.body.init_point })
 
     } catch (error) {

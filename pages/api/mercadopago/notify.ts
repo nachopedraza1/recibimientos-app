@@ -12,12 +12,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const topic = req.query.topic || req.query.type;
     const paymentId = req.query.id || req.query["data.id"];
-
+    
     try {
 
         if (topic === "payment") {
 
-            const { body } = await mercadopago.payment.findById(Number(paymentId));
+            const { body } = await mercadopago.payment.findById(Number(paymentId)); 
 
             if (body.status === "rejected") return res.status(400).json({ message: "Pago rechazado." });
 
@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         status: body.status,
                         paymentId
                     });
-
+                    
                     await newEntry.save();
                     /* await db.disconnect(); */
                     return res.status(200).json({ message: "Pago completado con éxito." });

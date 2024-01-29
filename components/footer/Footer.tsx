@@ -30,7 +30,7 @@ export const Footer: FC = () => {
                 <Grid container justifyContent='center' alignItems='center'>
                     <ul className="social-list">
                         {socialLinks.map(red => (
-                            <li>
+                            <li key={red.link}>
                                 <a href={red.link} target='_blank'>
                                     <i className="fab">
                                         <FontAwesomeIcon icon={red.icon} />
