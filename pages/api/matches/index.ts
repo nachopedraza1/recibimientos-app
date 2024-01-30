@@ -79,7 +79,8 @@ const getMatches = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         }
                     }]);
 
-                const totalWithTax = totalDonated[0] ? totalDonated[0].total : 0 - row.iva;
+                /* const totalWithTax = totalDonated[0] ? totalDonated[0].total : 0 - row.iva; */
+                const totalWithTax = totalDonated[0].total - row.iva;
 
                 const overage = totalWithTax > row.objectiveAmount ? totalWithTax - row.objectiveAmount : 0
 
